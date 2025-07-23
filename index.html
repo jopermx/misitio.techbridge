@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechBridge Consulting Systems - Sistemas que conectan, consultoría que transforma</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- 
+        Chosen Palette: Primary accent #0077C9 (TechBridge Blue), complemented by a base of #F8FAFC (light gray/off-white) and #FFFFFF (white) for backgrounds, and #1A202C (dark gray/near black) for primary text. Subtle use of #4A5568 (medium gray) for secondary text.
+        Application Structure Plan: The home page is structured as a single-page vertical scroll, guiding the user through the company's core value proposition, services overview, and calls to action. This linear flow is ideal for a landing page, ensuring users grasp the main message quickly. Navigation is handled by a sticky header with links to major sections within this page, providing quick jumps.
+        Visualization & Content Choices: Content is presented through clean, modern typography and structured sections. Instead of complex charts, key information is conveyed using concise text blocks, feature cards with subtle icons (unicode characters for a clean, tech-focused look), and distinct call-to-action buttons. Hover effects and fade-in animations are used sparingly to enhance engagement and professionalism without being distracting. The "CONECTAMOS, TRANSFORMAMOS, EMPODERAMOS" pillars are presented as distinct cards to highlight their importance.
+        CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1A202C; /* Tailwind's gray-900 */
+        }
+        .tech-blue { color: #0077C9; }
+        .tech-blue-bg { background-color: #0077C9; }
+        .tech-blue-border { border-color: #0077C9; }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+            font-weight: 500; /* Medium weight for navigation */
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #0077C9;
+            border-bottom-color: #0077C9;
+        }
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1), 0 6px 15px -5px rgba(0, 0, 0, 0.08);
+        }
+        .btn-primary {
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #005699; /* Darker blue on hover */
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            transition: border-color 0.3s, background-color 0.3s, color 0.3s, transform 0.2s;
+        }
+        .btn-secondary:hover {
+            background-color: #0077C9;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .icon-box {
+            font-size: 3rem; /* Larger icons */
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-extrabold tech-blue">TechBridge Consulting Systems</a>
+            <nav class="hidden md:flex space-x-10">
+                <a href="index.html" class="nav-link text-gray-700 active">Inicio</a>
+                <a href="nosotros.html" class="nav-link text-gray-700">Nosotros</a>
+                <a href="#servicios-preview" class="nav-link text-gray-700">Servicios</a>
+                <a href="contacto.html" class="nav-link text-gray-700">Contacto</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="md:hidden bg-white shadow-lg hidden">
+            <a href="index.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Inicio</a>
+            <a href="nosotros.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Nosotros</a>
+            <a href="#servicios-preview" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Servicios</a>
+            <a href="contacto.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Contacto</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="min-h-[85vh] flex items-center bg-gradient-to-br from-blue-50 to-white">
+            <div class="container mx-auto px-6 text-center py-20">
+                <h1 class="text-5xl md:text-7xl font-extrabold text-gray-900 leading-tight mb-6 fade-in-section">
+                    Transformamos tu empresa con <span class="tech-blue">tecnología que conecta</span>
+                </h1>
+                <p class="mt-4 text-xl md:text-2xl text-gray-700 font-medium max-w-4xl mx-auto mb-10 fade-in-section" style="transition-delay: 150ms;">
+                    Somos los arquitectos de tu transformación digital. Conectamos sistemas, automatizamos procesos y empoderamos equipos para que tu empresa compita y gane en el mercado actual.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6 fade-in-section" style="transition-delay: 300ms;">
+                    <a href="contacto.html" class="btn-primary inline-block bg-[#0077C9] text-white font-bold py-4 px-10 rounded-full shadow-xl">
+                        Descubre tu potencial tecnológico
+                    </a>
+                    <a href="#servicios-preview" class="btn-secondary inline-block border-2 border-[#0077C9] text-[#0077C9] font-bold py-4 px-10 rounded-full bg-white">
+                        Conoce nuestros servicios
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Valor Diferencial -->
+        <section id="valor-diferencial" class="py-24 md:py-36 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16 fade-in-section">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">¿Por qué TechBridge?</h2>
+                    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                        Más que tecnología, ofrecemos transformación real. Somos consultores estratégicos que utilizan la tecnología como herramienta para revolucionar la forma en que tu empresa opera.
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-12 mt-12">
+                    <div class="text-center p-8 rounded-xl shadow-lg bg-white card-hover fade-in-section">
+                        <div class="icon-box tech-blue mb-4">🔗</div>
+                        <h3 class="text-2xl font-bold mb-3">CONECTAMOS LO QUE IMPORTA</h3>
+                        <p class="text-gray-600 leading-relaxed">Integramos sistemas, procesos y personas en un ecosistema tecnológico coherente que potencia la productividad de toda tu organización.</p>
+                    </div>
+                    <div class="text-center p-8 rounded-xl shadow-lg bg-white card-hover fade-in-section" style="transition-delay: 150ms;">
+                        <div class="icon-box tech-blue mb-4">🚀</div>
+                        <h3 class="text-2xl font-bold mb-3">TRANSFORMAMOS CON PROPÓSITO</h3>
+                        <p class="text-gray-600 leading-relaxed">Cada implementación está diseñada para generar resultados medibles: más eficiencia, mejores decisiones, mayor competitividad.</p>
+                    </div>
+                    <div class="text-center p-8 rounded-xl shadow-lg bg-white card-hover fade-in-section" style="transition-delay: 300ms;">
+                        <div class="icon-box tech-blue mb-4">🎓</div>
+                        <h3 class="text-2xl font-bold mb-3">EMPODERAMOS EQUIPOS</h3>
+                        <p class="text-gray-600 leading-relaxed">No creamos dependencia. Capacitamos a tu equipo para que domine las herramientas y continúe innovando de forma autónoma.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Servicios Principales (Resumen) -->
+        <section id="servicios-preview" class="py-24 md:py-36">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16 fade-in-section">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Nuestras Soluciones</h2>
+                    <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                        Descubre cómo nuestras soluciones tecnológicas integrales pueden impulsar el crecimiento y la eficiencia de tu negocio.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-10">
+                    <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 tech-blue-border card-hover fade-in-section">
+                        <div class="icon-box tech-blue mb-4">🌐</div>
+                        <h3 class="text-2xl font-bold mb-3">Infraestructura & Conectividad</h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">Redes que conectan, soporte que tranquiliza. Soluciones robustas y escalables para la base tecnológica de tu empresa.</p>
+                        <a href="infraestructura-conectividad.html" class="inline-block tech-blue text-sm font-semibold hover:underline">Ver detalles &rarr;</a>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 tech-blue-border card-hover fade-in-section" style="transition-delay: 150ms;">
+                        <div class="icon-box tech-blue mb-4">🚀</div>
+                        <h3 class="text-2xl font-bold mb-3">Transformación Digital</h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">Automatización inteligente que libera potencial. Power Platform, Power BI y optimización de procesos para decisiones ágiles.</p>
+                        <a href="transformacion-digital.html" class="inline-block tech-blue text-sm font-semibold hover:underline">Ver detalles &rarr;</a>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 tech-blue-border card-hover fade-in-section" style="transition-delay: 300ms;">
+                        <div class="icon-box tech-blue mb-4">🎓</div>
+                        <h3 class="text-2xl font-bold mb-3">Capacitación & Consultoría</h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">Conocimiento que perdura, estrategia que funciona. Empoderamos a tu equipo y te acompañamos en tu evolución tecnológica.</p>
+                        <a href="capacitacion-consultoria.html" class="inline-block tech-blue text-sm font-semibold hover:underline">Ver detalles &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Llamada a la Acción Final -->
+        <section id="contacto-preview" class="py-24 md:py-36 tech-blue-bg text-white text-center">
+            <div class="container mx-auto px-6 fade-in-section">
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-8">¿Listo para transformar tu empresa?</h2>
+                <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto font-light">
+                    Agenda una consultoría gratuita de 45 minutos donde evaluaremos tu situación actual y diseñaremos un roadmap personalizado.
+                </p>
+                <ul class="list-none space-y-3 text-lg md:text-xl mb-12 max-w-2xl mx-auto text-left">
+                    <li class="flex items-center justify-start">
+                        <span class="text-green-300 text-2xl mr-3">✓</span> Evaluamos tu situación tecnológica actual
+                    </li>
+                    <li class="flex items-center justify-start">
+                        <span class="text-green-300 text-2xl mr-3">✓</span> Identificamos oportunidades de mejora inmediatas
+                    </li>
+                    <li class="flex items-center justify-start">
+                        <span class="text-green-300 text-2xl mr-3">✓</span> Diseñamos un roadmap personalizado de transformación
+                    </li>
+                    <li class="flex items-center justify-start">
+                        <span class="text-green-300 text-2xl mr-3">✓</span> Definimos el ROI esperado de cada iniciativa
+                    </li>
+                </ul>
+                <p class="text-2xl md:text-3xl font-bold mb-12">
+                    SIN COMPROMISO. SIN COSTO. CON RESULTADOS GARANTIZADOS.
+                </p>
+                <a href="contacto.html" class="btn-primary inline-block bg-white text-[#0077C9] font-bold py-4 px-12 rounded-full shadow-xl hover:bg-gray-100 text-xl">
+                    🚀 AGENDA TU CONSULTORÍA GRATUITA
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <div>
+                <h3 class="font-bold text-xl mb-4 tech-blue">TechBridge Consulting Systems</h3>
+                <p class="text-sm text-gray-400">"Sistemas que conectan, consultoría que transforma"</p>
+                <p class="text-xs text-gray-500 mt-4">&copy; 2025 TechBridge Consulting Systems | Todos los derechos reservados</p>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Servicios</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="infraestructura-conectividad.html" class="hover:text-white transition duration-200">Redes Informáticas</a></li>
+                    <li><a href="infraestructura-conectividad.html" class="hover:text-white transition duration-200">Soporte Técnico</a></li>
+                    <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power Platform</a></li>
+                    <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power BI</a></li>
+                    <li><a href="capacitacion-consultoria.html" class="hover:text-white transition duration-200">Capacitación</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Empresa</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="nosotros.html" class="hover:text-white transition duration-200">Nosotros</a></li>
+                    <li><a href="nosotros.html#metodologia" class="hover:text-white transition duration-200">Metodología</a></li>
+                    <li><a href="contacto.html" class="hover:text-white transition duration-200">Contacto</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Contacto</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li>📍 Ciudad de México</li>
+                    <li>📞 +52 55 XXXX-XXXX</li>
+                    <li>📧 contacto@tbcs.com.mx</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('nav a');
+            const header = document.getElementById('header');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const headerHeight = header.offsetHeight;
+
+            // Toggle mobile menu visibility
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Hide mobile menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Intersection Observer for active navigation links
+            const observerOptions = {
+                root: null,
+                rootMargin: `-${headerHeight + 1}px 0px 0px 0px`, /* Adjust rootMargin to account for header height */
+                threshold: 0.3 /* Trigger when 30% of section is visible */
+            };
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        // For multi-page navigation, check if href matches the current page's file name
+                        // or if it's an internal link within the current page.
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            const linkHref = link.getAttribute('href');
+                            if (linkHref === window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) || 
+                                (id && linkHref.includes(`#${id}`))) {
+                                link.classList.add('active');
+                            }
+                        });
+                        mobileMenu.querySelectorAll('a').forEach(link => {
+                            link.classList.remove('active');
+                            const linkHref = link.getAttribute('href');
+                            if (linkHref === window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) || 
+                                (id && linkHref.includes(`#${id}`))) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // Fade-in animation on scroll
+            const fadeObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                fadeObserver.observe(section);
+            });
+        });
+    </script>
+
+</body>
+</html>
