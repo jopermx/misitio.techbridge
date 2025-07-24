@@ -11,8 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- 
         Chosen Palette for Course Page: While the main site uses TechBridge Blue (#0077C9), this specific course page uses a more energetic palette: #00A6ED (Blue), #7FB800 (Green), #FFB400 (Yellow), #F6511D (Orange), and #2D3142 (Dark text). This is to visually distinguish the course content while maintaining overall professionalism.
-        Application Structure Plan: This page is a detailed infographic/landing page for a specific course. It's structured vertically with sections for key course info, methodology, program timeline, and outcomes. It includes interactive charts for engagement.
-        Visualization & Content Choices: Uses Chart.js for data visualization (doughnut and bubble charts) and custom CSS for a vertical timeline to present the course program. Emoji icons are used for visual appeal in the KPI section.
+        Application Structure Plan: This page is a detailed infographic/landing page for a specific course. It's structured vertically with sections for key course info, methodology, program timeline, and outcomes. It includes interactive charts for engagement. A new modal for course registration has been added.
+        Visualization & Content Choices: Uses Chart.js for data visualization (doughnut and bubble charts) and custom CSS for a vertical timeline to present the course program. Emoji icons are used for visual appeal in the KPI section. The registration form is implemented within a modal for a smooth user experience.
         CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
     -->
     <style>
@@ -147,6 +147,73 @@
                 left: 18px;
             }
         }
+
+        /* Modal specific styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        @keyframes animatetop {
+            from {top: -300px; opacity: 0}
+            to {top: 0; opacity: 1}
+        }
+        .error-message {
+            color: #ef4444; /* Tailwind red-500 */
+            font-size: 0.875rem; /* text-sm */
+            margin-top: 0.25rem;
+        }
+        .form-message {
+            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-align: center;
+        }
+        .form-message.success {
+            background-color: #d1fae5; /* Tailwind green-100 */
+            color: #065f46; /* Tailwind green-800 */
+        }
+        .form-message.error {
+            background-color: #fee2e2; /* Tailwind red-100 */
+            color: #991b1b; /* Tailwind red-800 */
+        }
     </style>
 </head>
 <body class="text-[#2D3142]">
@@ -158,7 +225,7 @@
             <nav class="hidden md:flex space-x-10">
                 <a href="index.html" class="nav-link text-gray-700">Inicio</a>
                 <a href="nosotros.html" class="nav-link text-gray-700">Nosotros</a>
-                <a href="cursos-excel.html" class="nav-link text-gray-700 active">Servicios</a> <!-- Link to the new courses directory -->
+                <a href="cursos.html" class="nav-link text-gray-700 active">Servicios</a> <!-- Link to the new courses directory -->
                 <a href="contacto.html" class="nav-link text-gray-700">Contacto</a>
             </nav>
             <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
@@ -168,7 +235,7 @@
         <div id="mobile-menu" class="md:hidden bg-white shadow-lg hidden">
             <a href="index.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Inicio</a>
             <a href="nosotros.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Nosotros</a>
-            <a href="cursos-excel.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 active">Servicios</a> <!-- Link to the new courses directory -->
+            <a href="cursos.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 active">Servicios</a> <!-- Link to the new courses directory -->
             <a href="contacto.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Contacto</a>
         </div>
     </header>
@@ -566,9 +633,9 @@
             </div>
         </section>
 
-         <section id="skills" class="mb-16">
+        <section id="skills" class="mb-16">
             <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
-                <h2 class="text-3xl font-black text-[#F6511D] mb-2 text-center">🚀 Lo que Lograrás</h2>
+                <h2 class="text-3xl font-black course-orange mb-2 text-center">🚀 Lo que Lograrás</h2>
                 <p class="text-center max-w-3xl mx-auto mb-8">Al finalizar, no solo sabrás usar Excel, sino que podrás resolver problemas complejos, automatizar tareas y presentar datos de forma que convenza e impresione.</p>
                 <div class="chart-container h-[450px] max-h-[500px]">
                     <canvas id="skillsChart"></canvas>
@@ -596,12 +663,61 @@
         <footer class="bg-gray-900 text-white rounded-lg shadow-xl p-8 text-center">
             <h2 class="text-3xl font-black mb-4">¿Listo para dar el siguiente paso?</h2>
             <p class="max-w-2xl mx-auto mb-6">Cumple con los requisitos básicos y únete a cientos de profesionales que ya han transformado su carrera con nosotros.</p>
-            <a href="contacto.html" class="bg-[#0077C9] hover:bg-[#005699] text-white font-bold py-3 px-8 rounded-full text-lg transition-colors duration-300 btn-primary">
+            <button id="openEnrollmentModal" class="bg-[#0077C9] hover:bg-[#005699] text-white font-bold py-3 px-8 rounded-full text-lg transition-colors duration-300 btn-primary">
                 ¡Inscríbete Ahora!
-            </a>
+            </button>
         </footer>
 
     </main>
+
+    <!-- Enrollment Modal -->
+    <div id="enrollmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 class="text-3xl font-bold tech-blue mb-6 text-center">Inscripción al Curso de Excel</h2>
+            <form id="enrollmentForm" class="space-y-6" action="https://script.google.com/macros/s/AKfycbxtBnXmVI0CZXIJgHcVpEXYdbEAe_heslEqHMjvza2AGYH8u3Mk_QPiTtnEIWbpMhSriw/exec" method="POST">
+                <div>
+                    <label for="enrollment_nombre" class="block text-gray-700 font-semibold mb-2">Nombre Completo <span class="text-red-500">*</span></label>
+                    <input type="text" id="enrollment_nombre" name="Nombre Completo" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]" required>
+                    <p id="error-enrollment_nombre" class="error-message hidden">El nombre completo es obligatorio.</p>
+                </div>
+                <div>
+                    <label for="enrollment_email" class="block text-gray-700 font-semibold mb-2">Email <span class="text-red-500">*</span></label>
+                    <input type="email" id="enrollment_email" name="Email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]" required>
+                    <p id="error-enrollment_email" class="error-message hidden">Por favor, introduce un email válido.</p>
+                </div>
+                <div>
+                    <label for="enrollment_telefono" class="block text-gray-700 font-semibold mb-2">Teléfono <span class="text-red-500">*</span></label>
+                    <input type="tel" id="enrollment_telefono" name="Teléfono" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]" required pattern="[0-9]{10,15}">
+                    <p id="error-enrollment_telefono" class="error-message hidden">El teléfono es obligatorio y debe contener solo números (10-15 dígitos).</p>
+                </div>
+                <div>
+                    <label for="enrollment_empresa" class="block text-gray-700 font-semibold mb-2">Empresa (Opcional)</label>
+                    <input type="text" id="enrollment_empresa" name="Empresa" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]">
+                </div>
+                <div>
+                    <label for="enrollment_how_hear" class="block text-gray-700 font-semibold mb-2">¿Cómo te enteraste de nosotros? (Opcional)</label>
+                    <select id="enrollment_how_hear" name="Como te enteraste" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]">
+                        <option value="">Selecciona una opción</option>
+                        <option value="Búsqueda en Google">Búsqueda en Google</option>
+                        <option value="Redes Sociales">Redes Sociales</option>
+                        <option value="Recomendación">Recomendación</option>
+                        <option value="Publicidad">Publicidad</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="enrollment_interest" class="block text-gray-700 font-semibold mb-2">¿Por qué te interesa este curso? (Opcional)</label>
+                    <textarea id="enrollment_interest" name="Interes en el curso" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]"></textarea>
+                </div>
+                
+                <button type="submit" class="w-full tech-blue-bg text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-300">
+                    Enviar Inscripción
+                </button>
+                <div id="enrollment-form-status-message" class="form-message hidden"></div>
+            </form>
+        </div>
+    </div>
 
     <!-- Footer (Consistent with other pages) -->
     <footer class="bg-gray-900 text-white py-12">
@@ -618,7 +734,8 @@
                     <li><a href="infraestructura-conectividad.html" class="hover:text-white transition duration-200">Soporte Técnico</a></li>
                     <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power Platform</a></li>
                     <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power BI</a></li>
-                    <li><a href="cursos-excel.html" class="hover:text-white transition duration-200 active">Capacitación</a></li> 
+                    <li><a href="cursos.html" class="hover:text-white transition duration-200 active">Capacitación</a></li> 
+                    <li><a href="consultoria-estrategica.html" class="hover:text-white transition duration-200">Consultoría Estratégica</a></li>
                 </ul>
             </div>
             <div>
@@ -632,7 +749,7 @@
             <div>
                 <h3 class="font-bold text-lg mb-4">Contacto</h3>
                 <ul class="space-y-2 text-sm text-gray-400">
-                    <li>📍 Ciudad de México</li>
+                    <li>📍 Ciudad López Mateos, Edomex</li>
                     <li>📞 +52 55 XXXX-XXXX</li>
                     <li>📧 contacto@tbcs.com.mx</li>
                 </ul>
@@ -686,8 +803,8 @@
                             } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
                                 // For internal links on the same page (e.g., index.html#servicios-preview)
                                 link.classList.add('active');
-                            } else if (linkHref === 'cursos-excel.html' && currentFileName === 'curso-excel-basico-intermedio.html') {
-                                // Special case: if on curso-excel-basico-intermedio.html, activate 'Servicios' link on cursos-excel.html
+                            } else if (linkHref === 'cursos.html' && currentFileName === 'curso-excel-basico-intermedio.html') {
+                                // Special case: if on curso-excel-basico-intermedio.html, activate 'Servicios' link on cursos.html
                                 link.classList.add('active');
                             }
                         });
@@ -699,7 +816,7 @@
                                 link.classList.add('active');
                             } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
                                 link.classList.add('active');
-                            } else if (linkHref === 'cursos-excel.html' && currentFileName === 'curso-excel-basico-intermedio.html') {
+                            } else if (linkHref === 'cursos.html' && currentFileName === 'curso-excel-basico-intermedio.html') {
                                 link.classList.add('active');
                             }
                         });
@@ -968,6 +1085,106 @@
                             }
                         }
                     }
+                }
+            });
+
+            // Modal Logic for Enrollment Form
+            const enrollmentModal = document.getElementById('enrollmentModal');
+            const openEnrollmentModalBtn = document.getElementById('openEnrollmentModal');
+            const closeButton = document.querySelector('.close-button');
+            const enrollmentForm = document.getElementById('enrollmentForm');
+            const formStatusMessage = document.getElementById('enrollment-form-status-message');
+
+            openEnrollmentModalBtn.addEventListener('click', () => {
+                enrollmentModal.style.display = 'flex'; // Show the modal
+            });
+
+            closeButton.addEventListener('click', () => {
+                enrollmentModal.style.display = 'none'; // Hide the modal
+                formStatusMessage.classList.add('hidden'); // Hide any previous messages
+                enrollmentForm.reset(); // Reset form fields
+                // Hide all error messages
+                document.querySelectorAll('.error-message').forEach(el => el.classList.add('hidden'));
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target == enrollmentModal) {
+                    enrollmentModal.style.display = 'none';
+                    formStatusMessage.classList.add('hidden');
+                    enrollmentForm.reset();
+                    // Hide all error messages
+                    document.querySelectorAll('.error-message').forEach(el => el.classList.add('hidden'));
+                }
+            });
+
+            // Form Validation and Submission
+            enrollmentForm.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Prevent default form submission
+
+                let isValid = true;
+                const formData = new FormData(enrollmentForm);
+                const data = {};
+                formData.forEach((value, key) => {
+                    data[key] = value;
+                });
+
+                // Clear previous errors
+                document.querySelectorAll('.error-message').forEach(el => el.classList.add('hidden'));
+                formStatusMessage.classList.add('hidden');
+
+                // Validate Name
+                if (!data['Nombre Completo'].trim()) {
+                    document.getElementById('error-enrollment_nombre').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // Validate Email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!data['Email'].trim() || !emailRegex.test(data['Email'])) {
+                    document.getElementById('error-enrollment_email').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // Validate Phone
+                const phoneRegex = /^[0-9]{10,15}$/;
+                if (!data['Teléfono'].trim() || !phoneRegex.test(data['Teléfono'])) {
+                    document.getElementById('error-enrollment_telefono').classList.remove('hidden');
+                    isValid = false;
+                }
+                
+                if (!isValid) {
+                    formStatusMessage.textContent = 'Por favor, corrige los errores en el formulario.';
+                    formStatusMessage.className = 'form-message error';
+                    formStatusMessage.classList.remove('hidden');
+                    return;
+                }
+
+                // Show loading indicator
+                formStatusMessage.textContent = 'Enviando inscripción...';
+                formStatusMessage.className = 'form-message';
+                formStatusMessage.classList.remove('hidden');
+                
+                try {
+                    const response = await fetch(enrollmentForm.action, {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (response.ok) {
+                        formStatusMessage.textContent = '¡Inscripción enviada con éxito! Nos pondremos en contacto contigo pronto.';
+                        formStatusMessage.className = 'form-message success';
+                        enrollmentForm.reset(); // Clear the form
+                        setTimeout(() => {
+                            enrollmentModal.style.display = 'none'; // Close modal after success
+                            formStatusMessage.classList.add('hidden');
+                        }, 3000); // Hide message and close modal after 3 seconds
+                    } else {
+                        throw new Error('Error al enviar la inscripción.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    formStatusMessage.textContent = 'Hubo un error al enviar tu inscripción. Por favor, inténtalo de nuevo.';
+                    formStatusMessage.className = 'form-message error';
                 }
             });
         });
