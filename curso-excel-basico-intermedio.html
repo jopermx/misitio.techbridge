@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Excel Básico a Intermedio - TechBridge Consulting Systems</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- 
+        Chosen Palette for Course Page: While the main site uses TechBridge Blue (#0077C9), this specific course page uses a more energetic palette: #00A6ED (Blue), #7FB800 (Green), #FFB400 (Yellow), #F6511D (Orange), and #2D3142 (Dark text). This is to visually distinguish the course content while maintaining overall professionalism.
+        Application Structure Plan: This page is a detailed infographic/landing page for a specific course. It's structured vertically with sections for key course info, methodology, program timeline, and outcomes. It includes interactive charts for engagement.
+        Visualization & Content Choices: Uses Chart.js for data visualization (doughnut and bubble charts) and custom CSS for a vertical timeline to present the course program. Emoji icons are used for visual appeal in the KPI section.
+        CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1A202C; /* Default text color, similar to Tailwind's gray-900 */
+            background-color: #f8fafc; /* Tailwind's gray-50 */
+        }
+        .tech-blue { color: #0077C9; } /* Main site accent color */
+        .tech-blue-bg { background-color: #0077C9; }
+        .tech-blue-border { border-color: #0077C9; }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+            font-weight: 500; /* Medium weight for navigation */
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #0077C9;
+            border-bottom-color: #0077C9;
+        }
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .btn-primary {
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #005699; /* Darker blue on hover */
+            transform: translateY(-2px);
+        }
+
+        /* Course-specific styles */
+        .course-blue { color: #00A6ED; }
+        .course-green { color: #7FB800; }
+        .course-yellow { color: #FFB400; }
+        .course-orange { color: #F6511D; }
+        .course-dark { color: #2D3142; }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        /* Estilos para la línea de tiempo vertical por día */
+        .vertical-timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        .vertical-timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #00A6ED; /* Course Blue line */
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 6px;
+        }
+        .vertical-timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        .vertical-timeline-item.left {
+            left: 0;
+        }
+        .vertical-timeline-item.right {
+            left: 50%;
+        }
+        .vertical-timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px;
+            background-color: white;
+            border: 4px solid #FFB400; /* Course Yellow dot */
+            top: 28px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .vertical-timeline-item.right::after {
+            left: -13px;
+        }
+        .vertical-timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-top: 5px solid; /* For week color */
+        }
+        .vertical-timeline-content.week1 {
+            border-top-color: #00A6ED; /* Course Blue for Week 1 */
+        }
+        .vertical-timeline-content.week2 {
+            border-top-color: #7FB800; /* Course Green for Week 2 */
+        }
+
+        @media screen and (max-width: 768px) {
+            .vertical-timeline::after {
+                left: 31px;
+            }
+            .vertical-timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .vertical-timeline-item.right {
+                left: 0%;
+            }
+            .vertical-timeline-item.left::after, .vertical-timeline-item.right::after {
+                left: 18px;
+            }
+        }
+    </style>
+</head>
+<body class="text-[#2D3142]">
+
+    <!-- Header & Navigation (Consistent with other pages) -->
+    <header id="header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-extrabold tech-blue">TechBridge Consulting Systems</a>
+            <nav class="hidden md:flex space-x-10">
+                <a href="index.html" class="nav-link text-gray-700">Inicio</a>
+                <a href="nosotros.html" class="nav-link text-gray-700">Nosotros</a>
+                <a href="cursos-excel.html" class="nav-link text-gray-700 active">Servicios</a> <!-- Link to the new courses directory -->
+                <a href="contacto.html" class="nav-link text-gray-700">Contacto</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="md:hidden bg-white shadow-lg hidden">
+            <a href="index.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Inicio</a>
+            <a href="nosotros.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Nosotros</a>
+            <a href="cursos-excel.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 active">Servicios</a> <!-- Link to the new courses directory -->
+            <a href="contacto.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Contacto</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <header class="bg-white shadow-md p-8 text-center rounded-lg mb-8">
+            <h1 class="text-4xl md:text-5xl font-black course-blue uppercase tracking-wide">📊 Curso Excel Profesional</h1>
+            <p class="mt-4 text-xl md:text-2xl font-bold">Transforma tu Productividad Laboral con Excel</p>
+            <p class="max-w-3xl mx-auto mt-4 text-gray-600">
+                En el mundo laboral actual, Excel no es solo una herramienta más: es el motor de la productividad que distingue a los profesionales exitosos. Esta es una guía visual de cómo nuestro curso te convertirá en un experto.
+            </p>
+        </header>
+
+        <section id="kpis" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 md:justify-center">
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center transform hover:scale-105 transition-transform duration-300">
+                <div class="text-5xl mb-4">⏱️</div>
+                <h3 class="text-xl font-bold course-blue">Duración Total</h3>
+                <p class="text-4xl font-extrabold mt-2">10 Horas</p>
+                <p class="text-gray-500">(2 semanas, 1 hora diaria)</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center transform hover:scale-105 transition-transform duration-300">
+                <div class="text-5xl mb-4">💻</div>
+                <h3 class="text-xl font-bold course-blue">Modalidad</h3>
+                <p class="text-4xl font-extrabold mt-2">100% Online</p>
+                <p class="text-gray-500">Interactivo y práctico</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center transform hover:scale-105 transition-transform duration-300 md:col-span-2 lg:col-span-1">
+                <div class="text-5xl mb-4">🎓</div>
+                <h3 class="text-xl font-bold course-blue">Certificación</h3>
+                <p class="text-4xl font-extrabold mt-2">Incluida</p>
+                <p class="text-gray-500">Al completar el curso</p>
+            </div>
+        </section>
+
+        <section id="methodology" class="mb-16">
+            <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="text-3xl font-black course-green mb-4">🎓 Metodología de Aprendizaje 70-20-10</h2>
+                        <p class="text-lg mb-4">
+                            Nuestro enfoque está diseñado para maximizar la retención y aplicación del conocimiento. No solo aprenderás teoría, sino que aplicarás cada concepto en escenarios del mundo real.
+                        </p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start"><span class="course-green font-bold mr-2">■ 70% Práctica:</span> Ejercicios reales con casos empresariales.</li>
+                            <li class="flex items-start"><span class="course-yellow font-bold mr-2">■ 20% Interacción:</span> Discusión de casos y resolución de dudas.</li>
+                            <li class="flex items-start"><span class="course-orange font-bold mr-2">■ 10% Teoría:</span> Conceptos esenciales explicados de forma clara.</li>
+                        </ul>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="methodologyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="program" class="mb-16">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8">📅 Programa del Curso</h2>
+            
+            <div class="vertical-timeline">
+                <!-- Semana 1 -->
+                <div class="vertical-timeline-item left">
+                    <div class="vertical-timeline-content bg-transparent shadow-none border-t-0 border-b-0 text-center">
+                        <h3 class="font-bold text-2xl course-blue mb-4">Semana 1: Fundamentos Sólidos</h3>
+                        <p class="text-gray-600">Construye una base robusta para dominar Excel desde el primer día.</p>
+                    </div>
+                </div>
+                <div class="vertical-timeline-item right">
+                    <div class="vertical-timeline-content week1">
+                        <div class="text-3xl course-blue mb-2">⚙️</div>
+                        <h4 class="font-bold text-lg course-dark mb-1">DÍA 1: Navegación y Configuración Profesional</h4>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Optimizar tu entorno de trabajo en Excel.</p>
+                        <ul class="list-none text-sm text-gray-600 space-y-1">
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Configuración avanzada:</strong> Personaliza la interfaz y barras de herramientas.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Navegación rápida:</strong> Domina atajos de teclado esenciales.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Práctica:</strong> Configura tu espacio de trabajo ideal.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vertical-timeline-item left">
+                    <div class="vertical-timeline-content week1">
+                        <div class="text-3xl course-blue mb-2">➕</div>
+                        <h4 class="font-bold text-lg course-dark mb-1">DÍA 2: Fórmulas Fundamentales que Cambian Todo</h4>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Automatizar cálculos y decisiones básicas.</p>
+                        <ul class="list-none text-sm text-gray-600 space-y-1">
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Referencias:</strong> Relativas, absolutas y mixtas.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Funciones básicas:</strong> SUMA, PROMEDIO, MAX, MIN.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Lógica:</strong> Tu primera decisión inteligente con la función SI.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Práctica:</strong> Crea una calculadora de presupuesto personal.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vertical-timeline-item right">
+                    <div class="vertical-timeline-content week1">
+                        <div class="text-3xl course-blue mb-2">🧹</div>
+                        <h4 class="font-bold text-lg course-dark mb-1">DÍA 3: Funciones de Texto y Limpieza de Datos</h4>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Preparar y organizar tus datos eficientemente.</p>
+                        <ul class="list-none text-sm text-gray-600 space-y-1">
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Manipulación de texto:</strong> CONCATENAR, EXTRAE, IZQUIERDA, DERECHA.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Formato de texto:</strong> MAYUSC, MINUSC, NOMPROPIO.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Limpieza:</strong> ESPACIOS y LIMPIAR, técnicas para bases de datos.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Práctica:</strong> Organiza una lista de contactos desordenada.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vertical-timeline-item left">
+                    <div class="vertical-timeline-content week1">
+                        <div class="text-3xl course-blue mb-2">⏰</div>
+                        <h4 class="font-bold text-lg course-dark mb-1">DÍA 4: Funciones de Fecha y Tiempo</h4>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Gestionar y analizar datos temporales.</p>
+                        <ul class="list-none text-sm text-gray-600 space-y-1">
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Fechas actuales:</strong> AHORA, HOY, FECHA.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Cálculo de periodos:</strong> DATEDIF.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Formato y cálculos:</strong> Personalización de fechas y horarios.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Práctica:</strong> Desarrolla un sistema de antigüedad de empleados.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vertical-timeline-item right">
+                    <div class="vertical-timeline-content week1">
+                        <div class="text-3xl course-blue mb-2">🔍</div>
+                        <h4 class="font-bold text-lg course-dark mb-1">DÍA 5: Funciones de Búsqueda y Referencia</h4>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Conectar y extraer información clave.</p>
+                        <ul class="list-none text-sm text-gray-600 space-y-1">
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Búsquedas:</strong> BUSCARV, BUSCARH, XLOOKUP (función moderna).
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Combinación poderosa:</strong> INDICE y COINCIDIR.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Práctica:</strong> Crea un sistema de consulta de productos y precios.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Separador de Semanas -->
+                <div class="vertical-timeline-item left">
+                    <div class="vertical-timeline-content bg-transparent shadow-none border-t-0 border-b-0 text-center">
+                        <h3 class="font-bold text-2xl course-green mt-8 mb-4">Semana 2: Análisis y Visualización Avanzada</h3>
+                        <p class="text-gray-600">Transforma datos en decisiones estratégicas y presentaciones impactantes.</p>
+                    </div>
+                </div>
+
+                <div class="vertical-timeline-item right">
+                    <div class="vertical-timeline-content week2">
+                        <div class="text-3xl course-green mb-2">💡</div>
+                        <h4 class="font-bold text-lg course-dark mb-1">DÍA 6: Funciones Lógicas y Condicionales</h4>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Implementar lógica de negocio compleja.</p>
+                        <ul class="list-none text-sm text-gray-600 space-y-1">
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Lógica avanzada:</strong> SI anidadas, Y, O, NO.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Evaluaciones múltiples:</strong> SI.CONJUNTO.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Conteo y suma condicional:</strong> CONTAR.SI, SUMAR.SI.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Práctica:</strong> Diseña un sistema de comisiones por vendedor.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vertical-timeline-item left">
+                    <div class="vertical-timeline-content week2">
+                        <div class="text-3xl course-green mb-2">📈</div>
+                        <h4 class="font-bold text-lg course-dark mb-1">DÍA 7: Herramientas de Análisis de Datos</h4>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Descubrir patrones y tendencias en tus datos.</p>
+                        <ul class="list-none text-sm text-gray-600 space-y-1">
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Organización de datos:</strong> Filtros avanzados y subtotales.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Análisis dinámico:</strong> Tablas dinámicas básicas.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Integridad de datos:</strong> Validación de datos.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Práctica:</strong> Realiza un análisis de ventas por región y producto.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vertical-timeline-item right">
+                    <div class="vertical-timeline-content week2">
+                    <div class="text-3xl course-green mb-2">📊</div>
+                    <h4 class="font-bold text-lg course-dark mb-1">DÍA 8: Visualización de Datos Impactante</h4>
+                    <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Crear gráficos que comunican y convencen.</p>
+                    <ul class="list-none text-sm text-gray-600 space-y-1">
+                        <li class="flex">
+                            <span class="course-green mr-2 flex-shrink-0">▪</span>
+                            <div>
+                                <strong>Selección de gráficos:</strong> Tipos y cuándo usarlos.
+                            </div>
+                        </li>
+                        <li class="flex">
+                            <span class="course-green mr-2 flex-shrink-0">▪</span>
+                            <div>
+                                <strong>Personalización:</strong> Avanzada de gráficos y combinados.
+                            </div>
+                        </li>
+                        <li class="flex">
+                            <span class="course-green mr-2 flex-shrink-0">▪</span>
+                            <div>
+                                <strong>Minigráficos:</strong> Sparklines para tendencias rápidas.
+                            </div>
+                        </li>
+                        <li class="flex">
+                            <span class="course-green mr-2 flex-shrink-0">▪</span>
+                            <div>
+                                <strong>Práctica:</strong> Construye un dashboard ejecutivo de KPIs.
+                            </div>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+                <div class="vertical-timeline-item left">
+                    <div class="vertical-timeline-content week2">
+                        <div class="text-3xl course-green mb-2">💰</div>
+                        <h4 class="font-bold text-lg course-dark mb-1">DÍA 9: Funciones Financieras y Estadísticas</h4>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Realizar análisis financiero y estadístico profesional.</p>
+                        <ul class="list-none text-sm text-gray-600 space-y-1">
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Análisis de inversión:</strong> VPN, TIR, PAGO.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Estadísticas descriptivas:</strong> DESVEST, MEDIANA, MODA.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Proyecciones:</strong> Análisis de tendencias y proyecciones simples.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Práctica:</strong> Evalúa un proyecto de inversión.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vertical-timeline-item right">
+                    <div class="vertical-timeline-content week2">
+                        <div class="text-3xl course-green mb-2">🤖</div>
+                        <h4 class="font-bold text-lg course-dark mb-1">DÍA 10: Automatización y Proyecto Final</h4>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Consolidar conocimientos con un proyecto real.</p>
+                        <ul class="list-none text-sm text-gray-600 space-y-1">
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Automatización:</strong> Macros básicas.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Seguridad:</strong> Herramientas de revisión y protección.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Profesionalismo:</strong> Mejores prácticas.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Proyecto Final:</strong> Desarrolla un dashboard completo de análisis empresarial.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="mb-16">
+            <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+                <h2 class="text-3xl font-black course-orange mb-2 text-center">🚀 Lo que Lograrás</h2>
+                <p class="text-center max-w-3xl mx-auto mb-8">Al finalizar, no solo sabrás usar Excel, sino que podrás resolver problemas complejos, automatizar tareas y presentar datos de forma que convenza e impresione.</p>
+                <div class="chart-container h-[450px] max-h-[500px]">
+                    <canvas id="skillsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="audience" class="mb-16">
+            <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="chart-container">
+                        <canvas id="audienceChart"></canvas>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-black course-yellow mb-4">🎯 Perfil del Participante Ideal</h2>
+                        <p class="text-lg mb-4">
+                            Este curso está diseñado para una amplia gama de profesionales que buscan potenciar su carrera. El gráfico de burbujas muestra los perfiles clave que más se benefician, donde un mayor tamaño indica un impacto más directo en su productividad diaria.
+                        </p>
+                        <p>Si manejas datos, creas reportes o simplemente quieres ser más eficiente en tu trabajo, este curso es para ti.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="bg-gray-900 text-white rounded-lg shadow-xl p-8 text-center">
+            <h2 class="text-3xl font-black mb-4">¿Listo para dar el siguiente paso?</h2>
+            <p class="max-w-2xl mx-auto mb-6">Cumple con los requisitos básicos y únete a cientos de profesionales que ya han transformado su carrera con nosotros.</p>
+            <a href="contacto.html" class="bg-[#0077C9] hover:bg-[#005699] text-white font-bold py-3 px-8 rounded-full text-lg transition-colors duration-300 btn-primary">
+                ¡Inscríbete Ahora!
+            </a>
+        </footer>
+
+    </main>
+
+    <!-- Footer (Consistent with other pages) -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <div>
+                <h3 class="font-bold text-xl mb-4 tech-blue">TechBridge Consulting Systems</h3>
+                <p class="text-sm text-gray-400">"Sistemas que conectan, consultoría que transforma"</p>
+                <p class="text-xs text-gray-500 mt-4">&copy; 2025 TechBridge Consulting Systems | Todos los derechos reservados</p>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Servicios</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="infraestructura-conectividad.html" class="hover:text-white transition duration-200">Redes Informáticas</a></li>
+                    <li><a href="infraestructura-conectividad.html" class="hover:text-white transition duration-200">Soporte Técnico</a></li>
+                    <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power Platform</a></li>
+                    <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power BI</a></li>
+                    <li><a href="cursos-excel.html" class="hover:text-white transition duration-200 active">Capacitación</a></li> 
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Empresa</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="nosotros.html" class="hover:text-white transition duration-200">Nosotros</a></li>
+                    <li><a href="nosotros.html#metodologia" class="hover:text-white transition duration-200">Metodología</a></li>
+                    <li><a href="contacto.html" class="hover:text-white transition duration-200">Contacto</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Contacto</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li>📍 Ciudad López Mateos, Edomex</li>
+                    <li>📞 +52 55 XXXX-XXXX</li>
+                    <li>📧 contacto@tbcs.com.mx</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // General navigation script (copied from other pages for consistency)
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('nav a');
+            const header = document.getElementById('header');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const headerHeight = header.offsetHeight;
+
+            // Toggle mobile menu visibility
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Hide mobile menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Intersection Observer for active navigation links
+            const observerOptions = {
+                root: null,
+                rootMargin: `-${headerHeight + 1}px 0px 0px 0px`, /* Adjust rootMargin to account for header height */
+                threshold: 0.3 /* Trigger when 30% of section is visible */
+            };
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        // For multi-page navigation, check if href matches the current page's file name
+                        // or if it's an internal link within the current page.
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            const linkHref = link.getAttribute('href');
+                            // Check if the link's href matches the current page's filename
+                            const currentFileName = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+                            if (linkHref === currentFileName) {
+                                link.classList.add('active');
+                            } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
+                                // For internal links on the same page (e.g., index.html#servicios-preview)
+                                link.classList.add('active');
+                            } else if (linkHref === 'cursos-excel.html' && currentFileName === 'curso-excel-basico-intermedio.html') {
+                                // Special case: if on curso-excel-basico-intermedio.html, activate 'Servicios' link on cursos-excel.html
+                                link.classList.add('active');
+                            }
+                        });
+                        mobileMenu.querySelectorAll('a').forEach(link => {
+                            link.classList.remove('active');
+                            const linkHref = link.getAttribute('href');
+                            const currentFileName = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+                             if (linkHref === currentFileName) {
+                                link.classList.add('active');
+                            } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
+                                link.classList.add('active');
+                            } else if (linkHref === 'cursos-excel.html' && currentFileName === 'curso-excel-basico-intermedio.html') {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // Fade-in animation on scroll
+            const fadeObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                fadeObserver.observe(section);
+            });
+
+            // Chart.js specific code
+            const wrapLabel = (label, maxWidth) => {
+                const words = label.split(' ');
+                let lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + word).length > maxWidth) {
+                        lines.push(currentLine.trim());
+                        currentLine = '';
+                    }
+                    currentLine += word + ' ';
+                });
+                lines.push(currentLine.trim());
+                return lines;
+            };
+
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                } else {
+                    return label;
+                }
+            };
+
+            const coursePalette = {
+                blue: '#00A6ED',
+                green: '#7FB800',
+                yellow: '#FFB400',
+                orange: '#F6511D',
+                dark: '#2D3142'
+            };
+
+            // Methodology Chart
+            const ctxMethodology = document.getElementById('methodologyChart').getContext('2d');
+            new Chart(ctxMethodology, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Práctica', 'Interacción', 'Teoría'],
+                    datasets: [{
+                        label: 'Metodología de Aprendizaje',
+                        data: [70, 20, 10],
+                        backgroundColor: [
+                            coursePalette.green,
+                            coursePalette.yellow,
+                            coursePalette.orange
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: tooltipTitleCallback,
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed + '%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Skills Chart (Radar Chart)
+            const ctxSkills = document.getElementById('skillsChart').getContext('2d');
+            new Chart(ctxSkills, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        wrapLabel('Análisis de Datos', 10),
+                        wrapLabel('Automatización', 10),
+                        wrapLabel('Visualización', 10),
+                        wrapLabel('Modelado Financiero', 10),
+                        wrapLabel('Gestión de Proyectos', 10),
+                        wrapLabel('Resolución de Problemas', 10)
+                    ],
+                    datasets: [{
+                        label: 'Dominio de Habilidades al Finalizar el Curso',
+                        data: [90, 85, 95, 80, 75, 90], // Example data for skill proficiency
+                        backgroundColor: 'rgba(0, 166, 237, 0.4)', // course-blue with transparency
+                        borderColor: coursePalette.blue,
+                        pointBackgroundColor: coursePalette.blue,
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: coursePalette.blue,
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(0, 0, 0, 0.1)' // Lighter lines
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)' // Lighter grid
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 12,
+                                    weight: 'bold'
+                                },
+                                color: coursePalette.dark // Darker text for labels
+                            },
+                            ticks: {
+                                display: false, // Hide the numbers on the scale
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false // Hide legend as there's only one dataset
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: tooltipTitleCallback,
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.r !== null) {
+                                        label += context.parsed.r + '%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Audience Chart (Bubble Chart)
+            const ctxAudience = document.getElementById('audienceChart').getContext('2d');
+            new Chart(ctxAudience, {
+                type: 'bubble',
+                data: {
+                    labels: [
+                        wrapLabel('Analistas de Datos', 12), 
+                        wrapLabel('Gerentes de Proyecto', 12), 
+                        wrapLabel('Estudiantes/Recién Egresados', 12), 
+                        wrapLabel('Profesionales de Finanzas', 12), 
+                        wrapLabel('Emprendedores', 12), 
+                        wrapLabel('Administrativos', 12)
+                    ],
+                    datasets: [{
+                        label: 'Impacto en la Productividad por Perfil',
+                        data: [
+                            { x: 20, y: 80, r: 25, label: 'Analistas de Datos' }, // x: data handling, y: decision making, r: impact size
+                            { x: 70, y: 60, r: 20, label: 'Gerentes de Proyecto' },
+                            { x: 10, y: 20, r: 15, label: 'Estudiantes/Recién Egresados' },
+                            { x: 50, y: 90, r: 22, label: 'Profesionales de Finanzas' },
+                            { x: 90, y: 40, r: 18, label: 'Emprendedores' },
+                            { x: 30, y: 50, r: 17, label: 'Administrativos' }
+                        ],
+                        backgroundColor: [
+                            'rgba(0, 166, 237, 0.6)', // Blue
+                            'rgba(127, 184, 0, 0.6)',  // Green
+                            'rgba(255, 180, 0, 0.6)',  // Yellow
+                            'rgba(246, 81, 29, 0.6)',  // Orange
+                            'rgba(0, 166, 237, 0.6)', // Blue
+                            'rgba(127, 184, 0, 0.6)'  // Green
+                        ],
+                        borderColor: [
+                            coursePalette.blue,
+                            coursePalette.green,
+                            coursePalette.yellow,
+                            coursePalette.orange,
+                            coursePalette.blue,
+                            coursePalette.green
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Manejo de Datos (Bajo a Alto)',
+                                color: coursePalette.dark,
+                                font: {
+                                    weight: 'bold'
+                                }
+                            },
+                            ticks: {
+                                display: false // Hide x-axis numbers
+                            },
+                            grid: {
+                                display: false // Hide x-axis grid lines
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Toma de Decisiones (Baja a Alta)',
+                                color: coursePalette.dark,
+                                font: {
+                                    weight: 'bold'
+                                }
+                            },
+                            ticks: {
+                                display: false // Hide y-axis numbers
+                            },
+                            grid: {
+                                display: false // Hide y-axis grid lines
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false // Hide legend for bubble chart
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.raw.label || '';
+                                    return `${label}: Impacto ${context.raw.r}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
