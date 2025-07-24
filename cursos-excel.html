@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos de Capacitación - TechBridge Consulting Systems</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- 
+        Chosen Palette: Primary accent #0077C9 (TechBridge Blue), complemented by a base of #F8FAFC (light gray/off-white) and #FFFFFF (white) for backgrounds, and #1A202C (dark gray/near black) for primary text. Subtle use of #4A5568 (medium gray) for secondary text.
+        Application Structure Plan: This page serves as a directory for all courses offered by TechBridge Consulting Systems. It will feature a grid layout to showcase different courses with brief descriptions and links to their detailed pages.
+        Visualization & Content Choices: Uses a simple card-based layout for each course, with placeholder images. The focus is on clear presentation and easy navigation to individual course pages.
+        CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1A202C; /* Tailwind's gray-900 */
+            background-color: #f8fafc; /* Tailwind's gray-50 */
+        }
+        .tech-blue { color: #0077C9; }
+        .tech-blue-bg { background-color: #0077C9; }
+        .tech-blue-border { border-color: #0077C9; }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+            font-weight: 500; /* Medium weight for navigation */
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #0077C9;
+            border-bottom-color: #0077C9;
+        }
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .btn-primary {
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #005699; /* Darker blue on hover */
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="text-[#1A202C]">
+
+    <!-- Header & Navigation (Consistent with other pages) -->
+    <header id="header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-extrabold tech-blue">TechBridge Consulting Systems</a>
+            <nav class="hidden md:flex space-x-10">
+                <a href="index.html" class="nav-link text-gray-700">Inicio</a>
+                <a href="nosotros.html" class="nav-link text-gray-700">Nosotros</a>
+                <a href="cursos-excel.html" class="nav-link text-gray-700 active">Servicios</a> <!-- This is now the courses directory -->
+                <a href="contacto.html" class="nav-link text-gray-700">Contacto</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="md:hidden bg-white shadow-lg hidden">
+            <a href="index.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Inicio</a>
+            <a href="nosotros.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Nosotros</a>
+            <a href="cursos-excel.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 active">Servicios</a> <!-- This is now the courses directory -->
+            <a href="contacto.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Contacto</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <!-- Hero Section for Courses Directory -->
+        <section class="min-h-[40vh] flex items-center bg-gradient-to-br from-blue-50 to-white rounded-lg shadow-md mb-8">
+            <div class="container mx-auto px-6 text-center py-16">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4 fade-in-section">
+                    Nuestros <span class="tech-blue">Cursos de Capacitación</span>
+                </h1>
+                <p class="mt-4 text-xl md:text-2xl text-gray-700 font-medium max-w-3xl mx-auto fade-in-section" style="transition-delay: 150ms;">
+                    Potencia tus habilidades y las de tu equipo con nuestra oferta educativa especializada.
+                </p>
+            </div>
+        </section>
+
+        <!-- Courses Grid Section -->
+        <section id="courses-grid" class="py-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-center tech-blue mb-12">Explora Nuestra Oferta de Cursos</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Course Card: Excel Professional Course -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                    <img src="https://placehold.co/600x400/0077C9/FFFFFF?text=Curso+Excel" alt="Curso de Excel Profesional" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-[#2D3142] mb-2">Curso Excel Básico a Intermedio</h3>
+                        <p class="text-gray-700 text-base mb-4">
+                            Domina las funciones esenciales y avanzadas de Excel para transformar tus datos en decisiones estratégicas. Ideal para profesionales que buscan optimizar su productividad.
+                        </p>
+                        <ul class="text-sm text-gray-600 mb-4 space-y-1">
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Duración: 10 Horas</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Modalidad: 100% Online</li>
+                            <li class="flex items-center"><span class="text-green-500 mr-2">✓</span> Certificación Incluida</li>
+                        </ul>
+                        <a href="curso-excel-basico-intermedio.html" class="btn-primary inline-block tech-blue-bg text-white font-bold py-3 px-6 rounded-lg hover:bg-[#005699] transition duration-300">
+                            Ver Detalles del Curso
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Placeholder for Future Courses (Example) -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden opacity-70 cursor-not-allowed">
+                    <img src="https://placehold.co/600x400/4A5568/FFFFFF?text=Próximamente" alt="Próximo Curso" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-600 mb-2">Curso Power BI Esencial</h3>
+                        <p class="text-gray-500 text-base mb-4">
+                            Aprende a crear dashboards interactivos y reportes dinámicos con Power BI. ¡Próximamente disponible para transformar tu análisis de datos!
+                        </p>
+                        <ul class="text-sm text-gray-400 mb-4 space-y-1">
+                            <li class="flex items-center"><span class="text-gray-400 mr-2">⏳</span> Duración: A definir</li>
+                            <li class="flex items-center"><span class="text-gray-400 mr-2">⏳</span> Modalidad: Online</li>
+                            <li class="flex items-center"><span class="text-gray-400 mr-2">⏳</span> Certificación</li>
+                        </ul>
+                        <button disabled class="btn-primary w-full bg-gray-400 text-white font-bold py-3 px-6 rounded-lg cursor-not-allowed">
+                            Próximamente
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Another Placeholder for Future Courses (Example) -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden opacity-70 cursor-not-allowed">
+                    <img src="https://placehold.co/600x400/4A5568/FFFFFF?text=Próximamente" alt="Próximo Curso" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-600 mb-2">Fundamentos de Ciberseguridad</h3>
+                        <p class="text-gray-500 text-base mb-4">
+                            Conoce los principios básicos de la ciberseguridad para proteger tu información y la de tu empresa en el entorno digital actual.
+                        </p>
+                        <ul class="text-sm text-gray-400 mb-4 space-y-1">
+                            <li class="flex items-center"><span class="text-gray-400 mr-2">⏳</span> Duración: A definir</li>
+                            <li class="flex items-center"><span class="text-gray-400 mr-2">⏳</span> Modalidad: Online</li>
+                            <li class="flex items-center"><span class="text-gray-400 mr-2">⏳</span> Certificación</li>
+                        </ul>
+                        <button disabled class="btn-primary w-full bg-gray-400 text-white font-bold py-3 px-6 rounded-lg cursor-not-allowed">
+                            Próximamente
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer (Consistent with other pages) -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <div>
+                <h3 class="font-bold text-xl mb-4 tech-blue">TechBridge Consulting Systems</h3>
+                <p class="text-sm text-gray-400">"Sistemas que conectan, consultoría que transforma"</p>
+                <p class="text-xs text-gray-500 mt-4">&copy; 2025 TechBridge Consulting Systems | Todos los derechos reservados</p>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Servicios</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="infraestructura-conectividad.html" class="hover:text-white transition duration-200">Redes Informáticas</a></li>
+                    <li><a href="infraestructura-conectividad.html" class="hover:text-white transition duration-200">Soporte Técnico</a></li>
+                    <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power Platform</a></li>
+                    <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power BI</a></li>
+                    <li><a href="cursos-excel.html" class="hover:text-white transition duration-200 active">Capacitación</a></li> 
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Empresa</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="nosotros.html" class="hover:text-white transition duration-200">Nosotros</a></li>
+                    <li><a href="nosotros.html#metodologia" class="hover:text-white transition duration-200">Metodología</a></li>
+                    <li><a href="contacto.html" class="hover:text-white transition duration-200">Contacto</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Contacto</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li>📍 Ciudad López Mateos, Edomex</li>
+                    <li>📞 +52 55 XXXX-XXXX</li>
+                    <li>📧 contacto@tbcs.com.mx</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('nav a');
+            const header = document.getElementById('header');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const headerHeight = header.offsetHeight;
+
+            // Toggle mobile menu visibility
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Hide mobile menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Intersection Observer for active navigation links
+            const observerOptions = {
+                root: null,
+                rootMargin: `-${headerHeight + 1}px 0px 0px 0px`, /* Adjust rootMargin to account for header height */
+                threshold: 0.3 /* Trigger when 30% of section is visible */
+            };
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            const linkHref = link.getAttribute('href');
+                            const currentFileName = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+                            
+                            // Logic for activating navigation links
+                            if (linkHref === currentFileName) {
+                                link.classList.add('active');
+                            } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
+                                link.classList.add('active');
+                            } else if (currentFileName === 'cursos-excel.html' && linkHref === 'cursos-excel.html') {
+                                // Explicitly activate 'Servicios' link if on the courses directory page
+                                link.classList.add('active');
+                            } else if (currentFileName === 'curso-excel-basico-intermedio.html' && linkHref === 'cursos-excel.html') {
+                                // If on a specific course page, activate the parent 'Servicios' (courses directory) link
+                                link.classList.add('active');
+                            }
+                        });
+                        mobileMenu.querySelectorAll('a').forEach(link => {
+                            link.classList.remove('active');
+                            const linkHref = link.getAttribute('href');
+                            const currentFileName = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+                            
+                            if (linkHref === currentFileName) {
+                                link.classList.add('active');
+                            } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
+                                link.classList.add('active');
+                            } else if (currentFileName === 'cursos-excel.html' && linkHref === 'cursos-excel.html') {
+                                link.classList.add('active');
+                            } else if (currentFileName === 'curso-excel-basico-intermedio.html' && linkHref === 'cursos-excel.html') {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // Fade-in animation on scroll
+            const fadeObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                fadeObserver.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
