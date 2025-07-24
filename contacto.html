@@ -10,8 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- 
         Chosen Palette: Primary accent #0077C9 (TechBridge Blue), complemented by a base of #F8FAFC (light gray/off-white) and #FFFFFF (white) for backgrounds, and #1A202C (dark gray/near black) for primary text. Subtle use of #4A5568 (medium gray) for secondary text.
-        Application Structure Plan: This is a dedicated contact page, structured vertically with clear sections for contact information, a detailed consultation offer, and the contact form. It aims to make it easy for users to reach out. Navigation is provided by a global header and footer, allowing users to move between main sections of the website.
-        Visualization & Content Choices: Content is presented using clean typography, lists, and distinct headings. The form is designed with clear labels and input fields. Strategic calls-to-action are highlighted with appropriate styling. No charts or complex visualizations are used, maintaining the professional and sober aesthetic.
+        Application Structure Plan: This is a dedicated contact page. Instead of displaying the form directly, it now features a button to open a modal contact form, providing a cleaner initial view and a consistent user experience with other interactive forms (like course enrollment). It includes direct contact information.
+        Visualization & Content Choices: Content is presented using clean typography and structured sections. The form is within a modal for a modern feel. Icons (unicode characters) are used for contact details.
         CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
     -->
     <style>
@@ -47,22 +47,51 @@
             background-color: #005699; /* Darker blue on hover */
             transform: translateY(-2px);
         }
-        .btn-secondary {
-            transition: border-color 0.3s, background-color 0.3s, color 0.3s, transform 0.2s;
+
+        /* Modal specific styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+            align-items: center; /* Used for centering content when display: flex */
+            justify-content: center; /* Used for centering content when display: flex */
         }
-        .btn-secondary:hover {
-            background-color: #0077C9;
-            color: white;
-            transform: translateY(-2px);
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 700px; /* Increased max-width for more fields */
+            position: relative;
+            animation-name: animatetop;
+            animation-duration: 0.4s
         }
-        .btn-red {
-            background-color: #dc2626; /* Tailwind red-600 */
-            color: white;
-            transition: background-color 0.3s, transform 0.2s;
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
         }
-        .btn-red:hover {
-            background-color: #b91c1c; /* Darker red on hover */
-            transform: translateY(-2px);
+        .close-button:hover,
+        .close-button:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        @keyframes animatetop {
+            from {top: -300px; opacity: 0}
+            to {top: 0; opacity: 1}
         }
         .error-message {
             color: #ef4444; /* Tailwind red-500 */
@@ -123,114 +152,115 @@
             </div>
         </section>
 
-        <!-- Contact Content and Form -->
-        <section class="py-24 md:py-36 bg-gray-100">
-            <div class="container mx-auto px-6">
-                <div class="grid md:grid-cols-2 gap-12">
-                    <!-- Información de Contacto y Consultoría Gratuita -->
-                    <div class="bg-white p-8 rounded-xl shadow-md fade-in-section">
-                        <h2 class="text-3xl md:text-4xl font-bold tech-blue mb-6">Información de Contacto</h2>
-                        <div class="space-y-4 text-gray-700 text-lg">
-                            <p>📍 <span class="font-semibold">Oficina Principal:</span> Ciudad de México</p>
-                            <p>📞 <span class="font-semibold">Teléfono:</span> +52 55 XXXX-XXXX</p>
-                            <p>📧 <span class="font-semibold">Email:</span> contacto@tbcs.com.mx, ventas@tbcs.com.mx, soporte@tbcs.com.mx</p>
-                            <p>🌐 <span class="font-semibold">Web:</span> tbcs.com.mx</p>
+        <!-- Contact Content Section -->
+        <section class="py-24 md:py-36">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div class="fade-in-section">
+                        <h2 class="text-3xl md:text-4xl font-bold tech-blue mb-6">Información de Contacto Directa</h2>
+                        <div class="space-y-6 text-gray-700 text-lg">
+                            <p class="flex items-center">
+                                <span class="text-2xl mr-3 tech-blue">📍</span>
+                                <span class="font-semibold">Oficina Principal:</span> Ciudad de México, México
+                            </p>
+                            <p class="flex items-center">
+                                <span class="text-2xl mr-3 tech-blue">📞</span>
+                                <span class="font-semibold">Teléfono:</span> +52 55 XXXX-XXXX
+                            </p>
+                            <p class="flex items-center">
+                                <span class="text-2xl mr-3 tech-blue">📧</span>
+                                <span class="font-semibold">Email:</span> contacto@tbcs.com.mx
+                            </p>
+                            <p class="flex items-center">
+                                <span class="text-2xl mr-3 tech-blue">📧</span>
+                                <span class="font-semibold">Email Ventas:</span> ventas@tbcs.com.mx
+                            </p>
+                            <p class="flex items-center">
+                                <span class="text-2xl mr-3 tech-blue">📧</span>
+                                <span class="font-semibold">Email Soporte:</span> soporte@tbcs.com.mx
+                            </p>
+                            <p class="flex items-center">
+                                <span class="text-2xl mr-3 tech-blue">🌐</span>
+                                <span class="font-semibold">Web:</span> tbcs.com.mx
+                            </p>
                         </div>
-                        <h3 class="text-2xl font-bold tech-blue mt-10 mb-4">Horarios de Atención</h3>
-                        <div class="space-y-2 text-gray-700 text-lg">
-                            <p>Lunes a Viernes: 9:00 AM - 6:00 PM</p>
-                            <p>Sábados: 9:00 AM - 2:00 PM (Solo emergencias)</p>
-                            <p>Soporte 24/7: Para clientes con contrato de soporte</p>
-                        </div>
-                        <h3 class="text-2xl font-bold tech-blue mt-10 mb-4">Consultoría Gratuita</h3>
-                        <p class="text-gray-700 text-lg mb-4">Agenda 45 minutos que pueden transformar tu empresa:</p>
-                        <ul class="list-none space-y-2 text-gray-700 text-lg">
-                            <li class="flex items-center">
-                                <span class="text-green-500 text-2xl mr-3">✓</span> Evaluamos tu situación tecnológica actual
-                            </li>
-                            <li class="flex items-center">
-                                <span class="text-green-500 text-2xl mr-3">✓</span> Identificamos 3 oportunidades de mejora inmediatas
-                            </li>
-                            <li class="flex items-center">
-                                <span class="text-green-500 text-2xl mr-3">✓</span> Diseñamos un roadmap personalizado de transformación
-                            </li>
-                            <li class="flex items-center">
-                                <span class="text-green-500 text-2xl mr-3">✓</span> Calculamos el ROI esperado de cada iniciativa
-                            </li>
-                            <li class="flex items-center">
-                                <span class="text-green-500 text-2xl mr-3">✓</span> Definimos próximos pasos concretos
-                            </li>
-                        </ul>
-                        <p class="text-xl font-bold tech-blue mt-6">COMPLETAMENTE GRATIS. SIN COMPROMISOS.</p>
-                        <a href="#" class="btn-primary inline-block bg-[#0077C9] text-white font-bold py-4 px-10 rounded-full mt-6 shadow-xl hover:bg-blue-700 text-xl">
-                            📅 AGENDA AQUÍ
-                        </a>
                     </div>
-
-                    <!-- Formulario de Contacto -->
-                    <div class="bg-white p-8 rounded-xl shadow-md fade-in-section" style="transition-delay: 150ms;">
-                        <h2 class="text-3xl md:text-4xl font-bold tech-blue mb-6">Envíanos un Mensaje</h2>
-                        <form id="contactForm" class="space-y-6" action="https://script.google.com/macros/s/AKfycbxtBnXmVI0CZXIJgHcVpEXYdbEAe_heslEqHMjvza2AGYH8u3Mk_QPiTtnEIWbpMhSriw/exec" method="POST">
-                            <div>
-                                <label for="nombre" class="block text-gray-700 font-semibold mb-2">Nombre Completo</label>
-                                <input type="text" id="nombre" name="nombre" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]" required>
-                                <p id="error-nombre" class="error-message hidden">El nombre completo es obligatorio.</p>
-                            </div>
-                            <div>
-                                <label for="email" class="block text-gray-700 font-semibold mb-2">Email Empresarial</label>
-                                <input type="email" id="email" name="email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]" required>
-                                <p id="error-email" class="error-message hidden">Por favor, introduce un email válido.</p>
-                            </div>
-                            <div>
-                                <label for="telefono" class="block text-gray-700 font-semibold mb-2">Teléfono</label>
-                                <input type="tel" id="telefono" name="telefono" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]" required pattern="[0-9]{10,15}">
-                                <p id="error-telefono" class="error-message hidden">El teléfono es obligatorio y debe contener solo números (10-15 dígitos).</p>
-                            </div>
-                            <div>
-                                <label for="empresa" class="block text-gray-700 font-semibold mb-2">Empresa</label>
-                                <input type="text" id="empresa" name="empresa" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]" required>
-                                <p id="error-empresa" class="error-message hidden">El nombre de la empresa es obligatorio.</p>
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Número de Empleados</label>
-                                <div class="flex flex-wrap gap-4">
-                                    <label class="inline-flex items-center"><input type="radio" name="empleados" value="1-25" class="form-radio text-[#0077C9]"> <span class="ml-2">1-25</span></label>
-                                    <label class="inline-flex items-center"><input type="radio" name="empleados" value="26-50" class="form-radio text-[#0077C9]"> <span class="ml-2">26-50</span></label>
-                                    <label class="inline-flex items-center"><input type="radio" name="empleados" value="51-100" class="form-radio text-[#0077C9]"> <span class="ml-2">51-100</span></label>
-                                    <label class="inline-flex items-center"><input type="radio" name="empleados" value="101-500" class="form-radio text-[#0077C9]"> <span class="ml-2">101-500</span></label>
-                                    <label class="inline-flex items-center"><input type="radio" name="empleados" value="500+" class="form-radio text-[#0077C9]"> <span class="ml-2">500+</span></label>
-                                </div>
-                                <p id="error-empleados" class="error-message hidden">Por favor, selecciona el número de empleados.</p>
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2">¿En qué podemos ayudarte?</label>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                    <label class="inline-flex items-center"><input type="checkbox" name="ayuda" value="Consultoría Tecnológica" class="form-checkbox text-[#0077C9]"> <span class="ml-2">Consultoría Tecnológica</span></label>
-                                    <label class="inline-flex items-center"><input type="checkbox" name="ayuda" value="Infraestructura y Redes" class="form-checkbox text-[#0077C9]"> <span class="ml-2">Infraestructura y Redes</span></label>
-                                    <label class="inline-flex items-center"><input type="checkbox" name="ayuda" value="Transformación Digital" class="form-checkbox text-[#0077C9]"> <span class="ml-2">Transformación Digital</span></label>
-                                    <label class="inline-flex items-center"><input type="checkbox" name="ayuda" value="Power Platform" class="form-checkbox text-[#0077C9]"> <span class="ml-2">Power Platform</span></label>
-                                    <label class="inline-flex items-center"><input type="checkbox" name="ayuda" value="Capacitación" class="form-checkbox text-[#0077C9]"> <span class="ml-2">Capacitación</span></label>
-                                    <label class="inline-flex items-center"><input type="checkbox" name="ayuda" value="Soporte Técnico" class="form-checkbox text-[#0077C9]"> <span class="ml-2">Soporte Técnico</span></label>
-                                    <label class="inline-flex items-center"><input type="checkbox" name="ayuda" value="Otro" class="form-checkbox text-[#0077C9]" id="otroCheckbox"> <span class="ml-2">Otro:</span> <input type="text" name="otroAyuda" class="ml-1 border-b border-gray-300 focus:outline-none focus:border-[#0077C9]" id="otroInput" disabled></label>
-                                </div>
-                                <p id="error-ayuda" class="error-message hidden">Por favor, selecciona al menos una opción de ayuda.</p>
-                            </div>
-                            <div>
-                                <label for="desafio" class="block text-gray-700 font-semibold mb-2">Describe brevemente tu desafío tecnológico</label>
-                                <textarea id="desafio" name="desafio" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]" maxlength="500"></textarea>
-                                <p id="error-desafio" class="error-message hidden">La descripción del desafío es obligatoria.</p>
-                            </div>
-                            
-                            <button type="submit" class="w-full tech-blue-bg text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-300">
-                                ENVIAR CONSULTA
-                            </button>
-                            <div id="form-status-message" class="form-message hidden"></div>
-                        </form>
+                    <div class="fade-in-section">
+                        <h2 class="text-3xl md:text-4xl font-bold tech-blue mb-6">¿Listo para dar el siguiente paso?</h2>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                            Agenda una consultoría gratuita de 45 minutos para evaluar tus necesidades y diseñar una solución a medida.
+                        </p>
+                        <button id="openContactModal" class="btn-primary inline-block bg-[#0077C9] text-white font-bold py-4 px-10 rounded-full shadow-xl hover:bg-blue-700 text-xl">
+                            Contáctanos
+                        </button>
                     </div>
                 </div>
             </div>
         </section>
     </main>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 class="text-3xl font-bold tech-blue mb-6 text-center">Agenda tu Consultoría Gratuita</h2>
+            <form id="contactForm" class="space-y-6" action="YOUR_NEW_GOOGLE_APPS_SCRIPT_URL_HERE" method="POST">
+                <div>
+                    <label for="contact_nombre" class="block text-gray-700 font-semibold mb-2">Nombre Completo <span class="text-red-500">*</span></label>
+                    <input type="text" id="contact_nombre" name="nombre" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]" required>
+                    <p id="error-contact_nombre" class="error-message hidden">El nombre completo es obligatorio.</p>
+                </div>
+                <div>
+                    <label for="contact_email" class="block text-gray-700 font-semibold mb-2">Email Empresarial <span class="text-red-500">*</span></label>
+                    <input type="email" id="contact_email" name="email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]" required>
+                    <p id="error-contact_email" class="error-message hidden">Por favor, introduce un email válido.</p>
+                </div>
+                <div>
+                    <label for="contact_telefono" class="block text-gray-700 font-semibold mb-2">Teléfono <span class="text-red-500">*</span></label>
+                    <input type="tel" id="contact_telefono" name="telefono" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]" required pattern="[0-9]{10,15}">
+                    <p id="error-contact_telefono" class="error-message hidden">El teléfono es obligatorio y debe contener solo números (10-15 dígitos).</p>
+                </div>
+                <div>
+                    <label for="contact_empresa" class="block text-gray-700 font-semibold mb-2">Empresa <span class="text-red-500">*</span></label>
+                    <input type="text" id="contact_empresa" name="empresa" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]" required>
+                    <p id="error-contact_empresa" class="error-message hidden">El nombre de la empresa es obligatorio.</p>
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">¿En qué podemos ayudarte? <span class="text-red-500">*</span></label>
+                    <div id="ayuda-checkboxes" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+                        <label class="inline-flex items-center"><input type="checkbox" name="ayuda" value="Consultoría Tecnológica" class="form-checkbox text-[#0077C9]"> <span class="ml-2">Consultoría Tecnológica</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="ayuda" value="Infraestructura y Redes" class="form-checkbox text-[#0077C9]"> <span class="ml-2">Infraestructura y Redes</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="ayuda" value="Transformación Digital" class="form-checkbox text-[#0077C9]"> <span class="ml-2">Transformación Digital</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="ayuda" value="Power Platform" class="form-checkbox text-[#0077C9]"> <span class="ml-2">Power Platform</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="ayuda" value="Capacitación" class="form-checkbox text-[#0077C9]"> <span class="ml-2">Capacitación</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="ayuda" value="Soporte Técnico" class="form-checkbox text-[#0077C9]"> <span class="ml-2">Soporte Técnico</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" id="otroAyudaCheckbox" name="ayuda" value="Otro" class="form-checkbox text-[#0077C9]"> <span class="ml-2">Otro:</span> <input type="text" id="otroAyudaText" name="otroAyuda" class="ml-1 border-b border-gray-300 focus:outline-none focus:border-[#0077C9]"></label>
+                    </div>
+                    <p id="error-contact_ayuda" class="error-message hidden">Debes seleccionar al menos una opción.</p>
+                </div>
+                <div>
+                    <label for="contact_how_hear" class="block text-gray-700 font-semibold mb-2">¿Cómo te enteraste de nosotros? <span class="text-red-500">*</span></label>
+                    <select id="contact_how_hear" name="como_te_enteraste" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="Búsqueda en Google">Búsqueda en Google</option>
+                        <option value="Redes Sociales">Redes Sociales</option>
+                        <option value="Recomendación">Recomendación</option>
+                        <option value="Publicidad">Publicidad</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                    <p id="error-contact_how_hear" class="error-message hidden">Este campo es obligatorio.</p>
+                </div>
+                <div>
+                    <label for="contact_desafio" class="block text-gray-700 font-semibold mb-2">Describe brevemente tu desafío tecnológico</label>
+                    <textarea id="contact_desafio" name="desafio" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]"></textarea>
+                </div>
+                <button type="submit" class="w-full tech-blue-bg text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-300">
+                    ENVIAR CONSULTA
+                </button>
+                <div id="contact-form-status-message" class="form-message hidden"></div>
+            </form>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-12">
@@ -255,13 +285,13 @@
                 <ul class="space-y-2 text-sm text-gray-400">
                     <li><a href="nosotros.html" class="hover:text-white transition duration-200">Nosotros</a></li>
                     <li><a href="nosotros.html#metodologia" class="hover:text-white transition duration-200">Metodología</a></li>
-                    <li><a href="contacto.html" class="hover:text-white transition duration-200 active">Contacto</a></li>
+                    <li><a href="contacto.html" class="hover:text-white transition duration-200">Contacto</a></li>
                 </ul>
             </div>
             <div>
                 <h3 class="font-bold text-lg mb-4">Contacto</h3>
                 <ul class="space-y-2 text-sm text-gray-400">
-                    <li>📍 Ciudad de México</li>
+                    <li>📍 Ciudad de México, México</li>
                     <li>📞 +52 55 XXXX-XXXX</li>
                     <li>📧 contacto@tbcs.com.mx</li>
                 </ul>
@@ -271,26 +301,25 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('nav a');
-            const header = document.getElementById('header');
+            const sections = document.querySelectorAll('section');
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
+            const header = document.getElementById('header');
+            const navLinks = document.querySelectorAll('nav a');
             const headerHeight = header.offsetHeight;
 
-            // Toggle mobile menu visibility
+
             mobileMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
 
-            // Hide mobile menu when a link is clicked
             mobileMenu.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     mobileMenu.classList.add('hidden');
                 });
             });
 
-            // Intersection Observer for active navigation links
+            // Intersection Observer for active navigation links (for single-page sections)
             const observerOptions = {
                 root: null,
                 rootMargin: `-${headerHeight + 1}px 0px 0px 0px`, /* Adjust rootMargin to account for header height */
@@ -301,21 +330,25 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const id = entry.target.getAttribute('id');
-                        // For multi-page navigation, check if href matches the current page's file name
-                        // or if it's an internal link within the current page.
                         navLinks.forEach(link => {
                             link.classList.remove('active');
                             const linkHref = link.getAttribute('href');
-                            if (linkHref === window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) || 
-                                (id && linkHref.includes(`#${id}`))) {
+                            // Check if the link's href matches the current page's filename
+                            const currentFileName = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+                            if (linkHref === currentFileName) {
+                                link.classList.add('active');
+                            } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
+                                // For internal links on the same page (e.g., index.html#servicios-preview)
                                 link.classList.add('active');
                             }
                         });
                         mobileMenu.querySelectorAll('a').forEach(link => {
                             link.classList.remove('active');
                             const linkHref = link.getAttribute('href');
-                            if (linkHref === window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1) || 
-                                (id && linkHref.includes(`#${id}`))) {
+                            const currentFileName = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+                             if (linkHref === currentFileName) {
+                                link.classList.add('active');
+                            } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
                                 link.classList.add('active');
                             }
                         });
@@ -327,7 +360,6 @@
                 sectionObserver.observe(section);
             });
 
-            // Fade-in animation on scroll
             const fadeObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -341,186 +373,170 @@
                 fadeObserver.observe(section);
             });
 
-            // Form Validation and Submission to Google Apps Script
+            // Modal Logic for Contact Form
+            const contactModal = document.getElementById('contactModal');
+            const openContactModalBtn = document.getElementById('openContactModal'); // Button to open the modal
+            const closeContactButton = document.querySelector('#contactModal .close-button');
             const contactForm = document.getElementById('contactForm');
-            const otroCheckbox = document.getElementById('otroCheckbox');
-            const otroInput = document.getElementById('otroInput');
-            const formStatusMessage = document.getElementById('form-status-message');
+            const contactFormStatusMessage = document.getElementById('contact-form-status-message');
+            const otroAyudaCheckbox = document.getElementById('otroAyudaCheckbox');
+            const otroAyudaText = document.getElementById('otroAyudaText');
 
-            // Enable/disable "Otro" input based on checkbox
-            otroCheckbox.addEventListener('change', () => {
-                otroInput.disabled = !otroCheckbox.checked;
-                if (!otroCheckbox.checked) {
-                    otroInput.value = '';
+            // Function to open the modal and set focus
+            const openModal = () => {
+                contactModal.style.display = 'flex'; // Show the modal
+                // Reset form and errors when opening
+                contactForm.reset();
+                document.querySelectorAll('.error-message').forEach(el => el.classList.add('hidden'));
+                contactFormStatusMessage.classList.add('hidden');
+                otroAyudaText.style.display = 'none'; // Hide "Otro" text field initially
+                otroAyudaText.removeAttribute('required'); // Remove required attribute
+            };
+
+            // Event listener for opening the modal
+            if (openContactModalBtn) openContactModalBtn.addEventListener('click', openModal);
+
+            // Event listener for closing the modal
+            closeContactButton.addEventListener('click', () => {
+                contactModal.style.display = 'none'; // Hide the modal
+                contactForm.reset(); // Reset form fields
+                document.querySelectorAll('.error-message').forEach(el => el.classList.add('hidden'));
+                contactFormStatusMessage.classList.add('hidden');
+                otroAyudaText.style.display = 'none'; // Hide "Otro" text field
+                otroAyudaText.removeAttribute('required'); // Remove required attribute
+            });
+
+            // Close modal when clicking outside of the modal content
+            window.addEventListener('click', (event) => {
+                if (event.target == contactModal) {
+                    contactModal.style.display = 'none';
+                    contactForm.reset();
+                    document.querySelectorAll('.error-message').forEach(el => el.classList.add('hidden'));
+                    contactFormStatusMessage.classList.add('hidden');
+                    otroAyudaText.style.display = 'none';
+                    otroAyudaText.removeAttribute('required');
                 }
             });
 
-            contactForm.addEventListener('submit', async function(event) {
-                event.preventDefault(); // Prevent default form submission
+            // Toggle "Otro" text input visibility based on checkbox
+            if (otroAyudaCheckbox && otroAyudaText) {
+                otroAyudaCheckbox.addEventListener('change', () => {
+                    if (otroAyudaCheckbox.checked && otroAyudaCheckbox.value === 'Otro') {
+                        otroAyudaText.style.display = 'block';
+                        otroAyudaText.setAttribute('required', 'required');
+                    } else {
+                        otroAyudaText.style.display = 'none';
+                        otroAyudaText.removeAttribute('required');
+                        otroAyudaText.value = ''; // Clear value if unchecked
+                    }
+                });
+            }
+
+            // Form Validation and Submission for Contact Form
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Prevent default form submission
 
                 let isValid = true;
-                formStatusMessage.classList.add('hidden'); // Hide previous messages
+                const formData = new FormData(contactForm);
+                const data = {};
+                formData.forEach((value, key) => {
+                    data[key] = value;
+                });
 
-                // Helper function to show/hide error messages
-                function showError(elementId, message) {
-                    const errorElement = document.getElementById(`error-${elementId}`);
-                    if (errorElement) {
-                        errorElement.textContent = message;
-                        errorElement.classList.remove('hidden');
-                    }
-                }
-
-                function hideError(elementId) {
-                    const errorElement = document.getElementById(`error-${elementId}`);
-                    if (errorElement) {
-                        errorElement.classList.add('hidden');
-                    }
-                }
+                // Clear previous errors
+                document.querySelectorAll('.error-message').forEach(el => el.classList.add('hidden'));
+                contactFormStatusMessage.classList.add('hidden');
 
                 // Validate Nombre Completo
-                const nombreInput = document.getElementById('nombre');
-                if (nombreInput.value.trim() === '') {
-                    showError('nombre', 'El nombre completo es obligatorio.');
+                if (!data['nombre'] || !data['nombre'].trim()) {
+                    document.getElementById('error-contact_nombre').classList.remove('hidden');
                     isValid = false;
-                } else {
-                    hideError('nombre');
                 }
 
-                // Validate Email Empresarial
-                const emailInput = document.getElementById('email');
+                // Validate Email
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(emailInput.value.trim())) {
-                    showError('email', 'Por favor, introduce un email válido.');
+                if (!data['email'] || !data['email'].trim() || !emailRegex.test(data['email'])) {
+                    document.getElementById('error-contact_email').classList.remove('hidden');
                     isValid = false;
-                } else {
-                    hideError('email');
                 }
 
                 // Validate Teléfono
-                const telefonoInput = document.getElementById('telefono');
-                const phoneRegex = /^[0-9]{10,15}$/; // Assuming 10 to 15 digits for phone
-                if (!phoneRegex.test(telefonoInput.value.trim())) {
-                    showError('telefono', 'El teléfono es obligatorio y debe contener solo números (10-15 dígitos).');
+                const phoneRegex = /^[0-9]{10,15}$/;
+                if (!data['telefono'] || !data['telefono'].trim() || !phoneRegex.test(data['telefono'])) {
+                    document.getElementById('error-contact_telefono').classList.remove('hidden');
                     isValid = false;
-                } else {
-                    hideError('telefono');
                 }
 
                 // Validate Empresa
-                const empresaInput = document.getElementById('empresa');
-                if (empresaInput.value.trim() === '') {
-                    showError('empresa', 'El nombre de la empresa es obligatorio.');
+                if (!data['empresa'] || !data['empresa'].trim()) {
+                    document.getElementById('error-contact_empresa').classList.remove('hidden');
                     isValid = false;
-                } else {
-                    hideError('empresa');
                 }
 
-                // Validate Número de Empleados (radio buttons)
-                const empleadosRadios = document.querySelectorAll('input[name="empleados"]');
-                let empleadosSelected = false;
-                empleadosRadios.forEach(radio => {
-                    if (radio.checked) {
-                        empleadosSelected = true;
-                    }
-                });
-                if (!empleadosSelected) {
-                    showError('empleados', 'Por favor, selecciona el número de empleados.');
+                // Validate ¿En qué podemos ayudarte? (at least one checkbox selected)
+                const ayudaCheckboxes = document.querySelectorAll('input[name="ayuda"]:checked');
+                if (ayudaCheckboxes.length === 0) {
+                    document.getElementById('error-contact_ayuda').classList.remove('hidden');
                     isValid = false;
                 } else {
-                    hideError('empleados');
+                    // If "Otro" is checked, ensure its text field is not empty
+                    const otroCheckboxChecked = Array.from(ayudaCheckboxes).some(cb => cb.value === 'Otro');
+                    if (otroCheckboxChecked && (!otroAyudaText.value || !otroAyudaText.value.trim())) {
+                        document.getElementById('error-contact_ayuda').textContent = 'Por favor, especifica "Otro" o desmarca la opción.';
+                        document.getElementById('error-contact_ayuda').classList.remove('hidden');
+                        isValid = false;
+                    }
                 }
 
-                // Validate ¿En qué podemos ayudarte? (checkboxes)
-                const ayudaCheckboxes = document.querySelectorAll('input[name="ayuda"]');
-                let ayudaSelected = false;
-                ayudaCheckboxes.forEach(checkbox => {
-                    if (checkbox.checked) {
-                        ayudaSelected = true;
-                    }
-                });
-                if (!ayudaSelected) {
-                    showError('ayuda', 'Por favor, selecciona al menos una opción de ayuda.');
+                // Validate ¿Cómo te enteraste de nosotros? (NEW)
+                if (!data['como_te_enteraste'] || !data['como_te_enteraste'].trim()) {
+                    document.getElementById('error-contact_how_hear').classList.remove('hidden');
                     isValid = false;
-                } else {
-                    hideError('ayuda');
+                }
+                
+                if (!isValid) {
+                    contactFormStatusMessage.textContent = 'Por favor, corrige los errores en el formulario.';
+                    contactFormStatusMessage.className = 'form-message error';
+                    contactFormStatusMessage.classList.remove('hidden');
+                    return;
                 }
 
-                // Validate Describe brevemente tu desafío tecnológico
-                const desafioTextarea = document.getElementById('desafio');
-                if (desafioTextarea.value.trim() === '') {
-                    showError('desafio', 'La descripción del desafío es obligatoria.');
-                    isValid = false;
-                } else {
-                    hideError('desafio');
-                }
+                // Collect checkbox values for 'ayuda'
+                const selectedAyuda = Array.from(document.querySelectorAll('input[name="ayuda"]:checked'))
+                                           .map(cb => cb.value === 'Otro' ? `Otro: ${otroAyudaText.value.trim()}` : cb.value)
+                                           .join(', ');
+                formData.set('ayuda', selectedAyuda); // Overwrite 'ayuda' with combined string
 
-                if (isValid) {
-                    // Create a plain object from form data
-                    const rawFormData = new FormData(contactForm);
-                    const dataToSend = {};
-                    for (let [key, value] of rawFormData.entries()) {
-                        // Special handling for 'ayuda' checkboxes
-                        if (key === 'ayuda') {
-                            // Collect all checked 'ayuda' values
-                            const checkedAyuda = Array.from(document.querySelectorAll('input[name="ayuda"]:checked'))
-                                .map(cb => {
-                                    if (cb.value === 'Otro' && otroInput.value.trim() !== '') {
-                                        return `Otro: ${otroInput.value.trim()}`;
-                                    }
-                                    return cb.value;
-                                });
-                            dataToSend[key] = escapeHtml(checkedAyuda.join(', '));
-                        } else if (key === 'otroAyuda' && !otroCheckbox.checked) {
-                            // If 'Otro' checkbox is not checked, don't send 'otroAyuda' value
-                            continue;
-                        } else {
-                            dataToSend[key] = escapeHtml(value.trim());
-                        }
+                // Show loading indicator
+                contactFormStatusMessage.textContent = 'Enviando consulta...';
+                contactFormStatusMessage.className = 'form-message';
+                contactFormStatusMessage.classList.remove('hidden');
+                
+                try {
+                    const response = await fetch(contactForm.action, {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (response.ok) {
+                        contactFormStatusMessage.textContent = '¡Consulta enviada con éxito! Nos pondremos en contacto contigo pronto.';
+                        contactFormStatusMessage.className = 'form-message success';
+                        contactForm.reset(); // Clear the form
+                        otroAyudaText.style.display = 'none'; // Hide "Otro" text field
+                        otroAyudaText.removeAttribute('required'); // Remove required attribute
+                        setTimeout(() => {
+                            contactModal.style.display = 'none'; // Close modal after success
+                            contactFormStatusMessage.classList.add('hidden');
+                        }, 3000); // Hide message and close modal after 3 seconds
+                    } else {
+                        throw new Error('Error al enviar la consulta.');
                     }
-                    
-                    // Convert the sanitized object to URL-encoded string for Google Apps Script
-                    const queryString = new URLSearchParams(dataToSend).toString();
-
-                    try {
-                        const response = await fetch(contactForm.action, {
-                            method: 'POST',
-                            body: queryString,
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                            },
-                        });
-
-                        if (response.ok) {
-                            formStatusMessage.textContent = '¡Mensaje enviado con éxito! Nos pondremos en contacto pronto.';
-                            formStatusMessage.classList.remove('hidden', 'error');
-                            formStatusMessage.classList.add('success');
-                            contactForm.reset(); // Clear the form
-                        } else {
-                            formStatusMessage.textContent = 'Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.';
-                            formStatusMessage.classList.remove('hidden', 'success');
-                            formStatusMessage.classList.add('error');
-                            console.error('Error al enviar el formulario:', response.statusText);
-                        }
-                    } catch (error) {
-                        formStatusMessage.textContent = 'Hubo un error de conexión. Por favor, inténtalo de nuevo más tarde.';
-                        formStatusMessage.classList.remove('hidden', 'success');
-                        formStatusMessage.classList.add('error');
-                        console.error('Error de red:', error);
-                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    contactFormStatusMessage.textContent = 'Hubo un error al enviar tu consulta. Por favor, inténtalo de nuevo.';
+                    contactFormStatusMessage.className = 'form-message error';
                 }
             });
-
-            // Client-side sanitization function (for display/logging, server-side is crucial)
-            function escapeHtml(text) {
-                const map = {
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    '"': '&quot;',
-                    "'": '&#039;'
-                };
-                return text.replace(/[&<>"']/g, function(m) { return map[m]; });
-            }
         });
     </script>
 
