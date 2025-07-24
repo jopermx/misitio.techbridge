@@ -59,7 +59,7 @@
             <nav class="hidden md:flex space-x-10">
                 <a href="index.html" class="nav-link text-gray-700">Inicio</a>
                 <a href="nosotros.html" class="nav-link text-gray-700">Nosotros</a>
-                <a href="cursos-excel.html" class="nav-link text-gray-700 active">Servicios</a> <!-- This is now the courses directory -->
+                <a href="cursos.html" class="nav-link text-gray-700 active">Servicios</a> <!-- This is now the courses directory -->
                 <a href="contacto.html" class="nav-link text-gray-700">Contacto</a>
             </nav>
             <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
@@ -69,7 +69,7 @@
         <div id="mobile-menu" class="md:hidden bg-white shadow-lg hidden">
             <a href="index.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Inicio</a>
             <a href="nosotros.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Nosotros</a>
-            <a href="cursos-excel.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 active">Servicios</a> <!-- This is now the courses directory -->
+            <a href="cursos.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 active">Servicios</a> <!-- This is now the courses directory -->
             <a href="contacto.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Contacto</a>
         </div>
     </header>
@@ -112,7 +112,7 @@
                     </div>
                 </div>
 
-                <!-- Placeholder for Future Courses (Example) -->
+                <!-- Placeholder for Future Courses: Power BI -->
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden opacity-70 cursor-not-allowed">
                     <img src="https://placehold.co/600x400/4A5568/FFFFFF?text=Próximamente" alt="Próximo Curso" class="w-full h-48 object-cover">
                     <div class="p-6">
@@ -131,7 +131,26 @@
                     </div>
                 </div>
 
-                <!-- Another Placeholder for Future Courses (Example) -->
+                <!-- New Placeholder for Future Courses: Contabilidad -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden opacity-70 cursor-not-allowed">
+                    <img src="https://placehold.co/600x400/4A5568/FFFFFF?text=Próximamente" alt="Próximo Curso" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-600 mb-2">Contabilidad para no Contadores</h3>
+                        <p class="text-gray-500 text-base mb-4">
+                            Entiende los fundamentos contables clave para la toma de decisiones empresariales, sin necesidad de ser un experto en finanzas. ¡Simplifica tus números!
+                        </p>
+                        <ul class="text-sm text-gray-400 mb-4 space-y-1">
+                            <li class="flex items-center"><span class="text-gray-400 mr-2">⏳</span> Duración: A definir</li>
+                            <li class="flex items-center"><span class="text-gray-400 mr-2">⏳</span> Modalidad: Online</li>
+                            <li class="flex items-center"><span class="text-gray-400 mr-2">⏳</span> Certificación</li>
+                        </ul>
+                        <button disabled class="btn-primary w-full bg-gray-400 text-white font-bold py-3 px-6 rounded-lg cursor-not-allowed">
+                            Próximamente
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Original Placeholder for Future Courses: Ciberseguridad -->
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden opacity-70 cursor-not-allowed">
                     <img src="https://placehold.co/600x400/4A5568/FFFFFF?text=Próximamente" alt="Próximo Curso" class="w-full h-48 object-cover">
                     <div class="p-6">
@@ -169,7 +188,8 @@
                     <li><a href="infraestructura-conectividad.html" class="hover:text-white transition duration-200">Soporte Técnico</a></li>
                     <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power Platform</a></li>
                     <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power BI</a></li>
-                    <li><a href="cursos-excel.html" class="hover:text-white transition duration-200 active">Capacitación</a></li> 
+                    <li><a href="cursos.html" class="hover:text-white transition duration-200 active">Capacitación</a></li> 
+                    <li><a href="consultoria-estrategica.html" class="hover:text-white transition duration-200">Consultoría Estratégica</a></li>
                 </ul>
             </div>
             <div>
@@ -233,10 +253,10 @@
                                 link.classList.add('active');
                             } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
                                 link.classList.add('active');
-                            } else if (currentFileName === 'cursos-excel.html' && linkHref === 'cursos-excel.html') {
+                            } else if (currentFileName === 'cursos.html' && linkHref === 'cursos.html') {
                                 // Explicitly activate 'Servicios' link if on the courses directory page
                                 link.classList.add('active');
-                            } else if (currentFileName === 'curso-excel-basico-intermedio.html' && linkHref === 'cursos-excel.html') {
+                            } else if (currentFileName === 'curso-excel-basico-intermedio.html' && linkHref === 'cursos.html') {
                                 // If on a specific course page, activate the parent 'Servicios' (courses directory) link
                                 link.classList.add('active');
                             }
@@ -250,9 +270,9 @@
                                 link.classList.add('active');
                             } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
                                 link.classList.add('active');
-                            } else if (currentFileName === 'cursos-excel.html' && linkHref === 'cursos-excel.html') {
+                            } else if (currentFileName === 'cursos.html' && linkHref === 'cursos.html') {
                                 link.classList.add('active');
-                            } else if (currentFileName === 'curso-excel-basico-intermedio.html' && linkHref === 'cursos-excel.html') {
+                            } else if (currentFileName === 'curso-excel-basico-intermedio.html' && linkHref === 'cursos.html') {
                                 link.classList.add('active');
                             }
                         });
