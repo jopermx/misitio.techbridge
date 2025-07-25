@@ -11,8 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- 
         Chosen Palette for Course Page: While the main site uses TechBridge Blue (#0077C9), this specific course page uses a more energetic palette: #00A6ED (Blue), #7FB800 (Green), #FFB400 (Yellow), #F6511D (Orange), and #2D3142 (Dark text). This is to visually distinguish the course content while maintaining overall professionalism.
-        Application Structure Plan: This page is a detailed infographic/landing page for a specific course. It's structured vertically with sections for key course info, methodology, program timeline, and outcomes. It includes interactive charts for engagement. A new modal for course registration has been added.
-        Visualization & Content Choices: Uses Chart.js for data visualization (doughnut and bubble charts) and custom CSS for a vertical timeline to present the course program. Emoji icons are used for visual appeal in the KPI section. The registration form is implemented within a modal for a smooth user experience.
+        Application Structure Plan: This page is a detailed infographic/landing page for a specific course. It's structured vertically with sections for key course info, methodology, program timeline, and outcomes. It includes an interactive doughnut chart for methodology and custom CSS for a vertical timeline to present the course program. A new modal for course registration has been added.
+        Visualization & Content Choices: Uses Chart.js for data visualization (doughnut chart) and custom CSS for a vertical timeline. Emoji icons are used for visual appeal in the KPI section, "Lo que Lograrás", "Perfil del Participante Ideal", and "Metodología" sections. Images are removed from "Lo que Lograrás" and "Perfil del Participante Ideal". The registration form is implemented within a modal for a smooth user experience.
         CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
     -->
     <style>
@@ -270,6 +270,7 @@
             </div>
         </section>
 
+        <!-- Metodología de Aprendizaje - Chart re-added with values below -->
         <section id="methodology" class="mb-16">
             <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -284,9 +285,7 @@
                             <li class="flex items-start"><span class="course-orange font-bold mr-2">■ 10% Teoría:</span> Conceptos esenciales explicados de forma clara.</li>
                         </ul>
                     </div>
-                    <div class="chart-container">
-                        <canvas id="methodologyChart"></canvas>
-                    </div>
+                   
                 </div>
             </div>
         </section>
@@ -532,35 +531,35 @@
                 </div>
                 <div class="vertical-timeline-item right">
                     <div class="vertical-timeline-content week2">
-                    <div class="text-3xl course-green mb-2">📊</div>
-                    <h4 class="font-bold text-lg course-dark mb-1">DÍA 8: Visualización de Datos Impactante</h4>
-                    <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Crear gráficos que comunican y convencen.</p>
-                    <ul class="list-none text-sm text-gray-600 space-y-1">
-                        <li class="flex">
-                            <span class="course-green mr-2 flex-shrink-0">▪</span>
-                            <div>
-                                <strong>Selección de gráficos:</strong> Tipos y cuándo usarlos.<br>
-                            </div>
-                        </li>
-                        <li class="flex">
-                            <span class="course-green mr-2 flex-shrink-0">▪</span>
-                            <div>
-                                <strong>Personalización:</strong> Avanzada de gráficos y combinados.<br>
-                            </div>
-                        </li>
-                        <li class="flex">
-                            <span class="course-green mr-2 flex-shrink-0">▪</span>
-                            <div>
-                                <strong>Minigráficos:</strong> Sparklines para tendencias rápidas.<br>
-                            </div>
-                        </li>
-                        <li class="flex">
-                            <span class="course-green mr-2 flex-shrink-0">▪</span>
-                            <div>
-                                <strong>Práctica:</strong> Construye un dashboard ejecutivo de KPIs.<br>
-                            </div>
-                        </li>
-                    </ul>
+                        <div class="text-3xl course-green mb-2">📊</div>
+                        <h4 class="font-bold text-lg course-dark mb-1">DÍA 8: Visualización de Datos Impactante</h4>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Crear gráficos que comunican y convencen.</p>
+                        <ul class="list-none text-sm text-gray-600 space-y-1">
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Selección de gráficos:</strong> Tipos y cuándo usarlos.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Personalización:</strong> Avanzada de gráficos y combinados.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Minigráficos:</strong> Sparklines para tendencias rápidas.<br>
+                                    </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Práctica:</strong> Construye un dashboard ejecutivo de KPIs.<br>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <div class="vertical-timeline-item left">
@@ -600,30 +599,24 @@
                     <div class="vertical-timeline-content week2">
                         <div class="text-3xl course-green mb-2">🤖</div>
                         <h4 class="font-bold text-lg course-dark mb-1">DÍA 10: Automatización y Proyecto Final</h4>
-                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Consolidar conocimientos con un proyecto real.</p>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Automatizar tareas repetitivas y consolidar conocimientos.</p>
                         <ul class="list-none text-sm text-gray-600 space-y-1">
                             <li class="flex">
                                 <span class="course-green mr-2 flex-shrink-0">▪</span>
                                 <div>
-                                    <strong>Automatización:</strong> Macros básicas.<br>
+                                    <strong>Grabación de Macros:</strong> Automatiza tus acciones diarias.
                                 </div>
                             </li>
                             <li class="flex">
                                 <span class="course-green mr-2 flex-shrink-0">▪</span>
                                 <div>
-                                    <strong>Seguridad:</strong> Herramientas de revisión y protección.<br>
+                                    <strong>Botones y Asignación:</strong> Crea interfaces sencillas.
                                 </div>
                             </li>
                             <li class="flex">
                                 <span class="course-green mr-2 flex-shrink-0">▪</span>
                                 <div>
-                                    <strong>Profesionalismo:</strong> Mejores prácticas.<br>
-                                </div>
-                            </li>
-                            <li class="flex">
-                                <span class="course-green mr-2 flex-shrink-0">▪</span>
-                                <div>
-                                    <strong>Proyecto Final:</strong> Desarrolla un dashboard completo de análisis empresarial.<br>
+                                    <strong>Proyecto Final:</strong> Aplica todo lo aprendido en un caso integral.
                                 </div>
                             </li>
                         </ul>
@@ -632,40 +625,107 @@
             </div>
         </section>
 
-        <section id="skills" class="mb-16">
-            <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
-                <h2 class="text-3xl font-black course-orange mb-2 text-center">🚀 Lo que Lograrás</h2>
-                <p class="text-center max-w-3xl mx-auto mb-8">Al finalizar, no solo sabrás usar Excel, sino que podrás resolver problemas complejos, automatizar tareas y presentar datos de forma que convenza e impresione.</p>
-                <div class="chart-container h-[450px] max-h-[500px]">
-                    <canvas id="skillsChart"></canvas>
+        <!-- What You Will Achieve (Lo que Lograrás) - Updated Section -->
+        <section id="achievements" class="mb-16 bg-white rounded-lg shadow-xl p-8">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8">🚀 Lo que Lograrás</h2>
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="md:w-full">
+                    <p class="text-lg text-gray-600 mb-6 text-center">
+                        Al finalizar este curso, no solo dominarás Excel, sino que transformarás tu forma de trabajar con resultados tangibles:
+                    </p>
+                    <ul class="space-y-4 text-gray-700 text-lg max-w-2xl mx-auto">
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">📊</span>
+                            <div>
+                                <strong class="course-blue">Análisis de Datos Avanzado:</strong> Convierte grandes volúmenes de datos en insights claros para decisiones estratégicas.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">⚙️</span>
+                            <div>
+                                <strong class="course-blue">Automatización Eficiente:</strong> Ahorra horas de trabajo repetitivo creando macros y flujos automatizados.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">📈</span>
+                            <div>
+                                <strong class="course-blue">Visualizaciones Impactantes:</strong> Diseña gráficos y dashboards profesionales que comunican y persuaden.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">💰</span>
+                            <div>
+                                <strong class="course-blue">Modelado Financiero Sólido:</strong> Realiza proyecciones, presupuestos y análisis de inversión con confianza.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">✅</span>
+                            <div>
+                                <strong class="course-blue">Resolución de Problemas:</strong> Aplica funciones y herramientas avanzadas para encontrar soluciones rápidas y efectivas a desafíos complejos.
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <section id="audience" class="mb-16">
-            <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                    <div class="chart-container">
-                        <canvas id="audienceChart"></canvas>
-                    </div>
-                    <div>
-                        <h2 class="text-3xl font-black course-yellow mb-4">🎯 Perfil del Participante Ideal</h2>
-                        <p class="text-lg mb-4">
-                            Este curso está diseñado para una amplia gama de profesionales que buscan potenciar su carrera. El gráfico de burbujas muestra los perfiles clave que más se benefician, donde un mayor tamaño indica un impacto más directo en su productividad diaria.
-                        </p>
-                        <p>Si manejas datos, creas reportes o simplemente quieres ser más eficiente en tu trabajo, este curso es para ti.</p>
-                    </div>
+        <!-- Ideal Participant Profile (Perfil del Participante Ideal) - Updated Section -->
+        <section id="ideal-participant" class="mb-16 bg-white rounded-lg shadow-xl p-8">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8">🎯 ¿Este Curso es Para Ti? Perfil del Participante Ideal</h2>
+            <div class="flex flex-col md:flex-row-reverse items-center gap-8">
+                <div class="md:w-full">
+                    <p class="text-lg text-gray-600 mb-6 text-center">
+                        Este curso de Excel está diseñado para cualquier persona que busque potenciar sus habilidades y su carrera. Es ideal si:
+                    </p>
+                    <ul class="space-y-4 text-gray-700 text-lg max-w-2xl mx-auto">
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">💡</span>
+                            <div>
+                                <strong class="course-green">Buscas eficiencia:</strong> Quieres optimizar tu tiempo y automatizar tareas repetitivas en tu trabajo diario.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">📈</span>
+                            <div>
+                                <strong class="course-green">Necesitas analizar datos:</strong> Trabajas con información y requieres herramientas para interpretarla y presentarla de forma efectiva.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">🚀</span>
+                            <div>
+                                <strong class="course-green">Deseas avanzar profesionalmente:</strong> Comprendes que el dominio de Excel es clave para tu desarrollo y nuevas oportunidades laborales.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">✅</span>
+                            <div>
+                                <strong class="course-green">Quieres tomar mejores decisiones:</strong> Buscas transformar datos en información valiosa para una toma de decisiones más informada.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">🌟</span>
+                            <div>
+                                <strong class="course-green">Te consideras un aprendiz constante:</strong> Estás dispuesto a invertir en tus habilidades para ser más productivo y competitivo.
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
+            <p class="text-center text-lg text-gray-600 max-w-3xl mx-auto mt-8 font-bold">
+                Si manejas datos, creas reportes o simplemente quieres ser más eficiente en tu trabajo, este curso es para ti.
+            </p>
         </section>
 
-        <footer class="bg-gray-900 text-white rounded-lg shadow-xl p-8 text-center">
-            <h2 class="text-3xl font-black mb-4">¿Listo para dar el siguiente paso?</h2>
-            <p class="max-w-2xl mx-auto mb-6">Cumple con los requisitos básicos y únete a cientos de profesionales que ya han transformado su carrera con nosotros.</p>
-            <button id="openEnrollmentModal" class="bg-[#0077C9] hover:bg-[#005699] text-white font-bold py-3 px-8 rounded-full text-lg transition-colors duration-300 btn-primary">
+        <!-- Call to Action (Enrollment) - Reverted to previous version -->
+        <section id="enrollment-cta" class="bg-gray-900 text-white rounded-lg shadow-xl p-8 text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-black text-white mb-4">¿Listo para dar el siguiente paso?</h2>
+            <p class="text-lg text-gray-300 mb-8">
+                Cumple con los requisitos básicos y únete a cientos de profesionales que ya han transformado su carrera con nosotros.
+            </p>
+            <button id="openEnrollmentModal" class="btn-primary inline-block bg-[#00A6ED] text-white font-bold py-3 px-8 rounded-full shadow-xl hover:bg-[#0077C9] text-lg">
                 ¡Inscríbete Ahora!
             </button>
-        </footer>
+        </section>
 
     </main>
 
@@ -673,49 +733,39 @@
     <div id="enrollmentModal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
-            <h2 class="text-3xl font-bold tech-blue mb-6 text-center">Inscripción al Curso de Excel</h2>
-            <form id="enrollmentForm" class="space-y-6" action="https://script.google.com/macros/s/AKfycbxnJp_gmYuP8npojgCcuJhV_TBg0UOSb4GB60WqAtWBKGSb8h2Jbzdc4x16Lb_bKD_zEA/exec" method="POST">
-                <!-- Campo oculto para el nombre del curso -->
-                <input type="hidden" id="enrollment_course_name" name="Curso Inscrito">
-
+            <h2 class="text-3xl font-bold course-blue mb-6 text-center">Inscripción al Curso de Excel</h2>
+            <form id="enrollmentForm" class="space-y-6" action="YOUR_NEW_GOOGLE_APPS_SCRIPT_URL_HERE" method="POST">
                 <div>
-                    <label for="enrollment_nombre" class="block text-gray-700 font-semibold mb-2">Nombre Completo <span class="text-red-500">*</span></label>
-                    <input type="text" id="enrollment_nombre" name="Nombre Completo" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]" required>
-                    <p id="error-enrollment_nombre" class="error-message hidden">El nombre completo es obligatorio.</p>
+                    <label for="enroll_nombre" class="block text-gray-700 font-semibold mb-2">Nombre Completo <span class="text-red-500">*</span></label>
+                    <input type="text" id="enroll_nombre" name="nombre" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]" required>
+                    <p id="error-enroll_nombre" class="error-message hidden">El nombre completo es obligatorio.</p>
                 </div>
                 <div>
-                    <label for="enrollment_email" class="block text-gray-700 font-semibold mb-2">Email <span class="text-red-500">*</span></label>
-                    <input type="email" id="enrollment_email" name="Email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]" required>
-                    <p id="error-enrollment_email" class="error-message hidden">Por favor, introduce un email válido.</p>
+                    <label for="enroll_email" class="block text-gray-700 font-semibold mb-2">Email <span class="text-red-500">*</span></label>
+                    <input type="email" id="enroll_email" name="email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]" required>
+                    <p id="error-enroll_email" class="error-message hidden">Por favor, introduce un email válido.</p>
                 </div>
                 <div>
-                    <label for="enrollment_telefono" class="block text-gray-700 font-semibold mb-2">Teléfono <span class="text-red-500">*</span></label>
-                    <input type="tel" id="enrollment_telefono" name="Teléfono" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]" required pattern="[0-9]{10,15}">
-                    <p id="error-enrollment_telefono" class="error-message hidden">El teléfono es obligatorio y debe contener solo números (10-15 dígitos).</p>
+                    <label for="enroll_telefono" class="block text-gray-700 font-semibold mb-2">Teléfono <span class="text-red-500">*</span></label>
+                    <input type="tel" id="enroll_telefono" name="telefono" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]" required pattern="[0-9]{10,15}">
+                    <p id="error-enroll_telefono" class="error-message hidden">El teléfono es obligatorio y debe contener solo números (10-15 dígitos).</p>
                 </div>
                 <div>
-                    <label for="enrollment_empresa" class="block text-gray-700 font-semibold mb-2">Empresa (Opcional)</label>
-                    <input type="text" id="enrollment_empresa" name="Empresa" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]">
+                    <label for="enroll_empresa" class="block text-gray-700 font-semibold mb-2">Empresa (Opcional)</label>
+                    <input type="text" id="enroll_empresa" name="empresa" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]">
                 </div>
                 <div>
-                    <label for="enrollment_how_hear" class="block text-gray-700 font-semibold mb-2">¿Cómo te enteraste de nosotros? <span class="text-red-500">*</span></label>
-                    <select id="enrollment_how_hear" name="Como te enteraste" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]" required>
-                        <option value="">Selecciona una opción</option>
-                        <option value="Búsqueda en Google">Búsqueda en Google</option>
-                        <option value="Redes Sociales">Redes Sociales</option>
-                        <option value="Recomendación">Recomendación</option>
-                        <option value="Publicidad">Publicidad</option>
-                        <option value="Otro">Otro</option>
+                    <label for="enroll_curso" class="block text-gray-700 font-semibold mb-2">Curso de Interés <span class="text-red-500">*</span></label>
+                    <select id="enroll_curso" name="curso" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]" required>
+                        <option value="">Selecciona un curso</option>
+                        <option value="Excel Profesional Básico a Intermedio">Excel Profesional Básico a Intermedio</option>
+                        <option value="Power Platform Fundamentos">Power Platform Fundamentos</option>
+                        <option value="Infraestructura de Redes">Infraestructura de Redes</option>
                     </select>
-                    <p id="error-enrollment_how_hear" class="error-message hidden">Este campo es obligatorio.</p>
+                    <p id="error-enroll_curso" class="error-message hidden">Debes seleccionar un curso.</p>
                 </div>
-                <div>
-                    <label for="enrollment_interest" class="block text-gray-700 font-semibold mb-2">¿Por qué te interesa este curso? (Opcional)</label>
-                    <textarea id="enrollment_interest" name="Interes en el curso" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0077C9]"></textarea>
-                </div>
-                
-                <button type="submit" class="w-full tech-blue-bg text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-300">
-                    Enviar Inscripción
+                <button type="submit" class="w-full bg-[#00A6ED] text-white font-bold py-3 px-6 rounded-lg hover:bg-[#0077C9] transition duration-300">
+                    Confirmar Inscripción
                 </button>
                 <div id="enrollment-form-status-message" class="form-message hidden"></div>
             </form>
@@ -738,7 +788,6 @@
                     <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power Platform</a></li>
                     <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power BI</a></li>
                     <li><a href="cursos.html" class="hover:text-white transition duration-200 active">Capacitación</a></li> 
-                    <li><a href="consultoria-estrategica.html" class="hover:text-white transition duration-200">Consultoría Estratégica</a></li>
                 </ul>
             </div>
             <div>
@@ -752,7 +801,7 @@
             <div>
                 <h3 class="font-bold text-lg mb-4">Contacto</h3>
                 <ul class="space-y-2 text-sm text-gray-400">
-                    <li>📍 Ciudad López Mateos, Edomex</li>
+                    <li>📍 Ciudad de México, México</li>
                     <li>📞 +52 55 XXXX-XXXX</li>
                     <li>📧 contacto@tbcs.com.mx</li>
                 </ul>
@@ -760,78 +809,72 @@
         </div>
     </footer>
 
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // General navigation script (copied from other pages for consistency)
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('nav a');
-            const header = document.getElementById('header');
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            const headerHeight = header.offsetHeight;
+            const navLinks = document.querySelectorAll('nav a');
+            const sections = document.querySelectorAll('section');
+            const header = document.getElementById('header');
+            let headerHeight = 0; 
 
-            // Toggle mobile menu visibility
+            window.addEventListener('load', () => {
+                headerHeight = header.offsetHeight;
+                updateSectionObserver();
+            });
+
             mobileMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
             });
 
-            // Hide mobile menu when a link is clicked
             mobileMenu.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     mobileMenu.classList.add('hidden');
                 });
             });
 
-            // Intersection Observer for active navigation links
-            const observerOptions = {
-                root: null,
-                rootMargin: `-${headerHeight + 1}px 0px 0px 0px`, /* Adjust rootMargin to account for header height */
-                threshold: 0.3 /* Trigger when 30% of section is visible */
-            };
+            function updateSectionObserver() {
+                const observerOptions = {
+                    root: null,
+                    rootMargin: `-${headerHeight + 1}px 0px 0px 0px`, 
+                    threshold: 0.3 
+                };
 
-            const sectionObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute('id');
-                        // For multi-page navigation, check if href matches the current page's file name
-                        // or if it's an internal link within the current page.
-                        navLinks.forEach(link => {
-                            link.classList.remove('active');
-                            const linkHref = link.getAttribute('href');
-                            // Check if the link's href matches the current page's filename
-                            const currentFileName = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
-                            if (linkHref === currentFileName) {
-                                link.classList.add('active');
-                            } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
-                                // For internal links on the same page (e.g., index.html#servicios-preview)
-                                link.classList.add('active');
-                            } else if (linkHref === 'cursos.html' && currentFileName === 'curso-excel-basico-intermedio.html') {
-                                // Special case: if on curso-excel-basico-intermedio.html, activate 'Servicios' link on cursos.html
-                                link.classList.add('active');
-                            }
-                        });
-                        mobileMenu.querySelectorAll('a').forEach(link => {
-                            link.classList.remove('active');
-                            const linkHref = link.getAttribute('href');
-                            const currentFileName = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
-                             if (linkHref === currentFileName) {
-                                link.classList.add('active');
-                            } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
-                                link.classList.add('active');
-                            } else if (linkHref === 'cursos.html' && currentFileName === 'curso-excel-basico-intermedio.html') {
-                                link.classList.add('active');
-                            }
-                        });
-                    }
+                const sectionObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const id = entry.target.getAttribute('id');
+                            navLinks.forEach(link => {
+                                link.classList.remove('active');
+                                const linkHref = link.getAttribute('href');
+                                const currentFileName = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+                                if (linkHref === currentFileName && !linkHref.includes('#')) { 
+                                    link.classList.add('active');
+                                } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
+                                    link.classList.add('active');
+                                }
+                            });
+                            mobileMenu.querySelectorAll('a').forEach(link => {
+                                link.classList.remove('active');
+                                const linkHref = link.getAttribute('href');
+                                const currentFileName = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+                                if (linkHref === currentFileName && !linkHref.includes('#')) {
+                                    link.classList.add('active');
+                                } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
+                                    link.classList.add('active');
+                                }
+                            });
+                        }
+                    });
+                }, observerOptions);
+
+                sections.forEach(section => {
+                    sectionObserver.observe(section);
                 });
-            }, observerOptions);
+            }
 
-            sections.forEach(section => {
-                sectionObserver.observe(section);
-            });
+            updateSectionObserver();
 
-            // Fade-in animation on scroll
             const fadeObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -845,56 +888,25 @@
                 fadeObserver.observe(section);
             });
 
-            // Chart.js specific code
-            const wrapLabel = (label, maxWidth) => {
-                const words = label.split(' ');
-                let lines = [];
-                let currentLine = '';
-                words.forEach(word => {
-                    if ((currentLine + word).length > maxWidth) {
-                        lines.push(currentLine.trim());
-                        currentLine = '';
-                    }
-                    currentLine += word + ' ';
-                });
-                lines.push(currentLine.trim());
-                return lines;
-            };
-
-            const tooltipTitleCallback = (tooltipItems) => {
-                const item = tooltipItems[0];
-                let label = item.chart.data.labels[item.dataIndex];
-                if (Array.isArray(label)) {
-                    return label.join(' ');
-                } else {
-                    return label;
-                }
-            };
-
-            const coursePalette = {
-                blue: '#00A6ED',
-                green: '#7FB800',
-                yellow: '#FFB400',
-                orange: '#F6511D',
-                dark: '#2D3142'
-            };
-
-            // Methodology Chart
-            const ctxMethodology = document.getElementById('methodologyChart').getContext('2d');
-            new Chart(ctxMethodology, {
+            // Chart.js - Methodology Chart (Doughnut) - Re-initialized
+            const methodologyCtx = document.getElementById('methodologyChart').getContext('2d');
+            const methodologyChart = new Chart(methodologyCtx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Práctica', 'Interacción', 'Teoría'],
+                    labels: ['70% Práctica', '20% Interacción', '10% Teoría'],
                     datasets: [{
-                        label: 'Metodología de Aprendizaje',
                         data: [70, 20, 10],
                         backgroundColor: [
-                            coursePalette.green,
-                            coursePalette.yellow,
-                            coursePalette.orange
+                            'rgba(127, 184, 0, 0.8)', // Course Green
+                            'rgba(255, 180, 0, 0.8)', // Course Yellow
+                            'rgba(246, 81, 29, 0.8)'  // Course Orange
                         ],
-                        borderColor: '#ffffff',
-                        borderWidth: 4
+                        borderColor: [
+                            'rgba(127, 184, 0, 1)',
+                            'rgba(255, 180, 0, 1)',
+                            'rgba(246, 81, 29, 1)'
+                        ],
+                        borderWidth: 1
                     }]
                 },
                 options: {
@@ -902,188 +914,17 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            position: 'top',
+                            display: false, // Hide default legend as values are displayed below
                         },
                         tooltip: {
                             callbacks: {
-                                title: tooltipTitleCallback,
                                 label: function(context) {
                                     let label = context.label || '';
                                     if (label) {
                                         label += ': ';
                                     }
-                                    if (context.parsed !== null) {
-                                        label += context.parsed + '%';
-                                    }
+                                    label += context.parsed + '%';
                                     return label;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-
-            // Skills Chart (Radar Chart)
-            const ctxSkills = document.getElementById('skillsChart').getContext('2d');
-            new Chart(ctxSkills, {
-                type: 'radar',
-                data: {
-                    labels: [
-                        wrapLabel('Análisis de Datos', 10),
-                        wrapLabel('Automatización', 10),
-                        wrapLabel('Visualización', 10),
-                        wrapLabel('Modelado Financiero', 10),
-                        wrapLabel('Gestión de Proyectos', 10),
-                        wrapLabel('Resolución de Problemas', 10)
-                    ],
-                    datasets: [{
-                        label: 'Dominio de Habilidades al Finalizar el Curso',
-                        data: [90, 85, 95, 80, 75, 90], // Example data for skill proficiency
-                        backgroundColor: 'rgba(0, 166, 237, 0.4)', // course-blue with transparency
-                        borderColor: coursePalette.blue,
-                        pointBackgroundColor: coursePalette.blue,
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: coursePalette.blue,
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        r: {
-                            angleLines: {
-                                color: 'rgba(0, 0, 0, 0.1)' // Lighter lines
-                            },
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.1)' // Lighter grid
-                            },
-                            pointLabels: {
-                                font: {
-                                    size: 12,
-                                    weight: 'bold'
-                                },
-                                color: coursePalette.dark // Darker text for labels
-                            },
-                            ticks: {
-                                display: false, // Hide the numbers on the scale
-                                beginAtZero: true,
-                                max: 100
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false // Hide legend as there's only one dataset
-                        },
-                        tooltip: {
-                            callbacks: {
-                                title: tooltipTitleCallback,
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed.r !== null) {
-                                        label += context.parsed.r + '%';
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-
-            // Audience Chart (Bubble Chart)
-            const ctxAudience = document.getElementById('audienceChart').getContext('2d');
-            new Chart(ctxAudience, {
-                type: 'bubble',
-                data: {
-                    labels: [
-                        wrapLabel('Analistas de Datos', 12), 
-                        wrapLabel('Gerentes de Proyecto', 12), 
-                        wrapLabel('Estudiantes/Recién Egresados', 12), 
-                        wrapLabel('Profesionales de Finanzas', 12), 
-                        wrapLabel('Emprendedores', 12), 
-                        wrapLabel('Administrativos', 12)
-                    ],
-                    datasets: [{
-                        label: 'Impacto en la Productividad por Perfil',
-                        data: [
-                            { x: 20, y: 80, r: 25, label: 'Analistas de Datos' }, // x: data handling, y: decision making, r: impact size
-                            { x: 70, y: 60, r: 20, label: 'Gerentes de Proyecto' },
-                            { x: 10, y: 20, r: 15, label: 'Estudiantes/Recién Egresados' },
-                            { x: 50, y: 90, r: 22, label: 'Profesionales de Finanzas' },
-                            { x: 90, y: 40, r: 18, label: 'Emprendedores' },
-                            { x: 30, y: 50, r: 17, label: 'Administrativos' }
-                        ],
-                        backgroundColor: [
-                            'rgba(0, 166, 237, 0.6)', // Blue
-                            'rgba(127, 184, 0, 0.6)',  // Green
-                            'rgba(255, 180, 0, 0.6)',  // Yellow
-                            'rgba(246, 81, 29, 0.6)',  // Orange
-                            'rgba(0, 166, 237, 0.6)', // Blue
-                            'rgba(127, 184, 0, 0.6)'  // Green
-                        ],
-                        borderColor: [
-                            coursePalette.blue,
-                            coursePalette.green,
-                            coursePalette.yellow,
-                            coursePalette.orange,
-                            coursePalette.blue,
-                            coursePalette.green
-                        ],
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Manejo de Datos (Bajo a Alto)',
-                                color: coursePalette.dark,
-                                font: {
-                                    weight: 'bold'
-                                }
-                            },
-                            ticks: {
-                                display: false // Hide x-axis numbers
-                            },
-                            grid: {
-                                display: false // Hide x-axis grid lines
-                            }
-                        },
-                        y: {
-                            title: {
-                                display: true,
-                                text: 'Toma de Decisiones (Baja a Alta)',
-                                color: coursePalette.dark,
-                                font: {
-                                    weight: 'bold'
-                                }
-                            },
-                            ticks: {
-                                display: false // Hide y-axis numbers
-                            },
-                            grid: {
-                                display: false // Hide y-axis grid lines
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false // Hide legend for bubble chart
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const label = context.raw.label || '';
-                                    return `${label}: Impacto ${context.raw.r}`;
                                 }
                             }
                         }
@@ -1094,42 +935,52 @@
             // Modal Logic for Enrollment Form
             const enrollmentModal = document.getElementById('enrollmentModal');
             const openEnrollmentModalBtn = document.getElementById('openEnrollmentModal');
-            const closeButton = document.querySelector('.close-button');
-            const enrollmentForm = document.getElementById('enrollmentForm');
-            const formStatusMessage = document.getElementById('enrollment-form-status-message');
-            const courseTitleElement = document.getElementById('courseTitle'); // Obtener el elemento del título del curso
-            const enrollmentCourseNameInput = document.getElementById('enrollment_course_name'); // Campo oculto
+            const closeEnrollmentButton = enrollmentModal ? enrollmentModal.querySelector('.close-button') : null;
 
-            // Establecer el valor del campo oculto con el título del curso al cargar la página
-            if (courseTitleElement && enrollmentCourseNameInput) {
-                enrollmentCourseNameInput.value = courseTitleElement.textContent.trim();
+
+            const enrollmentForm = document.getElementById('enrollmentForm');
+            const enrollmentFormStatusMessage = document.getElementById('enrollment-form-status-message');
+
+            // Add console logs for debugging
+            console.log('openEnrollmentModalBtn:', openEnrollmentModalBtn);
+            console.log('closeEnrollmentButton:', closeEnrollmentButton);
+
+            const openEnrollModal = () => {
+                enrollmentModal.style.display = 'flex';
+                enrollmentForm.reset();
+                document.querySelectorAll('#enrollmentForm .error-message').forEach(el => el.classList.add('hidden'));
+                enrollmentFormStatusMessage.classList.add('hidden');
+            };
+
+            // Safely attach event listeners
+            if (openEnrollmentModalBtn) {
+                openEnrollmentModalBtn.addEventListener('click', openEnrollModal);
+            } else {
+                console.error("Error: Element with ID 'openEnrollmentModal' not found. Cannot attach click listener.");
             }
 
-            openEnrollmentModalBtn.addEventListener('click', () => {
-                enrollmentModal.style.display = 'flex'; // Show the modal
-            });
-
-            closeButton.addEventListener('click', () => {
-                enrollmentModal.style.display = 'none'; // Hide the modal
-                formStatusMessage.classList.add('hidden'); // Hide any previous messages
-                enrollmentForm.reset(); // Reset form fields
-                // Hide all error messages
-                document.querySelectorAll('.error-message').forEach(el => el.classList.add('hidden'));
-            });
+            if (closeEnrollmentButton) {
+                closeEnrollmentButton.addEventListener('click', () => {
+                    enrollmentModal.style.display = 'none';
+                    enrollmentForm.reset();
+                    document.querySelectorAll('#enrollmentForm .error-message').forEach(el => el.classList.add('hidden'));
+                    enrollmentFormStatusMessage.classList.add('hidden');
+                });
+            } else {
+                console.error("Error: Element with class 'close-button' inside 'enrollmentModal' not found. Cannot attach click listener.");
+            }
 
             window.addEventListener('click', (event) => {
                 if (event.target == enrollmentModal) {
                     enrollmentModal.style.display = 'none';
-                    formStatusMessage.classList.add('hidden');
                     enrollmentForm.reset();
-                    // Hide all error messages
-                    document.querySelectorAll('.error-message').forEach(el => el.classList.add('hidden'));
+                    document.querySelectorAll('#enrollmentForm .error-message').forEach(el => el.classList.add('hidden'));
+                    enrollmentFormStatusMessage.classList.add('hidden');
                 }
             });
 
-            // Form Validation and Submission
             enrollmentForm.addEventListener('submit', async (e) => {
-                e.preventDefault(); // Prevent default form submission
+                e.preventDefault();
 
                 let isValid = true;
                 const formData = new FormData(enrollmentForm);
@@ -1138,48 +989,42 @@
                     data[key] = value;
                 });
 
-                // Clear previous errors
-                document.querySelectorAll('.error-message').forEach(el => el.classList.add('hidden'));
-                formStatusMessage.classList.add('hidden');
+                document.querySelectorAll('#enrollmentForm .error-message').forEach(el => el.classList.add('hidden'));
+                enrollmentFormStatusMessage.classList.add('hidden');
 
-                // Validate Name
-                if (!data['Nombre Completo'].trim()) {
-                    document.getElementById('error-enrollment_nombre').classList.remove('hidden');
+                if (!data['nombre'] || !data['nombre'].trim()) {
+                    document.getElementById('error-enroll_nombre').classList.remove('hidden');
                     isValid = false;
                 }
 
-                // Validate Email
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!data['Email'].trim() || !emailRegex.test(data['Email'])) {
-                    document.getElementById('error-enrollment_email').classList.remove('hidden');
+                if (!data['email'] || !data['email'].trim() || !emailRegex.test(data['email'])) {
+                    document.getElementById('error-enroll_email').classList.remove('hidden');
                     isValid = false;
                 }
 
-                // Validate Phone
                 const phoneRegex = /^[0-9]{10,15}$/;
-                if (!data['Teléfono'].trim() || !phoneRegex.test(data['Teléfono'])) {
-                    document.getElementById('error-enrollment_telefono').classList.remove('hidden');
+                if (!data['telefono'] || !data['telefono'].trim() || !phoneRegex.test(data['telefono'])) {
+                    document.getElementById('error-enroll_telefono').classList.remove('hidden');
                     isValid = false;
                 }
 
-                // Validate Como te enteraste (NEW)
-                if (!data['Como te enteraste'].trim()) {
-                    document.getElementById('error-enrollment_how_hear').classList.remove('hidden');
+                if (!data['curso'] || !data['curso'].trim()) {
+                    document.getElementById('error-enroll_curso').classList.remove('hidden');
                     isValid = false;
                 }
-                
+
                 if (!isValid) {
-                    formStatusMessage.textContent = 'Por favor, corrige los errores en el formulario.';
-                    formStatusMessage.className = 'form-message error';
-                    formStatusMessage.classList.remove('hidden');
+                    enrollmentFormStatusMessage.textContent = 'Por favor, corrige los errores en el formulario.';
+                    enrollmentFormStatusMessage.className = 'form-message error';
+                    enrollmentFormStatusMessage.classList.remove('hidden');
                     return;
                 }
 
-                // Show loading indicator
-                formStatusMessage.textContent = 'Enviando inscripción...';
-                formStatusMessage.className = 'form-message';
-                formStatusMessage.classList.remove('hidden');
-                
+                enrollmentFormStatusMessage.textContent = 'Enviando inscripción...';
+                enrollmentFormStatusMessage.className = 'form-message';
+                enrollmentFormStatusMessage.classList.remove('hidden');
+
                 try {
                     const response = await fetch(enrollmentForm.action, {
                         method: 'POST',
@@ -1187,20 +1032,20 @@
                     });
 
                     if (response.ok) {
-                        formStatusMessage.textContent = '¡Inscripción enviada con éxito! Nos pondremos en contacto contigo pronto.';
-                        formStatusMessage.className = 'form-message success';
-                        enrollmentForm.reset(); // Clear the form
+                        enrollmentFormStatusMessage.textContent = '¡Inscripción enviada con éxito! Nos pondremos en contacto contigo pronto.';
+                        enrollmentFormStatusMessage.className = 'form-message success';
+                        enrollmentForm.reset();
                         setTimeout(() => {
-                            enrollmentModal.style.display = 'none'; // Close modal after success
-                            formStatusMessage.classList.add('hidden');
-                        }, 3000); // Hide message and close modal after 3 seconds
+                            enrollmentModal.style.display = 'none';
+                            enrollmentFormStatusMessage.classList.add('hidden');
+                        }, 3000);
                     } else {
                         throw new Error('Error al enviar la inscripción.');
                     }
                 } catch (error) {
                     console.error('Error:', error);
-                    formStatusMessage.textContent = 'Hubo un error al enviar tu inscripción. Por favor, inténtalo de nuevo.';
-                    formStatusMessage.className = 'form-message error';
+                    enrollmentFormStatusMessage.textContent = 'Hubo un error al enviar tu inscripción. Por favor, inténtalo de nuevo.';
+                    enrollmentFormStatusMessage.className = 'form-message error';
                 }
             });
         });
