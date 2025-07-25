@@ -715,14 +715,14 @@
             </p>
         </section>
 
-        <!-- Call to Action (Enrollment) -->
-        <section id="enrollment-cta" class="bg-white rounded-lg shadow-xl p-8 text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-black course-orange mb-6">¡Inscríbete Ahora y Transforma tu Carrera!</h2>
-            <p class="text-lg text-gray-700 mb-8">
-                No pierdas la oportunidad de dominar Excel y llevar tus habilidades al siguiente nivel. ¡Plazas limitadas!
+        <!-- Call to Action (Enrollment) - Reverted to previous version -->
+        <section id="enrollment-cta" class="bg-gray-900 text-white rounded-lg shadow-xl p-8 text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-black text-white mb-4">¿Listo para dar el siguiente paso?</h2>
+            <p class="text-lg text-gray-300 mb-8">
+                Cumple con los requisitos básicos y únete a cientos de profesionales que ya han transformado su carrera con nosotros.
             </p>
-            <button id="openEnrollmentModal" class="btn-primary inline-block bg-[#00A6ED] text-white font-bold py-4 px-10 rounded-full shadow-xl hover:bg-[#0077C9] text-xl">
-                Inscríbete al Curso
+            <button id="openEnrollmentModal" class="btn-primary inline-block bg-[#00A6ED] text-white font-bold py-3 px-8 rounded-full shadow-xl hover:bg-[#0077C9] text-lg">
+                ¡Inscríbete Ahora!
             </button>
         </section>
 
@@ -944,30 +944,6 @@
             // Modal Logic for Enrollment Form
             const enrollmentModal = document.getElementById('enrollmentModal');
             const openEnrollmentModalBtn = document.getElementById('openEnrollmentModal');
-            // The issue was here: document.querySelector('#enrollmentModal .close-button') was returning null.
-            // It's better to get the element directly by its class within the modal, or ensure the modal is loaded.
-            // Given the structure, it's likely a timing issue or the element not being ready.
-            // The previous fix added console.error, but the core issue is that the element might not be found.
-            // Let's ensure the selector is robust or the element is guaranteed to exist.
-            // The `close-button` is a direct child of `modal-content`.
-            // The selector `document.querySelector('#enrollmentModal .close-button')` is correct.
-            // The problem is that when this script runs, the modal HTML might not be fully parsed yet,
-            // even within DOMContentLoaded, if the modal is dynamically loaded or its display is initially none.
-            // However, the modal HTML is directly in the body, so it should be available.
-            // The most robust way is to check if the element exists before attaching the listener.
-            // The previous fix already added the `if (closeEnrollmentButton)` check.
-            // The error message indicates that `closeEnrollmentButton` is still null.
-            // This suggests that `document.querySelector('#enrollmentModal .close-button')` is failing.
-            // Let's try to get the close button directly from the modal content after the modal is opened,
-            // or ensure the `close-button` element is always available when the script runs.
-            // For now, let's stick with the current structure but ensure the check is robust.
-            // The error is happening on the line where addEventListener is called.
-            // The variable `closeEnrollmentButton` is `null`.
-
-            // Let's re-evaluate the selector. It seems correct.
-            // The issue might be that the modal itself is display: none, and some browsers might not fully
-            // render children for querySelector until it's displayed, or it's a very subtle timing.
-            // A more direct way to get the close button if it's always inside the modal content:
             const closeEnrollmentButton = enrollmentModal ? enrollmentModal.querySelector('.close-button') : null;
 
 
