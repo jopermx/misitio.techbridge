@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Excel Básico a Intermedio - TechBridge Consulting Systems</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- 
+        Chosen Palette for Course Page: While the main site uses TechBridge Blue (#0077C9), this specific course page uses a more energetic palette: #00A6ED (Blue), #7FB800 (Green), #FFB400 (Yellow), #F6511D (Orange), and #2D3142 (Dark text). This is to visually distinguish the course content while maintaining overall professionalism.
+        Application Structure Plan: This page is a detailed infographic/landing page for a specific course. It's structured vertically with sections for key course info, methodology, program timeline, and outcomes. It includes an interactive doughnut chart for methodology and custom CSS for a vertical timeline to present the course program. A new modal for course registration has been added.
+        Visualization & Content Choices: Uses Chart.js for data visualization (doughnut chart) and custom CSS for a vertical timeline. Emoji icons are used for visual appeal in the KPI section, "Lo que Lograrás", "Perfil del Participante Ideal", and "Metodología" sections. Images are removed from "Lo que Lograrás" and "Perfil del Participante Ideal". The registration form is implemented within a modal for a smooth user experience.
+        CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1A202C; /* Default text color, similar to Tailwind's gray-900 */
+            background-color: #f8fafc; /* Tailwind's gray-50 */
+        }
+        .tech-blue { color: #0077C9; } /* Main site accent color */
+        .tech-blue-bg { background-color: #0077C9; }
+        .tech-blue-border { border-color: #0077C9; }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+            font-weight: 500; /* Medium weight for navigation */
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #0077C9;
+            border-bottom-color: #0077C9;
+        }
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .btn-primary {
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #005699; /* Darker blue on hover */
+            transform: translateY(-2px);
+        }
+
+        /* Course-specific styles */
+        .course-blue { color: #00A6ED; }
+        .course-green { color: #7FB800; }
+        .course-yellow { color: #FFB400; }
+        .course-orange { color: #F6511D; }
+        .course-dark { color: #2D3142; }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        /* Estilos para la línea de tiempo vertical por día */
+        .vertical-timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        .vertical-timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #00A6ED; /* Course Blue line */
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 6px;
+        }
+        .vertical-timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        .vertical-timeline-item.left {
+            left: 0;
+        }
+        .vertical-timeline-item.right {
+            left: 50%;
+        }
+        .vertical-timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px;
+            background-color: white;
+            border: 4px solid #FFB400; /* Course Yellow dot */
+            top: 28px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .vertical-timeline-item.right::after {
+            left: -13px;
+        }
+        .vertical-timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-top: 5px solid; /* For week color */
+        }
+        .vertical-timeline-content.week1 {
+            border-top-color: #00A6ED; /* Course Blue for Week 1 */
+        }
+        .vertical-timeline-content.week2 {
+            border-top-color: #7FB800; /* Course Green for Week 2 */
+        }
+
+        @media screen and (max-width: 768px) {
+            .vertical-timeline::after {
+                left: 31px;
+            }
+            .vertical-timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .vertical-timeline-item.right {
+                left: 0%;
+            }
+            .vertical-timeline-item.left::after, .vertical-timeline-item.right::after {
+                left: 18px;
+            }
+        }
+
+        /* Modal specific styles */
+        .modal {
+            display: none; /* Hidden by default - CORRECTED */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+            align-items: center; /* Used for centering content when display: flex */
+            justify-content: center; /* Used for centering content when display: flex */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        @keyframes animatetop {
+            from {top: -300px; opacity: 0}
+            to {top: 0; opacity: 1}
+        }
+        .error-message {
+            color: #ef4444; /* Tailwind red-500 */
+            font-size: 0.875rem; /* text-sm */
+            margin-top: 0.25rem;
+        }
+        .form-message {
+            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-align: center;
+        }
+        .form-message.success {
+            background-color: #d1fae5; /* Tailwind green-100 */
+            color: #065f46; /* Tailwind green-800 */
+        }
+        .form-message.error {
+            background-color: #fee2e2; /* Tailwind red-100 */
+            color: #991b1b; /* Tailwind red-800 */
+        }
+    </style>
+</head>
+<body class="text-[#2D3142]">
+
+    <!-- Header & Navigation (Consistent with other pages) -->
+    <header id="header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-extrabold tech-blue">TechBridge Consulting Systems</a>
+            <nav class="hidden md:flex space-x-10">
+                <a href="index.html" class="nav-link text-gray-700">Inicio</a>
+                <a href="nosotros.html" class="nav-link text-gray-700">Nosotros</a>
+                <a href="cursos.html" class="nav-link text-gray-700 active">Servicios</a> <!-- Link to the new courses directory -->
+                <a href="contacto.html" class="nav-link text-gray-700">Contacto</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="md:hidden bg-white shadow-lg hidden">
+            <a href="index.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Inicio</a>
+            <a href="nosotros.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Nosotros</a>
+            <a href="cursos.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 active">Servicios</a> <!-- Link to the new courses directory -->
+            <a href="contacto.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Contacto</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <header class="bg-white shadow-md p-8 text-center rounded-lg mb-8">
+            <h1 id="courseTitle" class="text-4xl md:text-5xl font-black course-blue uppercase tracking-wide">📊 Curso Excel Profesional</h1>
+            <p class="mt-4 text-xl md:text-2xl font-bold">Transforma tu Productividad Laboral con Excel</p>
+            <p class="max-w-3xl mx-auto mt-4 text-gray-600">
+                En el mundo laboral actual, Excel no es solo una herramienta más: es el motor de la productividad que distingue a los profesionales exitosos. Esta es una guía visual de cómo nuestro curso te convertirá en un experto.<br>
+            </p>
+        </header>
+
+        <section id="kpis" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 md:justify-center">
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center transform hover:scale-105 transition-transform duration-300">
+                <div class="text-5xl mb-4">⏱️</div>
+                <h3 class="text-xl font-bold course-blue">Duración Total</h3>
+                <p class="text-4xl font-extrabold mt-2">10 Horas</p>
+                <p class="text-gray-500">(2 semanas, 1 hora diaria)</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center transform hover:scale-105 transition-transform duration-300">
+                <div class="text-5xl mb-4">💻</div>
+                <h3 class="text-xl font-bold course-blue">Modalidad</h3>
+                <p class="text-4xl font-extrabold mt-2">100% Online</p>
+                <p class="text-gray-500">Interactivo y práctico</p>
+            </div>
+        </section>
+
+        <!-- Metodología de Aprendizaje - Chart re-added with values below -->
+        <section id="methodology" class="mb-16">
+            <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="text-3xl font-black course-green mb-4">🎓 Metodología de Aprendizaje 70-20-10</h2>
+                        <p class="text-lg mb-4">
+                            Nuestro enfoque está diseñado para maximizar la retención y aplicación del conocimiento. No solo aprenderás teoría, sino que aplicarás cada concepto en escenarios del mundo real.
+                        </p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start"><span class="course-green font-bold mr-2">■ 70% Práctica:</span> Ejercicios reales con casos empresariales.</li>
+                            <li class="flex items-start"><span class="course-yellow font-bold mr-2">■ 20% Interacción:</span> Discusión de casos y resolución de dudas.</li>
+                            <li class="flex items-start"><span class="course-orange font-bold mr-2">■ 10% Teoría:</span> Conceptos esenciales explicados de forma clara.</li>
+                        </ul>
+                    </div>
+                    <div class="chart-container flex flex-col justify-center items-center">
+                        <canvas id="methodologyChart"></canvas>
+                        <!-- Values displayed below the chart -->
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="program" class="mb-16">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8">📅 Programa del Curso</h2>
+            
+            <div class="vertical-timeline">
+                <!-- Semana 1 -->
+                <div class="vertical-timeline-item left">
+                    <div class="vertical-timeline-content bg-transparent shadow-none border-t-0 border-b-0 text-center">
+                        <h3 class="font-bold text-2xl course-blue mb-4">Semana 1: Fundamentos Sólidos</h3>
+                        <p class="text-gray-600">Construye una base robusta para dominar Excel desde el primer día.</p>
+                    </div>
+                </div>
+                <div class="vertical-timeline-item right">
+                    <div class="vertical-timeline-content week1">
+                        <div class="text-3xl course-blue mb-2">⚙️</div>
+                        <h4 class="font-bold text-lg course-dark mb-1">DÍA 1: Navegación y Configuración Profesional</h4>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Optimizar tu entorno de trabajo en Excel.</p>
+                        <ul class="list-none text-sm text-gray-600 space-y-1">
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Configuración avanzada:</strong> Personaliza la interfaz y barras de herramientas.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Navegación rápida:</strong> Domina atajos de teclado esenciales.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Práctica:</strong> Configura tu espacio de trabajo ideal.<br>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vertical-timeline-item left">
+                    <div class="vertical-timeline-content week1">
+                        <div class="text-3xl course-blue mb-2">➕</div>
+                        <h4 class="font-bold text-lg course-dark mb-1">DÍA 2: Fórmulas Fundamentales que Cambian Todo</h4>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Automatizar cálculos y decisiones básicas.</p>
+                        <ul class="list-none text-sm text-gray-600 space-y-1">
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Referencias:</strong> Relativas, absolutas y mixtas.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Funciones básicas:</strong> SUMA, PROMEDIO, MAX, MIN.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Lógica:</strong> Tu primera decisión inteligente con la función SI.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Práctica:</strong> Crea una calculadora de presupuesto personal.<br>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vertical-timeline-item right">
+                    <div class="vertical-timeline-content week1">
+                        <div class="text-3xl course-blue mb-2">🧹</div>
+                        <h4 class="font-bold text-lg course-dark mb-1">DÍA 3: Funciones de Texto y Limpieza de Datos</h4>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Preparar y organizar tus datos eficientemente.</p>
+                        <ul class="list-none text-sm text-gray-600 space-y-1">
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Manipulación de texto:</strong> CONCATENAR, EXTRAE, IZQUIERDA, DERECHA.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Formato de texto:</strong> MAYUSC, MINUSC, NOMPROPIO.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Limpieza:</strong> ESPACIOS y LIMPIAR, técnicas para bases de datos.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Práctica:</strong> Organiza una lista de contactos desordenada.<br>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vertical-timeline-item left">
+                    <div class="vertical-timeline-content week1">
+                        <div class="text-3xl course-blue mb-2">⏰</div>
+                        <h4 class="font-bold text-lg course-dark mb-1">DÍA 4: Funciones de Fecha y Tiempo</h4>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Gestionar y analizar datos temporales.</p>
+                        <ul class="list-none text-sm text-gray-600 space-y-1">
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Fechas actuales:</strong> AHORA, HOY, FECHA.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Cálculo de periodos:</strong> DATEDIF.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Formato y cálculos:</strong> Personalización de fechas y horarios.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Práctica:</strong> Desarrolla un sistema de antigüedad de empleados.<br>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vertical-timeline-item right">
+                    <div class="vertical-timeline-content week1">
+                        <div class="text-3xl course-blue mb-2">🔍</div>
+                        <h4 class="font-bold text-lg course-dark mb-1">DÍA 5: Funciones de Búsqueda y Referencia</h4>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Conectar y extraer información clave.</p>
+                        <ul class="list-none text-sm text-gray-600 space-y-1">
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Búsquedas:</strong> BUSCARV, BUSCARH, XLOOKUP (función moderna).<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Combinación poderosa:</strong> INDICE y COINCIDIR.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-blue mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Práctica:</strong> Crea un sistema de consulta de productos y precios.<br>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Separador de Semanas -->
+                <div class="vertical-timeline-item left">
+                    <div class="vertical-timeline-content bg-transparent shadow-none border-t-0 border-b-0 text-center">
+                        <h3 class="font-bold text-2xl course-green mt-8 mb-4">Semana 2: Análisis y Visualización Avanzada</h3>
+                        <p class="text-gray-600">Transforma datos en decisiones estratégicas y presentaciones impactantes.</p>
+                    </div>
+                </div>
+
+                <div class="vertical-timeline-item right">
+                    <div class="vertical-timeline-content week2">
+                        <div class="text-3xl course-green mb-2">💡</div>
+                        <h4 class="font-bold text-lg course-dark mb-1">DÍA 6: Funciones Lógicas y Condicionales</h4>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Implementar lógica de negocio compleja.</p>
+                        <ul class="list-none text-sm text-gray-600 space-y-1">
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Lógica avanzada:</strong> SI anidadas, Y, O, NO.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Evaluaciones múltiples:</strong> SI.CONJUNTO.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Conteo y suma condicional:</strong> CONTAR.SI, SUMAR.SI.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Práctica:</strong> Diseña un sistema de comisiones por vendedor.<br>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vertical-timeline-item left">
+                    <div class="vertical-timeline-content week2">
+                        <div class="text-3xl course-green mb-2">📈</div>
+                        <h4 class="font-bold text-lg course-dark mb-1">DÍA 7: Herramientas de Análisis de Datos</h4>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Descubrir patrones y tendencias en tus datos.</p>
+                        <ul class="list-none text-sm text-gray-600 space-y-1">
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Organización de datos:</strong> Filtros avanzados y subtotales.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Análisis dinámico:</strong> Tablas dinámicas básicas.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Integridad de datos:</strong> Validación de datos.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Práctica:</strong> Realiza un análisis de ventas por región y producto.<br>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vertical-timeline-item right">
+                    <div class="vertical-timeline-content week2">
+                        <div class="text-3xl course-green mb-2">📊</div>
+                        <h4 class="font-bold text-lg course-dark mb-1">DÍA 8: Visualización de Datos Impactante</h4>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Crear gráficos que comunican y convencen.</p>
+                        <ul class="list-none text-sm text-gray-600 space-y-1">
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Selección de gráficos:</strong> Tipos y cuándo usarlos.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Personalización:</strong> Avanzada de gráficos y combinados.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Minigráficos:</strong> Sparklines para tendencias rápidas.<br>
+                                    </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Práctica:</strong> Construye un dashboard ejecutivo de KPIs.<br>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vertical-timeline-item left">
+                    <div class="vertical-timeline-content week2">
+                        <div class="text-3xl course-green mb-2">💰</div>
+                        <h4 class="font-bold text-lg course-dark mb-1">DÍA 9: Funciones Financieras y Estadísticas</h4>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Realizar análisis financiero y estadístico profesional.</p>
+                        <ul class="list-none text-sm text-gray-600 space-y-1">
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Análisis de inversión:</strong> VPN, TIR, PAGO.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Estadísticas descriptivas:</strong> DESVEST, MEDIANA, MODA.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Proyecciones:</strong> Análisis de tendencias y proyecciones simples.<br>
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Práctica:</strong> Evalúa un proyecto de inversión.<br>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vertical-timeline-item right">
+                    <div class="vertical-timeline-content week2">
+                        <div class="text-3xl course-green mb-2">🤖</div>
+                        <h4 class="font-bold text-lg course-dark mb-1">DÍA 10: Automatización y Proyecto Final</h4>
+                        <p class="text-sm text-gray-700 mb-2"><strong>Objetivo:</strong> Automatizar tareas repetitivas y consolidar conocimientos.</p>
+                        <ul class="list-none text-sm text-gray-600 space-y-1">
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Grabación de Macros:</strong> Automatiza tus acciones diarias.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Botones y Asignación:</strong> Crea interfaces sencillas.
+                                </div>
+                            </li>
+                            <li class="flex">
+                                <span class="course-green mr-2 flex-shrink-0">▪</span>
+                                <div>
+                                    <strong>Proyecto Final:</strong> Aplica todo lo aprendido en un caso integral.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What You Will Achieve (Lo que Lograrás) - Updated Section -->
+        <section id="achievements" class="mb-16 bg-white rounded-lg shadow-xl p-8">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8">🚀 Lo que Lograrás</h2>
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="md:w-full">
+                    <p class="text-lg text-gray-600 mb-6 text-center">
+                        Al finalizar este curso, no solo dominarás Excel, sino que transformarás tu forma de trabajar con resultados tangibles:
+                    </p>
+                    <ul class="space-y-4 text-gray-700 text-lg max-w-2xl mx-auto">
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">📊</span>
+                            <div>
+                                <strong class="course-blue">Análisis de Datos Avanzado:</strong> Convierte grandes volúmenes de datos en insights claros para decisiones estratégicas.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">⚙️</span>
+                            <div>
+                                <strong class="course-blue">Automatización Eficiente:</strong> Ahorra horas de trabajo repetitivo creando macros y flujos automatizados.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">📈</span>
+                            <div>
+                                <strong class="course-blue">Visualizaciones Impactantes:</strong> Diseña gráficos y dashboards profesionales que comunican y persuaden.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">💰</span>
+                            <div>
+                                <strong class="course-blue">Modelado Financiero Sólido:</strong> Realiza proyecciones, presupuestos y análisis de inversión con confianza.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">✅</span>
+                            <div>
+                                <strong class="course-blue">Resolución de Problemas:</strong> Aplica funciones y herramientas avanzadas para encontrar soluciones rápidas y efectivas a desafíos complejos.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ideal Participant Profile (Perfil del Participante Ideal) - Updated Section -->
+        <section id="ideal-participant" class="mb-16 bg-white rounded-lg shadow-xl p-8">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8">🎯 ¿Este Curso es Para Ti? Perfil del Participante Ideal</h2>
+            <div class="flex flex-col md:flex-row-reverse items-center gap-8">
+                <div class="md:w-full">
+                    <p class="text-lg text-gray-600 mb-6 text-center">
+                        Este curso de Excel está diseñado para cualquier persona que busque potenciar sus habilidades y su carrera. Es ideal si:
+                    </p>
+                    <ul class="space-y-4 text-gray-700 text-lg max-w-2xl mx-auto">
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">💡</span>
+                            <div>
+                                <strong class="course-green">Buscas eficiencia:</strong> Quieres optimizar tu tiempo y automatizar tareas repetitivas en tu trabajo diario.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">📈</span>
+                            <div>
+                                <strong class="course-green">Necesitas analizar datos:</strong> Trabajas con información y requieres herramientas para interpretarla y presentarla de forma efectiva.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">🚀</span>
+                            <div>
+                                <strong class="course-green">Deseas avanzar profesionalmente:</strong> Comprendes que el dominio de Excel es clave para tu desarrollo y nuevas oportunidades laborales.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">✅</span>
+                            <div>
+                                <strong class="course-green">Quieres tomar mejores decisiones:</strong> Buscas transformar datos en información valiosa para una toma de decisiones más informada.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-2xl mr-3">🌟</span>
+                            <div>
+                                <strong class="course-green">Te consideras un aprendiz constante:</strong> Estás dispuesto a invertir en tus habilidades para ser más productivo y competitivo.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <p class="text-center text-lg text-gray-600 max-w-3xl mx-auto mt-8 font-bold">
+                Si manejas datos, creas reportes o simplemente quieres ser más eficiente en tu trabajo, este curso es para ti.
+            </p>
+        </section>
+
+        <!-- Call to Action (Enrollment) - Reverted to previous version -->
+        <section id="enrollment-cta" class="bg-gray-900 text-white rounded-lg shadow-xl p-8 text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-black text-white mb-4">¿Listo para dar el siguiente paso?</h2>
+            <p class="text-lg text-gray-300 mb-8">
+                Cumple con los requisitos básicos y únete a cientos de profesionales que ya han transformado su carrera con nosotros.
+            </p>
+            <button id="openEnrollmentModal" class="btn-primary inline-block bg-[#00A6ED] text-white font-bold py-3 px-8 rounded-full shadow-xl hover:bg-[#0077C9] text-lg">
+                ¡Inscríbete Ahora!
+            </button>
+        </section>
+
+    </main>
+
+    <!-- Enrollment Modal -->
+    <div id="enrollmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 class="text-3xl font-bold course-blue mb-6 text-center">Inscripción al Curso de Excel</h2>
+            <form id="enrollmentForm" class="space-y-6" action="https://script.google.com/macros/s/AKfycbzjGkMWV9C0XX6Do4CpywS142LsR9XyIO8wFzlHZutxm1In-15OWXqAGHbZ5Wuj3wGi/exec" method="POST">
+                <div>
+                    <label for="enroll_nombre" class="block text-gray-700 font-semibold mb-2">Nombre Completo <span class="text-red-500">*</span></label>
+                    <input type="text" id="enroll_nombre" name="Nombre Completo" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]" required>
+                    <p id="error-enroll_nombre" class="error-message hidden">El nombre completo es obligatorio.</p>
+                </div>
+                <div>
+                    <label for="enroll_email" class="block text-gray-700 font-semibold mb-2">Email <span class="text-red-500">*</span></label>
+                    <input type="email" id="enroll_email" name="Email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]" required>
+                    <p id="error-enroll_email" class="error-message hidden">Por favor, introduce un email válido.</p>
+                </div>
+                <div>
+                    <label for="enroll_telefono" class="block text-gray-700 font-semibold mb-2">Teléfono <span class="text-red-500">*</span></label>
+                    <input type="tel" id="enroll_telefono" name="Teléfono" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]" required pattern="[0-9]{10,15}">
+                    <p id="error-enroll_telefono" class="error-message hidden">El teléfono es obligatorio y debe contener solo números (10-15 dígitos).</p>
+                </div>
+                <div>
+                    <label for="enroll_empresa" class="block text-gray-700 font-semibold mb-2">Empresa (Opcional)</label>
+                    <input type="text" id="enroll_empresa" name="Empresa" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]">
+                </div>
+                <div>
+                    <label for="enroll_como_te_enteraste" class="block text-gray-700 font-semibold mb-2">¿Cómo te enteraste del curso? <span class="text-red-500">*</span></label>
+                    <select id="enroll_como_te_enteraste" name="Como te enteraste" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="Búsqueda en Google">Búsqueda en Google</option>
+                        <option value="Redes Sociales">Redes Sociales</option>
+                        <option value="Recomendación">Recomendación</option>
+                        <option value="Publicidad">Publicidad</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                    <p id="error-enroll_como_te_enteraste" class="error-message hidden">Este campo es obligatorio.</p>
+                </div>
+                <div>
+                    <label for="enroll_interes_curso" class="block text-gray-700 font-semibold mb-2">Describe tu interés en el curso</label>
+                    <textarea id="enroll_interes_curso" name="Interes en el curso" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]"></textarea>
+                </div>
+                <!-- Hidden field for auto-populating the course name -->
+                <input type="hidden" id="enroll_curso_inscrito" name="Curso Inscrito" value="Excel Profesional Básico a Intermedio">
+
+                <button type="submit" class="w-full bg-[#00A6ED] text-white font-bold py-3 px-6 rounded-lg hover:bg-[#0077C9] transition duration-300">
+                    Confirmar Inscripción
+                </button>
+                <div id="enrollment-form-status-message" class="form-message hidden"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer (Consistent with other pages) -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <div>
+                <h3 class="font-bold text-xl mb-4 tech-blue">TechBridge Consulting Systems</h3>
+                <p class="text-sm text-gray-400">"Sistemas que conectan, consultoría que transforma"</p>
+                <p class="text-xs text-gray-500 mt-4">&copy; 2025 TechBridge Consulting Systems | Todos los derechos reservados</p>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Servicios</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="infraestructura-conectividad.html" class="hover:text-white transition duration-200">Redes Informáticas</a></li>
+                    <li><a href="infraestructura-conectividad.html" class="hover:text-white transition duration-200">Soporte Técnico</a></li>
+                    <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power Platform</a></li>
+                    <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power BI</a></li>
+                    <li><a href="cursos.html" class="hover:text-white transition duration-200 active">Capacitación</a></li> 
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Empresa</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="nosotros.html" class="hover:text-white transition duration-200">Nosotros</a></li>
+                    <li><a href="nosotros.html#metodologia" class="hover:text-white transition duration-200">Metodología</a></li>
+                    <li><a href="contacto.html" class="hover:text-white transition duration-200">Contacto</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Contacto</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li>📍 Ciudad de México, México</li>
+                    <li>📞 +52 55 XXXX-XXXX</li>
+                    <li>📧 contacto@tbcs.com.mx</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = document.querySelectorAll('nav a');
+            const sections = document.querySelectorAll('section');
+            const header = document.getElementById('header');
+            let headerHeight = 0; 
+
+            window.addEventListener('load', () => {
+                headerHeight = header.offsetHeight;
+                updateSectionObserver();
+            });
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            function updateSectionObserver() {
+                const observerOptions = {
+                    root: null,
+                    rootMargin: `-${headerHeight + 1}px 0px 0px 0px`, 
+                    threshold: 0.3 
+                };
+
+                const sectionObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const id = entry.target.getAttribute('id');
+                            navLinks.forEach(link => {
+                                link.classList.remove('active');
+                                const linkHref = link.getAttribute('href');
+                                const currentFileName = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+                                if (linkHref === currentFileName && !linkHref.includes('#')) { 
+                                    link.classList.add('active');
+                                } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
+                                    link.classList.add('active');
+                                }
+                            });
+                            mobileMenu.querySelectorAll('a').forEach(link => {
+                                link.classList.remove('active');
+                                const linkHref = link.getAttribute('href');
+                                const currentFileName = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+                                if (linkHref === currentFileName && !linkHref.includes('#')) {
+                                    link.classList.add('active');
+                                } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
+                                    link.classList.add('active');
+                                }
+                            });
+                        }
+                    });
+                }, observerOptions);
+
+                sections.forEach(section => {
+                    sectionObserver.observe(section);
+                });
+            }
+
+            updateSectionObserver();
+
+            const fadeObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                fadeObserver.observe(section);
+            });
+
+            // Chart.js - Methodology Chart (Doughnut) - Re-initialized
+            const methodologyCtx = document.getElementById('methodologyChart').getContext('2d');
+            const methodologyChart = new Chart(methodologyCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['70% Práctica', '20% Interacción', '10% Teoría'],
+                    datasets: [{
+                        data: [70, 20, 10],
+                        backgroundColor: [
+                            'rgba(127, 184, 0, 0.8)', // Course Green
+                            'rgba(255, 180, 0, 0.8)', // Course Yellow
+                            'rgba(246, 81, 29, 0.8)'  // Course Orange
+                        ],
+                        borderColor: [
+                            'rgba(127, 184, 0, 1)',
+                            'rgba(255, 180, 0, 1)',
+                            'rgba(246, 81, 29, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false, // Hide default legend as values are displayed below
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += context.parsed + '%';
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Modal Logic for Enrollment Form
+            const enrollmentModal = document.getElementById('enrollmentModal');
+            const openEnrollmentModalBtn = document.getElementById('openEnrollmentModal');
+            const closeEnrollmentButton = enrollmentModal ? enrollmentModal.querySelector('.close-button') : null;
+
+
+            const enrollmentForm = document.getElementById('enrollmentForm');
+            const enrollmentFormStatusMessage = document.getElementById('enrollment-form-status-message');
+
+            // Add console logs for debugging
+            console.log('openEnrollmentModalBtn:', openEnrollmentModalBtn);
+            console.log('closeEnrollmentButton:', closeEnrollmentButton);
+
+            const openEnrollModal = () => {
+                enrollmentModal.style.display = 'flex';
+                enrollmentForm.reset();
+                document.querySelectorAll('#enrollmentForm .error-message').forEach(el => el.classList.add('hidden'));
+                enrollmentFormStatusMessage.classList.add('hidden');
+            };
+
+            // Safely attach event listeners
+            if (openEnrollmentModalBtn) {
+                openEnrollmentModalBtn.addEventListener('click', openEnrollModal);
+            } else {
+                console.error("Error: Element with ID 'openEnrollmentModal' not found. Cannot attach click listener.");
+            }
+
+            if (closeEnrollmentButton) {
+                closeEnrollmentButton.addEventListener('click', () => {
+                    enrollmentModal.style.display = 'none';
+                    enrollmentForm.reset();
+                    document.querySelectorAll('#enrollmentForm .error-message').forEach(el => el.classList.add('hidden'));
+                    enrollmentFormStatusMessage.classList.add('hidden');
+                });
+            } else {
+                console.error("Error: Element with class 'close-button' inside 'enrollmentModal' not found. Cannot attach click listener.");
+            }
+
+            window.addEventListener('click', (event) => {
+                if (event.target == enrollmentModal) {
+                    enrollmentModal.style.display = 'none';
+                    enrollmentForm.reset();
+                    document.querySelectorAll('#enrollmentForm .error-message').forEach(el => el.classList.add('hidden'));
+                    enrollmentFormStatusMessage.classList.add('hidden');
+                }
+            });
+
+            enrollmentForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                let isValid = true;
+                const formData = new FormData(enrollmentForm);
+                const data = {};
+                formData.forEach((value, key) => {
+                    data[key] = value;
+                });
+
+                document.querySelectorAll('#enrollmentForm .error-message').forEach(el => el.classList.add('hidden'));
+                enrollmentFormStatusMessage.classList.add('hidden');
+
+                if (!data['Nombre Completo'] || !data['Nombre Completo'].trim()) {
+                    document.getElementById('error-enroll_nombre').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!data['Email'] || !data['Email'].trim() || !emailRegex.test(data['Email'])) {
+                    document.getElementById('error-enroll_email').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                const phoneRegex = /^[0-9]{10,15}$/;
+                if (!data['Teléfono'] || !data['Teléfono'].trim() || !phoneRegex.test(data['Teléfono'])) {
+                    document.getElementById('error-enroll_telefono').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // Validate Como te enteraste
+                if (!data['Como te enteraste'] || !data['Como te enteraste'].trim()) {
+                    document.getElementById('error-enroll_como_te_enteraste').classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // No specific validation for Interes en el curso as it's optional
+
+                if (!isValid) {
+                    enrollmentFormStatusMessage.textContent = 'Por favor, corrige los errores en el formulario.';
+                    enrollmentFormStatusMessage.className = 'form-message error';
+                    enrollmentFormStatusMessage.classList.remove('hidden');
+                    return;
+                }
+
+                enrollmentFormStatusMessage.textContent = 'Enviando inscripción...';
+                enrollmentFormStatusMessage.className = 'form-message';
+                enrollmentFormStatusMessage.classList.remove('hidden');
+
+                try {
+                    const response = await fetch(enrollmentForm.action, {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (response.ok) {
+                        enrollmentFormStatusMessage.textContent = '¡Inscripción enviada con éxito! Nos pondremos en contacto contigo pronto.';
+                        enrollmentFormStatusMessage.className = 'form-message success';
+                        enrollmentForm.reset();
+                        setTimeout(() => {
+                            enrollmentModal.style.display = 'none';
+                            enrollmentFormStatusMessage.classList.add('hidden');
+                        }, 3000);
+                    } else {
+                        throw new Error('Error al enviar la inscripción.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    enrollmentFormStatusMessage.textContent = 'Hubo un error al enviar tu inscripción. Por favor, inténtalo de nuevo.';
+                    enrollmentFormStatusMessage.className = 'form-message error';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
