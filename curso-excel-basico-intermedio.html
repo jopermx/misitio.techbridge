@@ -735,26 +735,26 @@
             <form id="enrollmentForm" class="space-y-6" action="https://script.google.com/macros/s/AKfycbzjGkMWV9C0XX6Do4CpywS142LsR9XyIO8wFzlHZutxm1In-15OWXqAGHbZ5Wuj3wGi/exec" method="POST">
                 <div>
                     <label for="enroll_nombre" class="block text-gray-700 font-semibold mb-2">Nombre Completo <span class="text-red-500">*</span></label>
-                    <input type="text" id="enroll_nombre" name="nombre" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]" required>
+                    <input type="text" id="enroll_nombre" name="Nombre Completo" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]" required>
                     <p id="error-enroll_nombre" class="error-message hidden">El nombre completo es obligatorio.</p>
                 </div>
                 <div>
                     <label for="enroll_email" class="block text-gray-700 font-semibold mb-2">Email <span class="text-red-500">*</span></label>
-                    <input type="email" id="enroll_email" name="email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]" required>
+                    <input type="email" id="enroll_email" name="Email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]" required>
                     <p id="error-enroll_email" class="error-message hidden">Por favor, introduce un email válido.</p>
                 </div>
                 <div>
                     <label for="enroll_telefono" class="block text-gray-700 font-semibold mb-2">Teléfono <span class="text-red-500">*</span></label>
-                    <input type="tel" id="enroll_telefono" name="telefono" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]" required pattern="[0-9]{10,15}">
+                    <input type="tel" id="enroll_telefono" name="Teléfono" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]" required pattern="[0-9]{10,15}">
                     <p id="error-enroll_telefono" class="error-message hidden">El teléfono es obligatorio y debe contener solo números (10-15 dígitos).</p>
                 </div>
                 <div>
                     <label for="enroll_empresa" class="block text-gray-700 font-semibold mb-2">Empresa (Opcional)</label>
-                    <input type="text" id="enroll_empresa" name="empresa" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]">
+                    <input type="text" id="enroll_empresa" name="Empresa" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]">
                 </div>
                 <div>
                     <label for="enroll_como_te_enteraste" class="block text-gray-700 font-semibold mb-2">¿Cómo te enteraste del curso? <span class="text-red-500">*</span></label>
-                    <select id="enroll_como_te_enteraste" name="como_te_enteraste" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]" required>
+                    <select id="enroll_como_te_enteraste" name="Como te enteraste" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]" required>
                         <option value="">Selecciona una opción</option>
                         <option value="Búsqueda en Google">Búsqueda en Google</option>
                         <option value="Redes Sociales">Redes Sociales</option>
@@ -766,10 +766,10 @@
                 </div>
                 <div>
                     <label for="enroll_interes_curso" class="block text-gray-700 font-semibold mb-2">Describe tu interés en el curso</label>
-                    <textarea id="enroll_interes_curso" name="interes_curso" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]"></textarea>
+                    <textarea id="enroll_interes_curso" name="Interes en el curso" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A6ED]"></textarea>
                 </div>
                 <!-- Hidden field for auto-populating the course name -->
-                <input type="hidden" id="enroll_curso_inscrito" name="curso_inscrito" value="Excel Profesional Básico a Intermedio">
+                <input type="hidden" id="enroll_curso_inscrito" name="Curso Inscrito" value="Excel Profesional Básico a Intermedio">
 
                 <button type="submit" class="w-full bg-[#00A6ED] text-white font-bold py-3 px-6 rounded-lg hover:bg-[#0077C9] transition duration-300">
                     Confirmar Inscripción
@@ -999,30 +999,30 @@
                 document.querySelectorAll('#enrollmentForm .error-message').forEach(el => el.classList.add('hidden'));
                 enrollmentFormStatusMessage.classList.add('hidden');
 
-                if (!data['nombre'] || !data['nombre'].trim()) {
+                if (!data['Nombre Completo'] || !data['Nombre Completo'].trim()) {
                     document.getElementById('error-enroll_nombre').classList.remove('hidden');
                     isValid = false;
                 }
 
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!data['email'] || !data['email'].trim() || !emailRegex.test(data['email'])) {
+                if (!data['Email'] || !data['Email'].trim() || !emailRegex.test(data['Email'])) {
                     document.getElementById('error-enroll_email').classList.remove('hidden');
                     isValid = false;
                 }
 
                 const phoneRegex = /^[0-9]{10,15}$/;
-                if (!data['telefono'] || !data['telefono'].trim() || !phoneRegex.test(data['telefono'])) {
+                if (!data['Teléfono'] || !data['Teléfono'].trim() || !phoneRegex.test(data['Teléfono'])) {
                     document.getElementById('error-enroll_telefono').classList.remove('hidden');
                     isValid = false;
                 }
 
                 // Validate Como te enteraste
-                if (!data['como_te_enteraste'] || !data['como_te_enteraste'].trim()) {
+                if (!data['Como te enteraste'] || !data['Como te enteraste'].trim()) {
                     document.getElementById('error-enroll_como_te_enteraste').classList.remove('hidden');
                     isValid = false;
                 }
 
-                // No specific validation for interes_curso as it's optional
+                // No specific validation for Interes en el curso as it's optional
 
                 if (!isValid) {
                     enrollmentFormStatusMessage.textContent = 'Por favor, corrige los errores en el formulario.';
