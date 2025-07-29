@@ -55,9 +55,12 @@
     <!-- Header & Navigation -->
     <header id="header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-extrabold tech-blue">
+            <!-- INICIO DEL BLOQUE CORREGIDO PARA EL LOGO Y TEXTO -->
+            <a href="index.html" class="flex items-center">
                 <img src="/img/logo_tbcs.png" alt="TechBridge Consulting Systems Logo" class="h-10 w-auto mr-3 rounded-md">
+                <span class="text-2xl font-extrabold tech-blue">TechBridge Consulting Systems</span>
             </a>
+            <!-- FIN DEL BLOQUE CORREGIDO -->
             <nav class="hidden md:flex space-x-10">
                 <a href="index.html" class="nav-link text-gray-700 active">Inicio</a>
                 <a href="nosotros.html" class="nav-link text-gray-700">Nosotros</a>
@@ -178,7 +181,7 @@
         </section>
 
         <!-- Call to Action Section -->
-              <section class="py-16 md:py-24">
+        <section class="py-16 md:py-24">
             <div class="container mx-auto px-6 max-w-4xl">
                 <div class="flex flex-col items-center text-center">
                     <div class="fade-in-section">
@@ -187,9 +190,9 @@
                             Agenda una consultoría gratuita de 45 minutos para evaluar tus necesidades y diseñar una solución a medida.
                         </p>
                         
-                  <a href="contacto.html" class="btn-primary inline-block bg-[#0077C9] text-white font-bold py-4 px-10 rounded-full shadow-xl hover:bg-blue-700 text-xl">
-                        Contáctanos
-                    </a>
+                    <a href="contacto.html" class="btn-primary inline-block bg-[#0077C9] text-white font-bold py-4 px-10 rounded-full shadow-xl hover:bg-blue-700 text-xl">
+                            Contáctanos
+                        </a>
                     </div>
                 </div>
             </div>
@@ -211,7 +214,7 @@
                     <li><a href="infraestructura-conectividad.html" class="hover:text-white transition duration-200">Soporte Técnico</a></li>
                     <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power Platform</a></li>
                     <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power BI</a></li>
-                    <li><a href="cursos-excel.html" class="hover:text-white transition duration-200">Capacitación</a></li>
+                    <li><a href="cursos.html" class="hover:text-white transition duration-200">Capacitación</a></li>
                     <li><a href="consultoria-estrategica.html" class="hover:text-white transition duration-200">Consultoría Estratégica</a></li>
                 </ul>
             </div>
@@ -276,10 +279,10 @@
                                 link.classList.add('active');
                             } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
                                 link.classList.add('active');
-                            } else if (currentFileName === 'cursos-excel.html' && linkHref === 'cursos-excel.html') {
+                            } else if (currentFileName === 'cursos.html' && linkHref === 'cursos.html') {
                                 // Explicitly activate 'Servicios' link if on the courses directory page
                                 link.classList.add('active');
-                            } else if (currentFileName === 'curso-excel-basico-intermedio.html' && linkHref === 'cursos-excel.html') {
+                            } else if (currentFileName === 'curso-excel-basico-intermedio.html' && linkHref === 'cursos.html') {
                                 // If on a specific course page, activate the parent 'Servicios' (courses directory) link
                                 link.classList.add('active');
                             } else if (currentFileName === 'consultoria-estrategica.html' && linkHref === 'index.html#servicios-preview') {
@@ -296,9 +299,9 @@
                                 link.classList.add('active');
                             } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
                                 link.classList.add('active');
-                            } else if (currentFileName === 'cursos-excel.html' && linkHref === 'cursos-excel.html') {
+                            } else if (currentFileName === 'cursos.html' && linkHref === 'cursos.html') {
                                 link.classList.add('active');
-                            } else if (currentFileName === 'curso-excel-basico-intermedio.html' && linkHref === 'cursos-excel.html') {
+                            } else if (currentFileName === 'curso-excel-basico-intermedio.html' && linkHref === 'cursos.html') {
                                 link.classList.add('active');
                             } else if (currentFileName === 'consultoria-estrategica.html' && linkHref === 'index.html#servicios-preview') {
                                 link.classList.add('active');
