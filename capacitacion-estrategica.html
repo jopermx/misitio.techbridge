@@ -25,7 +25,7 @@
         .nav-link {
             transition: color 0.3s, border-bottom-color 0.3s;
             border-bottom: 2px solid transparent;
-            font-weight: 500; /* Medium weight for navigation */
+            font-weight: 500; 
         }
         .nav-link.active, .nav-link:hover {
             color: #0077C9;
@@ -44,17 +44,23 @@
             transition: background-color 0.3s, transform 0.2s;
         }
         .btn-primary:hover {
-            background-color: #005699; /* Darker blue on hover */
+            background-color: #005699;
             transform: translateY(-2px);
         }
     </style>
+        <link rel="icon" type="image/png" href="img/favicon_tbcs.png">
+        <link rel="shortcut icon" href="img/favicon_tbcs.png" type="image/png">
 </head>
 <body class="bg-gray-50">
 
     <!-- Header & Navigation -->
     <header id="header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-extrabold tech-blue">TechBridge Consulting Systems</a>
+             <a href="index.html" class="flex items-center">
+                <img src="img/tbcs.png"
+                alt="TechBridge Consulting Systems Logo"
+                class="h-16 sm:h-20 md:h-24 lg:h-28 w-auto" />
+            </a>
             <nav class="hidden md:flex space-x-10">
                 <a href="index.html" class="nav-link text-gray-700">Inicio</a>
                 <a href="nosotros.html" class="nav-link text-gray-700">Nosotros</a>
@@ -71,6 +77,7 @@
             <a href="index.html#servicios-preview" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 active">Servicios</a>
             <a href="contacto.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Contacto</a>
         </div>
+         
     </header>
 
     <main>
