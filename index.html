@@ -8,15 +8,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="img/favicon_tbcs.png">
-    <link rel="shortcut icon" href="img/favicon_tbcs.png" type="image/png">
-    
+    <!-- 
+        Chosen Palette: Primary accent #0077C9 (TechBridge Blue), complemented by a base of #F8FAFC (light gray/off-white) and #FFFFFF (white) for backgrounds, and #1A202C (dark gray/near black) for primary text. Subtle use of #4A5568 (medium gray) for secondary text.
+        Application Structure Plan: This is the main landing page, designed to be visually engaging and informative. It features a hero section, a brief "About Us" overview, a services preview grid, a client testimonial section, and a call-to-action. The layout is vertical, guiding the user through key information.
+        Visualization & Content Choices: Content is presented using clean typography, icon/emoji usage for visual cues, and distinct headings. The services preview uses a card-based layout. No complex charts or graphs are used to maintain a clean aesthetic.
+        CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            color: #1A202C;
+            color: #1A202C; /* Tailwind's gray-900 */
         }
         .tech-blue { color: #0077C9; }
         .tech-blue-bg { background-color: #0077C9; }
@@ -24,7 +25,7 @@
         .nav-link {
             transition: color 0.3s, border-bottom-color 0.3s;
             border-bottom: 2px solid transparent;
-            font-weight: 500;
+            font-weight: 500; /* Medium weight for navigation */
         }
         .nav-link.active, .nav-link:hover {
             color: #0077C9;
@@ -43,21 +44,24 @@
             transition: background-color 0.3s, transform 0.2s;
         }
         .btn-primary:hover {
-            background-color: #005699;
+            background-color: #005699; /* Darker blue on hover */
             transform: translateY(-2px);
         }
     </style>
+    <!-- Favicon: Usando ruta relativa, que funciona si el HTML está al mismo nivel que la carpeta 'img' -->
+    <link rel="icon" type="image/png" href="img/favicon_tbcs.png">
+    <link rel="shortcut icon" href="img/favicon_tbcs.png" type="image/png">
 </head>
-
 <body class="bg-gray-50">
 
     <!-- Header & Navigation -->
     <header id="header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <!-- INICIO DEL BLOQUE CORREGIDO PARA EL LOGO Y TEXTO -->
+            <!-- BLOQUE CORREGIDO PARA EL LOGO Y TEXTO - DIMENSIONES AJUSTADAS -->
             <a href="index.html" class="flex items-center">
-               <img src="img/tbcs.png" alt="TechBridge Consulting Systems Logo">
-
+                <!-- Se ajusta la altura del logo de h-10 a h-8 para hacerlo más pequeño -->
+                <img src="img/logo_tbcs.png" alt="TechBridge Consulting Systems Logo" class="h-8 w-auto mr-3 rounded-md">
+                <span class="text-2xl font-extrabold tech-blue">TechBridge Consulting Systems</span>
             </a>
             <!-- FIN DEL BLOQUE CORREGIDO -->
             <nav class="hidden md:flex space-x-10">
