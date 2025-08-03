@@ -125,23 +125,14 @@
             @apply absolute top-4 right-4 p-2 rounded-md text-white hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-white;
         }
         .nav-link-mobile {
-            @apply block py-3 px-6 text-white text-lg hover:bg-primary-light transition-colors duration-200;
+            /* Added rounded-md for a softer look on active state */
+            @apply block py-3 px-6 text-white text-lg hover:bg-primary-light transition-colors duration-200 rounded-md mx-2;
         }
         /* Nuevo estilo para el enlace activo en el menú móvil */
         .nav-link-mobile.active-nav-link {
             background-color: var(--primary-light); /* Un color de fondo más claro para indicar activo */
             font-weight: 700; /* Negrita para resaltar */
-            position: relative;
-        }
-        .nav-link-mobile.active-nav-link::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5px; /* Barra lateral para indicar activo */
-            background-color: white;
-            border-radius: 0 3px 3px 0;
+            /* Removed the ::after pseudo-element for the white bar */
         }
 
         /* Responsive rules for navigation */
@@ -644,4 +635,4 @@
         });
     </script>
 </body>
-</ht
+</html>
