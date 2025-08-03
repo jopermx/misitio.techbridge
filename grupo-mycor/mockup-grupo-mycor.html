@@ -125,14 +125,16 @@
             @apply absolute top-4 right-4 p-2 rounded-md text-white hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-white;
         }
         .nav-link-mobile {
-            /* Added rounded-md for a softer look on active state */
             @apply block py-3 px-6 text-white text-lg hover:bg-primary-light transition-colors duration-200 rounded-md mx-2;
         }
-        /* Nuevo estilo para el enlace activo en el menú móvil */
+        /* Estilo para el enlace activo en el menú móvil - ¡Nuevo diseño! */
         .nav-link-mobile.active-nav-link {
-            background-color: var(--primary-light); /* Un color de fondo más claro para indicar activo */
-            font-weight: 700; /* Negrita para resaltar */
-            /* Removed the ::after pseudo-element for the white bar */
+            background-color: var(--card-bg); /* Fondo blanco */
+            color: var(--primary); /* Texto verde primario */
+            font-weight: 700; /* Negrita */
+            box-shadow: var(--shadow); /* Sombra para que se vea como una tarjeta */
+            transform: scale(1.02); /* Ligeramente más grande para destacar */
+            transition: all 0.2s ease; /* Transición suave */
         }
 
         /* Responsive rules for navigation */
