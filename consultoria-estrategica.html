@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultoría Estratégica - TechBridge Consulting Systems</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- 
+        Chosen Palette: Primary accent #0077C9 (TechBridge Blue), complemented by a base of #F8FAFC (light gray/off-white) and #FFFFFF (white) for backgrounds, and #1A202C (dark gray/near black) for primary text. Subtle use of #4A5568 (medium gray) for secondary text.
+        Application Structure Plan: This page details the Strategic Consulting service. It includes a hero section, a section outlining what the service offers, benefits, and a dedicated "Projects" section to showcase case studies. The layout is vertical, consistent with other service pages.
+        Visualization & Content Choices: Content uses clear typography, bullet points, and distinct headings. Emoji icons are used for visual cues. The "Projects" section uses card-based layouts for individual projects.
+        CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1A202C; /* Tailwind's gray-900 */
+        }
+        .tech-blue { color: #0077C9; }
+        .tech-blue-bg { background-color: #0077C9; }
+        .tech-blue-border { border-color: #0077C9; }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+            font-weight: 500; /* Medium weight for navigation */
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #0077C9;
+            border-bottom-color: #0077C9;
+        }
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .btn-primary {
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #005699; /* Darker blue on hover */
+            transform: translateY(-2px);
+        }
+
+        /* Modal specific styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+            align-items: center; /* Used for centering content when display: flex */
+            justify-content: center; /* Used for centering content when display: flex */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 800px; /* Adjusted max-width for better content display */
+            position: relative;
+            animation-name: animatetop;
+            animation-duration: 0.4s;
+            max-height: 90vh; /* Limit height to viewport height */
+            overflow-y: auto; /* Enable scrolling for content if needed */
+        }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        @keyframes animatetop {
+            from {top: -300px; opacity: 0}
+            to {top: 0; opacity: 1}
+        }
+    </style>
+    <!-- Favicon: Usando ruta relativa, que funciona si el HTML está al mismo nivel que la carpeta 'img' -->
+    <link rel="icon" type="image/png" href="img/favicon_tbcs.png">
+    <link rel="shortcut icon" href="img/favicon_tbcs.png" type="image/png">
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo y Nombre de la Empresa -->
+             <a href="index.html" class="flex items-center">
+                <img src="img/tbcs.png"
+                alt="TechBridge Consulting Systems Logo"
+                class="h-16 sm:h-20 md:h-24 lg:h-28 w-auto" />
+            </a>
+            <!-- Navegación Principal -->
+            <nav class="hidden md:flex space-x-10">
+                <a href="index.html" class="nav-link text-gray-700">Inicio</a>
+                <a href="nosotros.html" class="nav-link text-gray-700">Nosotros</a>
+                <!-- El enlace a "Servicios" se activa cuando estamos en esta página de servicio -->
+                <a href="index.html#servicios-preview" class="nav-link text-gray-700 active">Servicios</a>
+                <a href="contacto.html" class="nav-link text-gray-700">Contacto</a>
+            </nav>
+            <!-- Botón de Menú Móvil -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <!-- Menú Móvil -->
+        <div id="mobile-menu" class="md:hidden bg-white shadow-lg hidden">
+            <a href="index.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Inicio</a>
+            <a href="nosotros.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Nosotros</a>
+            <a href="index.html#servicios-preview" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 active">Servicios</a>
+            <a href="contacto.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Contacto</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section - Consultoría Estratégica -->
+        <section class="min-h-[60vh] flex items-center bg-gradient-to-br from-blue-50 to-white">
+            <div class="container mx-auto px-6 text-center py-20">
+                <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-4 fade-in-section">
+                    Consultoría Estratégica: <span class="tech-blue">Tu Brújula Digital</span>
+                </h1>
+                <p class="mt-4 text-xl md:text-2xl text-gray-700 font-medium max-w-3xl mx-auto fade-in-section" style="transition-delay: 150ms;">
+                    Transformamos los desafíos tecnológicos en oportunidades de crecimiento y eficiencia para tu negocio.
+                </p>
+                <div class="mt-10 fade-in-section" style="transition-delay: 300ms;">
+                    <a href="#proyectos" class="btn-primary inline-block bg-[#0077C9] text-white font-bold py-3 px-8 rounded-full shadow-xl hover:bg-blue-700 text-lg">
+                        Ver Proyectos Destacados
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: ¿Qué Ofrecemos en Consultoría Estratégica? -->
+        <section id="que-ofrecemos" class="py-24 md:py-36 bg-gray-100">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-gray-900 mb-6 fade-in-section">Nuestros Servicios de Consultoría Estratégica</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto mb-12 fade-in-section" style="transition-delay: 150ms;">
+                    Ofrecemos un análisis profundo y recomendaciones personalizadas para optimizar tu infraestructura, procesos y estrategia tecnológica.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 tech-blue-border transform hover:scale-105 transition-transform duration-300 fade-in-section" style="transition-delay: 300ms;">
+                        <div class="text-5xl mb-4 tech-blue">🗺️</div>
+                        <h3 class="text-xl font-semibold mb-2">Diseño de Estrategia TI</h3>
+                        <p class="text-gray-600">Desarrollamos hojas de ruta tecnológicas alineadas con tus objetivos de negocio para maximizar el valor.</p>
+                    </div>
+                   
+                 
+                    <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 tech-blue-border transform hover:scale-105 transition-transform duration-300 fade-in-section" style="transition-delay: 750ms;">
+                        <div class="text-5xl mb-4 tech-blue">📈</div>
+                        <h3 class="text-xl font-semibold mb-2">Análisis de Datos y BI</h3>
+                        <p class="text-gray-600">Convertimos tus datos en información accionable, implementando soluciones de Business Intelligence para una mejor toma de decisiones.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 tech-blue-border transform hover:scale-105 transition-transform duration-300 fade-in-section" style="transition-delay: 900ms;">
+                        <div class="text-5xl mb-4 tech-blue">🔄</div>
+                        <h3 class="text-xl font-semibold mb-2">Optimización de Procesos</h3>
+                        <p class="text-gray-600">Identificamos cuellos de botella y automatizamos flujos de trabajo para aumentar la eficiencia operativa.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: Beneficios de la Consultoría Estratégica -->
+        <section id="beneficios" class="py-24 md:py-36">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-gray-900 mb-6 fade-in-section">Beneficios Clave para tu Empresa</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto mb-12 fade-in-section" style="transition-delay: 150ms;">
+                    Nuestra consultoría estratégica te proporciona las herramientas y el conocimiento para navegar el panorama tecnológico con confianza.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300 fade-in-section" style="transition-delay: 300ms;">
+                        <div class="text-5xl mb-4 text-green-600">✅</div>
+                        <h3 class="text-xl font-semibold mb-2">Decisiones Informadas</h3>
+                        <p class="text-gray-600">Basadas en análisis de datos y proyecciones estratégicas.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300 fade-in-section" style="transition-delay: 450ms;">
+                        <div class="text-5xl mb-4 text-green-600">💰</div>
+                        <h3 class="text-xl font-semibold mb-2">Reducción de Costos</h3>
+                        <p class="text-gray-600">Optimización de recursos y evitación de inversiones innecesarias.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300 fade-in-section" style="transition-delay: 600ms;">
+                        <div class="text-5xl mb-4 text-green-600">🚀</div>
+                        <h3 class="text-xl font-semibold mb-2">Ventaja Competitiva</h3>
+                        <p class="text-gray-600">Implementación de tecnologías que te diferencian en el mercado.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: Proyectos Destacados -->
+        <section id="proyectos" class="py-24 md:py-36 bg-gray-100">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-gray-900 mb-6 fade-in-section">Nuestros Proyectos Destacados</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto mb-12 fade-in-section" style="transition-delay: 150ms;">
+                    Conoce algunos de los proyectos donde nuestra consultoría estratégica ha generado un impacto real.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-8">
+                    <!-- Proyecto 1: Grupo Mycor (Simplified Card) -->
+                    <div class="bg-white p-8 rounded-lg shadow-lg border-t-4 tech-blue-border transform hover:scale-105 transition-transform duration-300 fade-in-section" style="transition-delay: 300ms;">
+                        <div class="text-5xl mb-4 text-yellow-500">🏗️</div>
+                        <h3 class="text-3xl font-bold mb-4">Sistema de Gestión Integral para Grupo Mycor</h3>
+                        <p class="text-gray-700 mb-6 text-left leading-relaxed">
+                            Diseñamos una propuesta interactiva para un <b>Sistema de Gestión Integral</b> que centraliza clientes, proyectos y finanzas, optimizando la comunicación y la toma de decisiones para <b>GRUPO MYCOR</b>.
+                        </p>
+                        <button id="openMycorsProjectModal" class="btn-primary inline-block bg-[#0077C9] text-white font-bold py-3 px-8 rounded-full shadow-xl hover:bg-blue-700 text-lg">
+                            Ver Detalles del Proyecto
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+         <section class="py-16 md:py-24">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <div class="flex flex-col items-center text-center">
+                    <div class="fade-in-section">
+                        <h2 class="text-3xl md:text-4xl font-bold tech-blue mb-6">¿Listo para dar el siguiente paso?</h2>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                            Agenda una consultoría gratuita de 45 minutos para evaluar tus necesidades y diseñar una solución a medida.
+                        </p>
+                <a href="contacto.html" class="btn-primary inline-block bg-[#0077C9] text-white font-bold py-4 px-10 rounded-full shadow-xl hover:bg-blue-700 text-xl">
+                            Contáctanos
+                        </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal para el Proyecto Grupo Mycors -->
+    <div id="mycorsProjectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 class="text-3xl font-bold tech-blue mb-4 text-center">Sistema de Gestión Integral para Grupo Mycor</h2>
+            <p class="text-gray-700 mb-4 text-left leading-relaxed">
+                Queremos presentarles una idea que transformará la manera en que gestionan su día a día. Hemos diseñado una propuesta interactiva para un <b>Sistema de Gestión Integral</b> pensado especialmente para ustedes. ¿Qué significa esto? Que podrán tener todo bajo control: clientes, proyectos, finanzas… ¡y mucho más!
+            </p>
+            <p class="text-gray-700 mb-6 text-left leading-relaxed">
+                Nuestro principal objetivo es que la gestión de sus proyectos y clientes deje de ser una tarea tediosa. Desde el primer contacto con un cliente hasta la emisión y cobro de la factura, todo estará centralizado en un solo lugar. Estamos convencidos de que esta herramienta se convertirá en su mejor aliada para que <b>GRUPO MYCOR</b> sea más eficiente, la comunicación fluya de forma óptima y las decisiones se tomen con toda la información a su alcance.
+            </p>
+            <h4 class="text-2xl font-bold tech-blue mb-4 text-left">¡Módulos clave del Sistema!</h4>
+            <p class="text-gray-700 mb-6 text-left leading-relaxed">
+                Este sistema ha sido diseñado con módulos interconectados que cubren todas las necesidades de GRUPO MYCOR.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left mb-8">
+                <div class="p-4 bg-gray-50 rounded-md shadow-sm border border-gray-200">
+                    <h5 class="font-semibold text-xl tech-blue mb-2">👥 Gestión de Clientes</h5>
+                    <p class="text-gray-600 text-sm">Centralicen toda la información de sus clientes para obtener una visión 360° y fortalecer la relación con ellos.</p>
+                </div>
+                <div class="p-4 bg-gray-50 rounded-md shadow-sm border border-gray-200">
+                    <h5 class="font-semibold text-xl tech-blue mb-2">📈 Gestión de Oportunidades/Proyectos</h5>
+                    <p class="text-gray-600 text-sm">Rastreen y gestionen sus oportunidades de negocio desde el primer contacto hasta su cierre.</p>
+                </div>
+                <div class="p-4 bg-gray-50 rounded-md shadow-sm border border-gray-200">
+                    <h5 class="font-semibold text-xl tech-blue mb-2">✅ Gestión de Proyectos</h5>
+                    <p class="text-gray-600 text-sm">Administren eficientemente sus proyectos ganando, monitoreando su progreso y recursos.</p>
+                </div>
+                <div class="p-4 bg-gray-50 rounded-md shadow-sm border border-gray-200">
+                    <h5 class="font-semibold text-xl tech-blue mb-2">💰 Gestión Financiera Básica</h5>
+                    <p class="text-gray-600 text-sm">Controlen los costos, la facturación y los saldos pendientes de manera organizada.</p>
+                </div>
+            </div>
+            <div class="text-center">
+                <a href="grupo_mycor.html" class="btn-primary inline-block bg-[#0077C9] text-white font-bold py-3 px-8 rounded-full shadow-xl hover:bg-blue-700 text-lg">
+                    Ir al Proyecto
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <div>
+                <h3 class="font-bold text-xl mb-4 tech-blue">TechBridge Consulting Systems</h3>
+                <p class="text-sm text-gray-400">"Sistemas que conectan, consultoría que transforma"</p>
+                <p class="text-xs text-gray-500 mt-4">&copy; 2025 TechBridge Consulting Systems | Todos los derechos reservados</p>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Servicios</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="infraestructura-conectividad.html" class="hover:text-white transition duration-200">Redes Informáticas</a></li>
+                    <li><a href="infraestructura-conectividad.html" class="hover:text-white transition duration-200">Soporte Técnico</a></li>
+                    <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power Platform</a></li>
+                    <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power BI</a></li>
+                    <li><a href="cursos.html" class="hover:text-white transition duration-200">Capacitación</a></li>
+                    <li><a href="consultoria-estrategica.html" class="hover:text-white transition duration-200">Consultoría Estratégica</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Empresa</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="nosotros.html" class="hover:text-white transition duration-200">Nosotros</a></li>
+                    <li><a href="nosotros.html#metodologia" class="hover:text-white transition duration-200">Metodología</a></li>
+                    <li><a href="contacto.html" class="hover:text-white transition duration-200">Contacto</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Contacto</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li>📍 Ciudad de México</li>
+                    <li>📞 +52 55 XXXX-XXXX</li>
+                    <li>📧 contacto@tbcs.com.mx</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('nav a');
+            const header = document.getElementById('header');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            let headerHeight = 0; 
+
+            // Asegurar que headerHeight se calcula después de que el DOM esté completamente renderizado
+            window.addEventListener('load', () => {
+                headerHeight = header.offsetHeight;
+                updateSectionObserver(); // Llamar al observador después de obtener la altura
+            });
+
+            // Toggle mobile menu visibility
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Hide mobile menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Intersection Observer for active navigation links
+            function updateSectionObserver() {
+                const observerOptions = {
+                    root: null,
+                    rootMargin: `-${headerHeight + 1}px 0px 0px 0px`, /* Adjust rootMargin to account for header height */
+                    threshold: 0.3 /* Trigger when 30% of section is visible */
+                };
+
+                const sectionObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const id = entry.target.getAttribute('id');
+                            navLinks.forEach(link => {
+                                link.classList.remove('active');
+                                const linkHref = link.getAttribute('href');
+                                const currentFileName = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+                                
+                                // Logic for activating navigation links
+                                if (linkHref === currentFileName) {
+                                    link.classList.add('active');
+                                } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
+                                    link.classList.add('active');
+                                } else if (currentFileName === 'cursos.html' && linkHref === 'cursos.html') {
+                                    // Explicitly activate 'Servicios' link if on the courses directory page
+                                    link.classList.add('active');
+                                } else if (currentFileName === 'curso-excel-basico-intermedio.html' && linkHref === 'cursos.html') {
+                                    // If on a specific course page, activate the parent 'Servicios' (courses directory) link
+                                    link.classList.add('active');
+                                } else if (currentFileName === 'consultoria-estrategica.html' && linkHref === 'index.html#servicios-preview') {
+                                    // If on consultoria-estrategica.html, activate 'Servicios' link on index.html
+                                    link.classList.add('active');
+                                }
+                            });
+                            mobileMenu.querySelectorAll('a').forEach(link => {
+                                link.classList.remove('active');
+                                const linkHref = link.getAttribute('href');
+                                const currentFileName = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+                                
+                                if (linkHref === currentFileName) {
+                                    link.classList.add('active');
+                                } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
+                                    link.classList.add('active');
+                                } else if (currentFileName === 'cursos.html' && linkHref === 'cursos.html') {
+                                    link.classList.add('active');
+                                } else if (currentFileName === 'curso-excel-basico-intermedio.html' && linkHref === 'cursos.html') {
+                                    link.classList.add('active');
+                                } else if (currentFileName === 'consultoria-estrategica.html' && linkHref === 'index.html#servicios-preview') {
+                                    link.classList.add('active');
+                                }
+                            });
+                        }
+                    });
+                }, observerOptions);
+
+                sections.forEach(section => {
+                    sectionObserver.observe(section);
+                });
+            }
+
+            // Fade-in animation on scroll
+            const fadeObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                fadeObserver.observe(section);
+            });
+
+            // Modal Logic for Mycors Project
+            const mycorsProjectModal = document.getElementById('mycorsProjectModal');
+            const openMycorsProjectModalBtn = document.getElementById('openMycorsProjectModal');
+            const closeMycorsProjectButton = document.querySelector('#mycorsProjectModal .close-button');
+
+            // Function to open the modal
+            const openMycorsModal = () => {
+                if (mycorsProjectModal) {
+                    mycorsProjectModal.style.display = 'flex'; // Show the modal
+                }
+            };
+
+            // Event listener for opening the modal
+            if (openMycorsProjectModalBtn) {
+                openMycorsProjectModalBtn.addEventListener('click', openMycorsModal);
+            }
+
+            // Event listener for closing the modal
+            if (closeMycorsProjectButton) {
+                closeMycorsProjectButton.addEventListener('click', () => {
+                    mycorsProjectModal.style.display = 'none'; // Hide the modal
+                });
+            }
+
+            // Close modal when clicking outside of the modal content
+            window.addEventListener('click', (event) => {
+                if (event.target == mycorsProjectModal) {
+                    mycorsProjectModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

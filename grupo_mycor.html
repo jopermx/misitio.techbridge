@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta de Proyecto: GRUPO MYCOR - TechBridge Consulting Systems</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="img/favicon_tbcs.png">
+    <link rel="shortcut icon" href="img/favicon_tbcs.png" type="image/png">
+    <!-- 
+        Chosen Palette: TechBridge Blue (Primary), Warm Neutrals (Backgrounds), Subtle Accents (Amber/Gold for highlights).
+        Application Structure Plan: This SPA serves as a detailed project proposal page within the TechBridge Consulting Systems website. It begins with a custom hero section for the proposal, followed by sections detailing the system's key modules and the project's phases. Interactive cards are used for modules to allow a drill-down into functionalities, and a chart visualizes collaborative efforts. This structure is chosen to present a comprehensive project overview in an engaging, interactive, and easily digestible format for the client, leveraging the existing TechBridge site's design language.
+        Visualization & Content Choices: Interactive module cards with collapsible details (HTML/CSS/JS) are used to present the system's core functionalities, allowing the client to explore at their own pace. A donut chart (Chart.js) visually summarizes the distribution of responsibilities between the developer and client across project phases, reinforcing the collaborative nature. All textual content is directly from the provided proposal, integrated into the TechBridge site's typography and layout.
+        CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <style>
+        :root {
+            --tech-blue: #2563eb; /* A shade of blue for branding */
+            --tech-blue-light: #60a5fa;
+            --tech-blue-dark: #1e40af;
+            --gray-background: #f8fafc; /* slate-50 */
+            --white-background: #ffffff;
+            --text-color-primary: #1e293b; /* slate-800 */
+            --text-color-secondary: #475569; /* slate-600 */
+            --accent-color: #f59e0b; /* amber-500 */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-color-primary);
+            background-color: var(--gray-background);
+        }
+        .tech-blue {
+            color: var(--tech-blue);
+        }
+        .tech-blue-bg {
+            background-color: var(--tech-blue);
+        }
+        .tech-blue-hover:hover {
+            color: var(--tech-blue-light);
+        }
+        .btn-primary {
+            @apply px-8 py-3 rounded-full font-semibold text-white tech-blue-bg hover:bg-opacity-90 transition duration-300 ease-in-out shadow-lg;
+        }
+        .nav-link {
+            @apply block py-2 px-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 transition duration-200 ease-in-out;
+        }
+        .nav-link.active {
+            @apply text-blue-700 font-semibold;
+        }
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .mobile-menu {
+            @apply hidden absolute top-full left-0 w-full bg-white shadow-lg py-4 z-50;
+        }
+        .mobile-menu.open {
+            display: block;
+        }
+        /* Ensure mobile menu is always hidden on medium and larger screens */
+        @media (min-width: 768px) { /* md breakpoint */
+            .mobile-menu {
+                display: none !important; 
+            }
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 250px;
+            width: 100%;
+            max-width: 250px;
+        }
+        .module-card {
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+        }
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .details-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .module-card.expanded .details-content {
+            max-height: 1000px; /* Adjust as needed */
+        }
+        .details-marker::before {
+            content: '+';
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+        .module-card.expanded .details-marker::before {
+            transform: rotate(45deg);
+        }
+        /* Nuevo estilo para el botón invertido */
+        .btn-inverted {
+            background-color: var(--white-background);
+            color: var(--tech-blue);
+            padding: .75rem 1.75rem;
+            border-radius: 999px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            transition: filter .2s ease, transform .15s ease;
+            box-shadow: 0 10px 25px -5px rgba(255,255,255,0.1); /* Sombra sutil para botón claro en fondo oscuro */
+        }
+        .btn-inverted:hover {
+            filter: brightness(0.9); /* Oscurece ligeramente al pasar el ratón */
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            
+            <a href="index.html" class="flex items-center">
+                <img src="img/tbcs.png"
+                alt="TechBridge Consulting Systems Logo"
+                class="h-16 sm:h-20 md:h-24 lg:h-28 w-auto" />
+            </a>
+
+ 
+            <nav class="hidden md:flex space-x-10">
+                <a href="index.html" class="nav-link text-gray-700 active">Inicio</a>
+                <a href="nosotros.html" class="nav-link text-gray-700">Nosotros</a>
+                <a href="index.html#servicios-preview" class="nav-link text-gray-700">Servicios</a>
+                <a href="contacto.html" class="nav-link text-gray-700">Contacto</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="md:hidden bg-white shadow-lg hidden">
+            <a href="index.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 active">Inicio</a>
+            <a href="nosotros.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Nosotros</a>
+            <a href="index.html#servicios-preview" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Servicios</a>
+            <a href="contacto.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Contacto</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="propuesta-mycor-hero" class="fade-in-section bg-gradient-to-r from-blue-700 to-blue-500 text-white py-20 md:py-32 text-center">
+            <div class="container mx-auto px-4">
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">¡Tu Negocio al Siguiente Nivel!</h1>
+                <p class="text-xl md:text-2xl font-light max-w-3xl mx-auto">
+                    Una propuesta para un Sistema de Gestión Integral hecho a la medida de <span class="font-semibold text-amber-300">GRUPO MYCOR</span>
+                </p>
+            </div>
+        </section>
+
+        <section id="vision-general" class="fade-in-section bg-white py-16 md:py-24">
+            <div class="container mx-auto px-4 max-w-4xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold tech-blue mb-6">¡Bienvenidos!  </h2>
+                <p class="mb-4 text-lg leading-relaxed text-gray-700">
+                Queremos presentarles una idea que transformará la manera en que gestionan su día a día. Hemos diseñado una propuesta interactiva para un <b>Sistema de Gestión Integral</b> pensado especialmente para ustedes. ¿Qué significa esto? Que podrán tener todo bajo control: clientes, proyectos, finanzas… ¡y mucho más!
+                </p>
+                <p class="mb-4 text-lg leading-relaxed text-gray-700">
+                  Nuestro principal objetivo es que la gestión de sus proyectos y clientes deje de ser una tarea tediosa. Desde el primer contacto con un cliente hasta la emisión y cobro de la factura, todo estará centralizado en un solo lugar. Estamos convencidos de que esta herramienta se convertirá en su mejor aliada para que <b> GRUPO MYCOR </b> sea más eficiente, la comunicación fluya de forma óptima y las decisiones se tomen con toda la información a su alcance.
+                </p>
+                <p class="text-lg leading-relaxed text-gray-700">
+                   Aquí abajo les presentamos los módulos clave que tendrá este sistema y la forma en que trabajaremos juntos para hacerlo realidad.
+                </p>
+            </div>
+        </section>
+
+        <section id="modulos-clave" class="fade-in-section bg-gray-50 py-16 md:py-24">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold tech-blue mb-6 text-center">¡Lo que les Proponemos: Módulos Clave del Sistema!</h2>
+                <p class="text-lg text-gray-700 mb-8 text-center">
+                    Este sistema ha sido diseñado con módulos interconectados que cubren todas las necesidades de <b>GRUPO MYCOR</b>. ¡Hagan clic en cada uno para descubrir todo lo que pueden hacer!
+                </p>
+                <div id="modules-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Module cards will be injected here by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <section id="fases-proyecto" class="fade-in-section bg-white py-16 md:py-24">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl md:text-4xl font-bold tech-blue mb-6 text-center">Nuestra Forma de Trabajar: ¡Paso a Paso!</h2>
+                <p class="text-lg text-gray-700 mb-8 text-center">
+                    Vamos a construir esto juntos, en un proceso bien organizado que asegura que el resultado final sea justo lo que necesitan.
+                </p>
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="md:w-2/3">
+                        <ul class="list-decimal list-inside space-y-6 text-lg text-left">
+                            <li class="font-semibold text-slate-800">Fase 1: ¡Entenderlos a Fondo! <span class="font-normal text-slate-600 block">Aquí captamos todas sus necesidades.</span></li>
+                            <li class="font-semibold text-slate-800">Fase 2: Diseñando la Base de Datos. <span class="font-normal text-slate-600 block">Organizamos la información para que todo fluya.</span></li>
+                            <li class="font-semibold text-slate-800">Fase 3: ¡Manos a la Obra con la App de Muestra! <span class="font-normal text-slate-600 block">Les entregamos una primera versión funcional para que la vean.</span></li>
+                            <li class="font-semibold text-slate-800">Fase 4: Pruebas Internas y Preparación. <span class="font-normal text-slate-600 block">Nos aseguramos de que todo esté perfecto antes de mostrársela.</span></li>
+                            <li class="font-semibold text-slate-800">Fase 5: ¡Su Opinión es Oro! <span class="font-normal text-slate-600 block">Presentamos la muestra y recogemos sus comentarios para pulir el sistema.</span></li>
+                            <li class="font-semibold text-slate-800">Fase 6: Planificación y Desarrollo Oficial. <span class="font-normal text-slate-600 block">Con su visto bueno, construimos la versión final y más potente.</span></li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/3 w-full">
+                        <div class="chart-container">
+                            <canvas id="collaborationChart"></canvas>
+                        </div>
+                        <p class="text-center text-sm text-slate-500 mt-2">
+                            Trabajo en equipo: Este gráfico les da una idea de quién hace qué en cada etapa del proyecto.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="proximos-pasos" class="fade-in-section bg-gray-50 py-16 md:py-24 text-center">
+            <div class="container mx-auto px-4 max-w-3xl">
+                <h2 class="text-3xl md:text-4xl font-bold tech-blue mb-6">¡El Siguiente Paso Depende de Ustedes!</h2>
+                <p class="text-lg leading-relaxed text-gray-700 mb-8">
+                    Habiendo completado la Fase 1: Conociéndolos a Fondo, hemos preparado una vista previa interactiva de la aplicación, diseñada con base en la información que nos compartieron.
+
+
+
+
+                </p>
+                <p class="text-lg leading-relaxed text-gray-700 mb-8">
+                    Esta vista previa les permitirá explorar cómo lucirá y funcionará el sistema adaptado a las necesidades de GRUPO MYCOR, conocer los módulos clave y visualizar cómo todo estará integrado para generarles el máximo valor.
+                </p>
+                <p class="text-lg leading-relaxed font-semibold text-amber-700">
+                    ¡Estamos ansiosos por escuchar sus comentarios y recibir la información para empezar a construir el futuro digital de GRUPO MYCOR!
+                </p>
+		<p> ➡️ Den clic en el botón para comenzar a explorar la propuesta y descubrir todo lo que hemos preparado para ustedes.
+		</p>
+          
+
+ 		<!-- Botón "Prueba tu aplicación" antes del footer, con fondo a juego -->
+    		  <div class="mt-12 fade-in-section" style="transition-delay: 750ms;">
+                    <a href="grupo-mycor/mockup-grupo-mycor.html" class="btn-primary inline-block bg-[#0077C9] text-white font-bold py-3 px-8 rounded-full shadow-xl hover:bg-blue-700 text-lg">
+                        Prueba tu aplicación
+                    </a>
+                </div>
+        </section>
+    </main>
+
+ 
+
+   <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <div>
+                <h3 class="font-bold text-xl mb-4 tech-blue">TechBridge Consulting Systems</h3>
+                <p class="text-sm text-gray-400">"Sistemas que conectan, consultoría que transforma"</p>
+                <p class="text-xs text-gray-500 mt-4">&copy; 2025 TechBridge Consulting Systems | Todos los derechos reservados</p>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Servicios</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="infraestructura-conectividad.html" class="hover:text-white transition duration-200">Redes Informáticas</a></li>
+                    <li><a href="infraestructura-conectividad.html" class="hover:text-white transition duration-200">Soporte Técnico</a></li>
+                    <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power Platform</a></li>
+                    <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power BI</a></li>
+                    <li><a href="cursos.html" class="hover:text-white transition duration-200">Capacitación</a></li>
+                    <li><a href="consultoria-estrategica.html" class="hover:text-white transition duration-200">Consultoría Estratégica</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Empresa</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="nosotros.html" class="hover:text-white transition duration-200">Nosotros</a></li>
+                    <li><a href="nosotros.html#metodologia" class="hover:text-white transition duration-200">Metodología</a></li>
+                    <li><a href="contacto.html" class="hover:text-white transition duration-200">Contacto</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Contacto</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li>📍 Ciudad de México</li>
+                    <li>📞 +52 55 XXXX-XXXX</li>
+                    <li>📧 contacto@tbcs.com.mx</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        const modulesData = [
+            {
+                title: "Gestión de Clientes",
+                summary: "Centralicen toda la información de sus clientes para obtener una visión 360° y fortalecer la relación con ellos.",
+                details: `
+                    <p class="mb-2 text-left">Con este módulo podrán:</p>
+                    <ul class="list-disc list-outside space-y-1 pl-5">
+                        <li>Registrar y organizar todos los datos de contacto y fiscales de sus clientes.</li>
+                        <li>Clasificar a los clientes por tipo (particular, constructora, gobierno, etc.).</li>
+                        <li>Acceder al historial completo de interacciones (llamadas, reuniones, correos) con cada cliente.</li>
+                        <li>Visualizar rápidamente los proyectos asociados a cada cliente.</li>
+                    </ul>
+                `
+            },
+            {
+                title: "Gestión de Oportunidades/Proyectos",
+                summary: "Rastreen y gestionen sus oportunidades de negocio desde el primer contacto hasta su cierre.",
+                details: `
+                    <p class="mb-2 text-left">Con este módulo podrán:</p>
+                    <ul class="list-disc list-outside space-y-1 pl-5">
+                        <li>Registrar nuevas oportunidades de negocio y vincularlas a un cliente.</li>
+                        <li>Definir el tipo de servicio o obra (materiales, consultoría, remodelación, etc.).</li>
+                        <li>Seguir el estado de cada oportunidad (nuevo lead, propuesta enviada, negociación, etc.).</li>
+                        <li>Registrar el valor estimado y las fechas clave de cada oportunidad.</li>
+                    </ul>
+                `
+            },
+            {
+                title: "Gestión de Proyectos",
+                summary: "Administren eficientemente sus proyectos ganando, monitoreando su progreso y recursos.",
+                details: `
+                    <p class="mb-2 text-left">Con este módulo podrán:</p>
+                    <ul class="list-disc list-outside space-y-1 pl-5">
+                        <li>Detallar la información de proyectos en ejecución (ubicación, descripción, fechas).</li>
+                        <li>Monitorear el estado de avance de cada proyecto (planificación, en proceso, finalizado).</li>
+                        <li>Asignar responsables y miembros del equipo a cada proyecto.</li>
+                        <li>Adjuntar documentos clave (planos, permisos, fotos de avance).</li>
+                    </ul>
+                `
+            },
+            {
+                title: "Gestión Financiera Básica",
+                summary: "Controlen los costos, la facturación y los saldos pendientes de manera organizada.",
+                details: `
+                    <p class="mb-2 text-left">Con este módulo podrán:</p>
+                    <ul class="list-disc list-outside space-y-1 pl-5">
+                        <li>Registrar los costos asociados a cada proyecto por categoría (materiales, mano de obra, etc.).</li>
+                        <li>Llevar un registro de las facturas emitidas y los pagos recibidos.</li>
+                        <li>Visualizar los saldos pendientes por cada factura y proyecto.</li>
+                        <li>Facilitar el envío de información relevante a su contadora.</li>
+                    </ul>
+                `
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const modulesGrid = document.getElementById('modules-grid');
+            modulesData.forEach(module => {
+                const card = document.createElement('div');
+                // Removed text-center from card directly, will align content inside
+                card.className = 'module-card bg-white rounded-xl shadow-md p-6 relative border border-slate-200'; 
+                card.innerHTML = `
+                    <div class="details-marker"></div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 text-left">${module.title}</h3>
+                    <p class="text-slate-600 text-left">${module.summary}</p>
+                    <div class="details-content mt-4">
+                        ${module.details}
+                    </div>
+                `;
+                modulesGrid.appendChild(card);
+
+                card.addEventListener('click', () => {
+                    card.classList.toggle('expanded');
+                });
+            });
+
+            const ctx = document.getElementById('collaborationChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Acciones del Cliente', 'Acciones del Desarrollador'],
+                    datasets: [{
+                        label: 'Distribución de Acciones Clave',
+                        data: [7, 14], 
+                        backgroundColor: [
+                            '#d97706', /* amber-600 */
+                            '#475569'  /* slate-600 */
+                        ],
+                        borderColor: [
+                            '#f8fafc',
+                            '#f8fafc'
+                        ],
+                        borderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '60%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        },
+                        tooltip: {
+                            bodyFont: {
+                                size: 14
+                            },
+                            titleFont: {
+                                size: 16
+                            }
+                        }
+                    }
+                }
+            });
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('open');
+            });
+
+            const fadeElements = document.querySelectorAll('.fade-in-section');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, observerOptions);
+
+            fadeElements.forEach(el => observer.observe(el));
+
+            const navLinks = document.querySelectorAll('nav .nav-link');
+            const sections = document.querySelectorAll('main section[id]');
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            // Logic to activate 'Servicios' link for this specific proposal page
+                            if (link.getAttribute('href') === 'servicios.html' || link.getAttribute('data-section-id') === 'propuesta-mycor') {
+                                link.classList.add('active');
+                            } else if (link.getAttribute('data-section-id') && entry.target.id.startsWith(link.getAttribute('data-section-id'))) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.5 
+            });
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>

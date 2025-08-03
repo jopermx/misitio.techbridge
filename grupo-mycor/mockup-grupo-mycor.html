@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Mockup App - Grupo Mycor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- 
+        Chosen Palette: Primary Green/Teal (#1f7a5f), Light Green/Teal (#60bea4), Background Light Grey (#f5f7fa), Text Dark Grey (#1f2d3a), Text Medium Grey (#6b7280).
+        Application Structure Plan: This SPA is a custom, modern, and innovative mockup for GRUPO MYCOR. It features a sticky header with a prominent brand identity and a functional hamburger menu for main navigation on all screen sizes (hidden on desktop, active on mobile). The main content is divided into distinct, scroll-animated sections: a welcoming hero, a dynamic dashboard with key metrics and a chart, interactive cards for core modules (Clients, Projects, Activities), and a clear call-to-action. This structure provides an app-like feel, prioritizing visual appeal, intuitive navigation, and clear information hierarchy.
+        Visualization & Content Choices: A Chart.js donut chart provides a quick visual summary of project statuses on the dashboard. Core modules (Clients, Projects, Activities) are presented as interactive cards with clear titles and summaries, which can be expanded to show more details (simulated). List items within these modules are styled to resemble clickable rows in an application. Simulated data is used throughout to make the experience tangible. The design emphasizes clean typography, consistent branding colors, and responsive layouts to ensure a professional and engaging user experience.
+        CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <style>
+        :root {
+            --primary: #1f7a5f; /* verde/teal para acento (ajústalo a color Grupo Mycor) */
+            --primary-light: #60bea4;
+            --bg: #f5f7fa;
+            --radius: .75rem;
+            --shadow: 0 15px 35px -10px rgba(31,122,95,0.15);
+            --text-dark: #1f2d3a;
+            --text-medium: #6b7280;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0; /* Nuevo color para bordes de tarjetas y listas */
+        }
+        body {
+            font-family: 'Inter', system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+            background: var(--bg);
+            color: var(--text-dark); /* Color de texto principal */
+            line-height: 1.45;
+        }
+        h1, h2, h3, h4 {
+            color: var(--text-dark);
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: .75rem 1.75rem;
+            border-radius: 999px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            transition: filter .2s ease, transform .15s ease;
+            box-shadow: 0 10px 25px -5px rgba(31,122,95,0.4);
+        }
+        .btn-primary:hover {
+            filter: brightness(1.05);
+            transform: translateY(-1px);
+        }
+        .tab {
+            padding: .75rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all .2s ease;
+            text-align: center;
+            border-radius: .5rem; /* Make it generally rounded */
+            background: #fdfdfd;
+            color: var(--text-medium);
+            box-shadow: inset 0 0px 0 rgba(0,0,0,0.02);
+        }
+        .tab.active {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: white;
+            box-shadow: inset 0 0px 0 rgba(0,0,0,0.05);
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 1.25rem 1.5rem;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        .small-text {
+            font-size: .85rem;
+            color: var(--text-medium);
+        }
+        .pill {
+            padding: .35rem .8rem;
+            border-radius: 999px;
+            font-size: .625rem;
+            font-weight: 600;
+            display: inline-block;
+            white-space: nowrap;
+        }
+        .status-running { background: #fef3c7; color: #805d00; }
+        .status-planning { background: #d1fae5; color: #065f46; }
+        .status-proposal { background: #c7d2fe; color: #4338ca; }
+        .status-complete { background: #e2e8f0; color: #1e3a8a; }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Estilos para el menú de hamburguesa */
+        .hamburger-menu-container {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 250px;
+            background-color: var(--primary);
+            box-shadow: -4px 0 10px rgba(0,0,0,0.2);
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000;
+            padding-top: 4rem;
+        }
+        .hamburger-menu-container.open {
+            transform: translateX(0);
+        }
+        .hamburger-button {
+            @apply p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200; /* Changed text color for visibility */
+        }
+        .close-button {
+            @apply absolute top-4 right-4 p-2 rounded-md text-white hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-white; /* Changed hover color */
+        }
+        .nav-link-mobile {
+            @apply block py-3 px-6 text-white text-lg hover:bg-primary-light transition-colors duration-200;
+        }
+        /* Ocultar la navegación de escritorio y mostrar el botón de hamburguesa en móvil */
+        @media (max-width: 767px) {
+            .header-nav-desktop {
+                display: none;
+            }
+            .header-hamburger-toggle {
+                display: block;
+            }
+        }
+        /* Mostrar la navegación de escritorio y ocultar el botón de hamburguesa en desktop */
+        @media (min-width: 768px) {
+            .header-nav-desktop {
+                display: flex;
+            }
+            .header-hamburger-toggle {
+                display: none;
+            }
+            .hamburger-menu-container {
+                display: none;
+            }
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 180px;
+            width: 100%;
+            max-width: 220px;
+        }
+        .list-item-card {
+            @apply flex justify-between items-start border border-border-color rounded-lg p-3 hover:shadow-md transition-shadow duration-200 cursor-pointer;
+            background: #fdfdfd;
+        }
+        .list-item-card:hover {
+            transform: translateY(-1px);
+        }
+        .list-item-card .title {
+            @apply font-semibold text-primary;
+        }
+        .list-item-card .subtitle {
+            @apply text-sm text-gray-600;
+        }
+        /* Custom style for primary colored footer */
+        .footer-primary-bg {
+            background-color: var(--primary);
+            color: white; /* Ensure text is white on dark background */
+        }
+        .footer-primary-bg .small-text,
+        .footer-primary-bg .text-gray-600,
+        .footer-primary-bg .text-gray-400 {
+            color: rgba(255, 255, 255, 0.8); /* Lighter white for secondary text */
+        }
+        .footer-primary-bg a {
+            color: white; /* Ensure links are white */
+        }
+        .footer-primary-bg a:hover {
+            color: var(--primary-light); /* Lighter hover for links */
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default, will be shown by JS on load */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+            display: flex; /* Use flexbox for centering */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            padding: 2.5rem; /* Increased padding */
+            border-radius: var(--radius);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 700px; /* Max width for readability */
+            position: relative;
+            animation-name: animatetop;
+            animation-duration: 0.4s;
+            max-height: 90vh; /* Limit height to viewport height */
+            overflow-y: auto; /* Enable scrolling for content if needed */
+        }
+        .modal-close-button {
+            color: #aaa;
+            font-size: 2rem; /* Larger close button */
+            font-weight: bold;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .modal-close-button:hover,
+        .modal-close-button:focus {
+            color: #000;
+        }
+        @keyframes animatetop {
+            from {top: -300px; opacity: 0}
+            to {top: 0; opacity: 1}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="sticky top-0 bg-white shadow-md z-50">
+        <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-bold text-xl">M</div>
+                <div>
+                    <div class="text-lg font-bold">Grupo Mycor</div>
+                    <div class="text-xs text-gray-500">Sistema de Gestión</div>
+                </div>
+            </div>
+            <!-- Desktop Navigation Tabs - Now the primary navigation -->
+            <nav class="header-nav-desktop flex-grow flex justify-end gap-1 text-sm font-medium">
+                <a class="tab nav-tab-link" data-target-tab="dashboard-content" data-target="dashboard-content" href="#">Dashboard</a>
+                <a class="tab nav-tab-link" data-target-tab="clients-content" data-target="clients-content" href="#">Clientes</a>
+                <a class="tab nav-tab-link" data-target-tab="projects-content" data-target="projects-content" href="#">Proyectos</a>
+                <a class="tab nav-tab-link" data-target-tab="activities-content" data-target="activities-content" href="#">Actividades</a>
+            </nav>
+            <!-- Hamburger Toggle for Mobile -->
+            <div class="header-hamburger-toggle md:hidden">
+                <button id="hamburger-button" aria-label="menu" class="hamburger-button">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HAMBURGER MENU (Off-canvas) -->
+    <div id="hamburger-menu" class="hamburger-menu-container">
+        <button id="close-hamburger-button" class="close-button">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <nav class="flex flex-col p-4 space-y-2 mt-8">
+            <a class="nav-link-mobile nav-tab-link" data-target-tab="dashboard-content" href="#">Dashboard</a>
+            <a class="nav-link-mobile nav-tab-link" data-target-tab="clients-content" href="#">Clientes</a>
+            <a class="nav-link-mobile nav-tab-link" data-target-tab="projects-content" href="#">Proyectos</a>
+            <a class="nav-link-mobile nav-tab-link" data-target-tab="activities-content" href="#">Actividades</a>
+        </nav>
+    </div>
+
+    <main>
+        <!-- HERO with Welcome Text -->
+        <section class="bg-white py-16 fade-in">
+            <div class="max-w-5xl mx-auto px-6 text-center">
+                <h1 class="text-4xl font-extrabold mb-3">¡Bienvenido a tu Sistema de Gestión Grupo Mycor!</h1>
+                <p class="text-lg text-gray-600 mb-6">Nos complace presentarles una nueva solución para la gestión integral de sus clientes, proyectos y actividades. Esta herramienta combina eficiencia y claridad para optimizar sus procesos y apoyar la toma de decisiones estratégicas en su operación diaria.</p>
+                
+                <!-- The button to open the modal is removed as it will open automatically -->
+            </div>
+        </section>
+
+        <!-- TABS + CONTENIDO -->
+        <section id="app-mockup-container" class="max-w-6xl mx-auto px-6 pb-20 mt-8">
+            <div class="space-y-8">
+                <!-- Dashboard Content -->
+                <div id="dashboard-content" class="content-section grid gap-8 md:grid-cols-2 fade-in is-visible">
+                    <div class="card">
+                        <div class="flex justify-between items-center mb-4">
+                            <div>
+                                <div class="text-lg font-semibold">Resumen de Proyectos</div>
+                                <div class="small-text">Estado actual de portafolio</div>
+                            </div>
+                            <div class="small-text text-right">Actualizado: 2 de agosto 2025</div>
+                        </div>
+                        <div class="flex flex-col md:flex-row gap-6 items-center">
+                            <div class="chart-container">
+                                <canvas id="statusChart"></canvas>
+                            </div>
+                            <div style="flex:2;">
+                                <div class="mb-2"><strong>Activos:</strong> <span style="color: var(--primary);">2</span></div>
+                                <div class="mb-2"><strong>Negociación:</strong> <span style="color: var(--primary);">1</span></div>
+                                <div><strong>Finalizados (último mes):</strong> <span style="color: #555;">1</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="text-lg font-semibold">Actividad reciente</div>
+                            <div class="small-text">Últimos registros</div>
+                        </div>
+                        <ul class="divide-y divide-gray-100">
+                            <li class="py-3 flex justify-between">
+                                <div>
+                                    <div class="font-medium">Llamada a Constructora Alfa</div>
+                                    <div class="small-text">Sobre avance de obra.</div>
+                                </div>
+                                <div class="small-text text-right">02 ago 2025</div>
+                            </li>
+                            <li class="py-3 flex justify-between">
+                                <div>
+                                    <div class="font-medium">Reunión con Sra. Gómez</div>
+                                    <div class="small-text">Definición de planos.</div>
+                                </div>
+                                <div class="small-text text-right">01 ago 2025</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Clientes Content -->
+                <div id="clients-content" class="content-section grid md:grid-cols-2 gap-8 hidden fade-in">
+                    <div class="card">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="text-lg font-semibold">Clientes</div>
+                            <div class="small-text">Haz clic para ver detalles</div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="list-item-card">
+                                <div>
+                                    <div class="title">Constructora Alfa</div>
+                                    <div class="subtitle">Contacto: Juan Pérez · 55-1234-5678</div>
+                                </div>
+                                <div class="pill" style="background:#e6f7f1;color:#0f4d3a;">Constructora</div>
+                            </div>
+                            <div class="list-item-card">
+                                <div>
+                                    <div class="title">Particular Sra. Gómez</div>
+                                    <div class="subtitle">Ana Gómez · 55-9876-5432</div>
+                                </div>
+                                <div class="pill" style="background:#f0f4f8;color:#2d3a5f;">Particular</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="text-lg font-semibold mb-4">Detalles del Cliente</div>
+                        <p class="small-text">Selecciona un cliente de la lista para ver su información aquí.</p>
+                        <!-- Aquí se mostrarán los detalles del cliente seleccionado -->
+                    </div>
+                </div>
+
+                <!-- Proyectos Content -->
+                <div id="projects-content" class="content-section grid md:grid-cols-2 gap-8 hidden fade-in">
+                    <div class="card">
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="text-lg font-semibold">Proyectos</div>
+                            <div class="small-text">Organizados por estado</div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="list-item-card">
+                                <div>
+                                    <div class="title">Remodelación Oficinas Centrales Alfa</div>
+                                    <div class="subtitle">Cliente: Constructora Alfa</div>
+                                </div>
+                                <div class="pill status-running">En Ejecución</div>
+                            </div>
+                            <div class="list-item-card">
+                                <div>
+                                    <div class="title">Construcción Residencia Gómez</div>
+                                    <div class="subtitle">Cliente: Ana Gómez</div>
+                                </div>
+                                <div class="pill status-planning">Planificación</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="text-lg font-semibold mb-4">Detalles del Proyecto</div>
+                        <p class="small-text">Selecciona un proyecto de la lista para ver su información aquí.</p>
+                        <!-- Aquí se mostrarán los detalles del proyecto seleccionado -->
+                    </div>
+                </div>
+
+                <!-- Actividades Content -->
+                <div id="activities-content" class="content-section card hidden fade-in">
+                    <div class="text-lg font-semibold mb-4">Registrar Actividad</div>
+                    <form class="grid gap-6 md:grid-cols-3">
+                        <div class="flex flex-col">
+                            <label class="text-sm font-medium mb-1">Tipo de Actividad</label>
+                            <select class="border rounded-md p-2 focus:outline-none">
+                                <option>Llamada Telefónica</option>
+                                <option>Reunión Presencial</option>
+                                <option>Correo Electrónico</option>
+                                <option>Visita a Obra</option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="text-sm font-medium mb-1">Cliente</label>
+                            <select class="border rounded-md p-2 focus:outline-none">
+                                <option>Constructora Alfa</option>
+                                <option>Particular Sra. Gómez</option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="text-sm font-medium mb-1">Proyecto</label>
+                            <select class="border rounded-md p-2 focus:outline-none">
+                                <option>Remodelación Oficinas</option>
+                                <option>Residencia Gómez</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-3 flex flex-col">
+                            <label class="text-sm font-medium mb-1">Resumen</label>
+                            <textarea rows="3" class="border rounded-md p-2 focus:outline-none" placeholder="Descripción breve..."></textarea>
+                        </div>
+                        <div class="md:col-span-3">
+                            <button type="submit" class="btn-primary">Guardar Actividad</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer-primary-bg py-10">
+            <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8">
+                <div>
+                    <div class="font-bold mb-2">Grupo Mycor</div>
+                    <div class="small-text">Soluciones operativas y de control para construcción y desarrollo. Este prototipo muestra el valor de un sistema centralizado de gestión.</div>
+                </div>
+                <div>
+                    <div class="font-semibold mb-2">Enlaces</div>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#dashboard-content" class="hover:text-primary-light transition-colors nav-tab-link" data-target-tab="dashboard-content">Dashboard</a></li>
+                        <li><a href="#clients-content" class="hover:text-primary-light transition-colors nav-tab-link" data-target-tab="clients-content">Clientes</a></li>
+                        <li><a href="#projects-content" class="hover:text-primary-light transition-colors nav-tab-link" data-target-tab="projects-content">Proyectos</a></li>
+                        <li><a href="#activities-content" class="hover:text-primary-light transition-colors nav-tab-link" data-target-tab="activities-content">Actividades</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="font-semibold mb-2">Contacto</div>
+                    <div class="small-text">
+                        Email: contacto@grupomycor.com<br>
+                        Tel: +52 55 0000 0000
+                    </div>
+                </div>
+            </div>
+            <div class="text-center text-xs mt-6" style="color: rgba(255, 255, 255, 0.6);">&copy; 2025 Grupo Mycor. Todos los derechos reservados.</div>
+        </footer>
+    </main>
+
+    <!-- Instructions Modal -->
+    <div id="instructionsModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close-button" id="closeInstructionsModal">&times;</span>
+            <h2 class="text-2xl font-bold text-center mb-4">Cómo Usar esta Vista Previa Interactiva</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                Para utilizar esta vista previa interactiva de la aplicación, simplemente deberán hacer clic en los diferentes botones del menú principal que se encuentra en la parte superior ⬆️. Podrán navegar entre secciones, ver cómo se organizan los datos y comprender mejor cómo el sistema apoyará sus procesos diarios.
+            </p>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                No es necesario ingresar datos reales; esta versión es una muestra para que visualicen el diseño y la funcionalidad general antes del desarrollo final.
+            </p>
+		 <p class="text-lg text-gray-700 leading-relaxed">
+                <b>Recuerden que esta es una vista previa. Aún tendremos la posibilidad de ajustar y personalizar el sistema según sus necesidades y preferencias, garantizando que cumpla plenamente con sus expectativas.</b>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hamburger menu functionality
+            const hamburgerButton = document.getElementById('hamburger-button');
+            const closeHamburgerButton = document.getElementById('close-hamburger-button');
+            const hamburgerMenu = document.getElementById('hamburger-menu');
+
+            hamburgerButton.addEventListener('click', () => {
+                hamburgerMenu.classList.add('open');
+            });
+
+            closeHamburgerButton.addEventListener('click', () => {
+                hamburgerMenu.classList.remove('open');
+            });
+
+            // Tab switching logic
+            const contentSections = document.querySelectorAll('.content-section');
+
+            const activateTab = (targetId) => {
+                // Deactivate all header navigation links (which now have 'tab' and 'nav-tab-link')
+                const allHeaderTabs = document.querySelectorAll('.header-nav-desktop .tab');
+                allHeaderTabs.forEach(t => t.classList.remove('active'));
+
+                // Activate the specific header tab
+                const targetHeaderTab = document.querySelector(`.header-nav-desktop .tab[data-target="${targetId}"]`);
+                if (targetHeaderTab) {
+                    targetHeaderTab.classList.add('active');
+                }
+
+                // Hide all content sections and remove their fade-in visibility
+                contentSections.forEach(section => {
+                    section.classList.remove('is-visible');
+                    section.classList.add('hidden');
+                });
+
+                // Show and fade in the target content section
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.remove('hidden');
+                    setTimeout(() => {
+                        targetSection.classList.add('is-visible');
+                    }, 50);
+                }
+
+                // Deactivate all mobile navigation links
+                const allMobileNavLinks = document.querySelectorAll('.hamburger-menu-container .nav-link-mobile');
+                allMobileNavLinks.forEach(link => link.classList.remove('active-nav-link'));
+
+                // Activate the corresponding mobile navigation link
+                const correspondingMobileNavLink = document.querySelector(`.hamburger-menu-container .nav-link-mobile[data-target-tab="${targetId}"]`);
+                if (correspondingMobileNavLink) {
+                    correspondingMobileNavLink.classList.add('active-nav-link');
+                }
+            };
+
+            // Handle navigation links to activate tabs and scroll
+            const navTabLinks = document.querySelectorAll('.nav-tab-link');
+            const appMockupContainer = document.getElementById('app-mockup-container');
+
+            navTabLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault(); // Prevent default anchor jump
+                    const targetTabId = link.dataset.targetTab;
+                    
+                    activateTab(targetTabId); // Activate the tab and content
+
+                    // Smooth scroll to the app mockup container (or the specific section if needed)
+                    appMockupContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    
+                    // Close hamburger menu if open
+                    hamburgerMenu.classList.remove('open');
+                });
+            });
+
+            // Set initial active state for header/mobile nav links based on default active tab
+            activateTab('dashboard-content');
+
+
+            // Fade-in sections on scroll (for main sections outside tabs)
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, observerOptions);
+
+            fadeElements.forEach(el => observer.observe(el));
+
+            // Chart.js setup
+            const ctx = document.getElementById('statusChart')?.getContext('2d');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['En Ejecución', 'Planificación', 'Propuesta', 'Finalizado'],
+                        datasets: [{
+                            data: [2, 1, 1, 1], /* Datos de ejemplo */
+                            backgroundColor: ['var(--primary)', 'var(--primary-light)', '#a3bffa', '#d1dfe8'], /* Colores para las secciones del gráfico */
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        cutout: '70%',
+                        plugins: {
+                            legend: { position: 'bottom' },
+                        },
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                });
+            }
+
+            // Modal Logic for Instructions Pop-up
+            const instructionsModal = document.getElementById('instructionsModal');
+            const closeInstructionsModalBtn = document.getElementById('closeInstructionsModal');
+
+            // Show modal automatically on page load
+            instructionsModal.style.display = 'flex';
+
+            if (closeInstructionsModalBtn) {
+                closeInstructionsModalBtn.addEventListener('click', () => {
+                    instructionsModal.style.display = 'none'; // Hide the modal
+                });
+            }
+
+            // Close modal when clicking outside
+            window.addEventListener('click', (event) => {
+                if (event.target === instructionsModal) {
+                    instructionsModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
