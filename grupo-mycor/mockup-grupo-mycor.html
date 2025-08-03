@@ -238,6 +238,7 @@
         .modal-close-button:hover,
         .modal-close-button:focus {
             color: #000;
+
         }
         @keyframes animatetop {
             from {top: -300px; opacity: 0}
@@ -300,7 +301,7 @@
         </section>
 
         <!-- TABS + CONTENIDO -->
-        <section id="app-mockup-container" class="max-w-6xl mx-auto px-6 pb-20 mt-8">
+       <section id="app-mockup-container" class="max-w-6xl mx-auto px-6 pb-20 mt-8">
             <div class="space-y-8">
                 <!-- Dashboard Content -->
                 <div id="dashboard-content" class="content-section grid gap-8 md:grid-cols-2 fade-in is-visible">
@@ -319,7 +320,7 @@
                             <div style="flex:2;">
                                 <div class="mb-2"><strong>Activos:</strong> <span style="color: var(--primary);">2</span></div>
                                 <div class="mb-2"><strong>Negociación:</strong> <span style="color: var(--primary);">1</span></div>
-                                <div><strong>Finalizados (último mes):</strong> <span style="color: #555;">1</span></div>
+                                <div><strong>Finalizados (último mes):</strong> <span style="color: var(--text-dark);">1</span></div>
                             </div>
                         </div>
                     </div>
@@ -346,6 +347,7 @@
                         </ul>
                     </div>
                 </div>
+
 
                 <!-- Clientes Content -->
                 <div id="clients-content" class="content-section grid md:grid-cols-2 gap-8 hidden fade-in">
@@ -602,8 +604,13 @@
                     data: {
                         labels: ['En Ejecución', 'Planificación', 'Propuesta', 'Finalizado'],
                         datasets: [{
-                            data: [2, 1, 1, 1], /* Datos de ejemplo */
-                            backgroundColor: ['var(--primary)', 'var(--primary-light)', '#9EBDFE', '#E6E9EE'], /* Colores para las secciones del gráfico */
+                            data: [2, 1, 1, 1], 
+                            backgroundColor: [
+                                '#7FB800',            
+                                '#FFB400',             
+                                '#39b6b4', 
+                                '#D40032'              
+                            ],
                             borderWidth: 0
                         }]
                     },
