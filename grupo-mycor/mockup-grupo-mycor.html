@@ -127,6 +127,7 @@
             @apply absolute top-4 right-4 p-2 rounded-md text-white hover:bg-primary-light focus:outline-none focus:ring-2 focus:ring-white;
         }
         .nav-link-mobile {
+            /* Ya tiene text-white por defecto para los no seleccionados */
             @apply block py-3 px-6 text-white text-lg hover:bg-primary-light transition-colors duration-200 rounded-md mx-2;
         }
         /* Estilo para el enlace activo en el menú móvil - ¡Nuevo diseño! */
@@ -250,11 +251,11 @@
     <header class="sticky top-0 bg-white shadow-md z-50">
         <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-bold text-xl">M</div>
-                <div>
-                    <div class="text-lg font-bold">Grupo Mycor</div>
-                    <div class="text-xs text-gray-500">Sistema de Gestión</div>
-                </div>
+                <a href="index.html" class="flex items-center">
+                <img src="logo-mycor.png"
+                alt="GrupoMycorLogo"
+                class="h-16 sm:h-20 md:h-24 lg:h-28 w-auto" />
+            </a>
             </div>
             <!-- Desktop Navigation Tabs -->
             <nav class="header-nav-desktop flex-grow justify-end gap-1 text-sm font-medium">
