@@ -110,13 +110,13 @@
             width: 250px;
             background-color: var(--primary);
             box-shadow: -4px 0 10px rgba(0,0,0,0.2);
-            transform: translateX(100%);
+            transform: translateX(100%); /* Hidden by default */
             transition: transform 0.3s ease-in-out;
             z-index: 1000;
             padding-top: 4rem;
         }
         .hamburger-menu-container.open {
-            transform: translateX(0);
+            transform: translateX(0); /* Shown when 'open' class is present */
         }
         .hamburger-button {
             @apply p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200;
@@ -144,27 +144,26 @@
             border-radius: 0 3px 3px 0;
         }
 
-        /* Ocultar la navegación de escritorio y mostrar el botón de hamburguesa en móvil */
-        @media (max-width: 767px) {
-            .header-nav-desktop {
-                display: none;
-            }
-            .header-hamburger-toggle {
-                display: block;
-            }
+        /* Responsive rules for navigation */
+        .header-nav-desktop {
+            display: none; /* Hidden by default on all screens */
         }
-        /* Mostrar la navegación de escritorio y ocultar el botón de hamburguesa en desktop */
-        @media (min-width: 768px) {
+        .header-hamburger-toggle {
+            display: block; /* Shown by default on all screens */
+        }
+
+        @media (min-width: 768px) { /* On desktop and larger */
             .header-nav-desktop {
-                display: flex;
+                display: flex; /* Show desktop navigation */
             }
             .header-hamburger-toggle {
-                display: none;
+                display: none; /* Hide hamburger toggle */
             }
             .hamburger-menu-container {
-                display: none;
+                display: none !important; /* Ensure hamburger menu is completely hidden */
             }
         }
+
         .chart-container {
             position: relative;
             margin: auto;
@@ -262,15 +261,15 @@
                     <div class="text-xs text-gray-500">Sistema de Gestión</div>
                 </div>
             </div>
-            <!-- Desktop Navigation Tabs - Now the primary navigation -->
-            <nav class="header-nav-desktop flex-grow flex justify-end gap-1 text-sm font-medium">
-                <a class="tab nav-tab-link" data-target-tab="dashboard-content" data-target="dashboard-content" href="#">Dashboard</a>
-                <a class="tab nav-tab-link" data-target-tab="clients-content" data-target="clients-content" href="#">Clientes</a>
-                <a class="tab nav-tab-link" data-target-tab="projects-content" data-target="projects-content" href="#">Proyectos</a>
-                <a class="tab nav-tab-link" data-target-tab="activities-content" data-target="activities-content" href="#">Actividades</a>
+            <!-- Desktop Navigation Tabs -->
+            <nav class="header-nav-desktop flex-grow justify-end gap-1 text-sm font-medium">
+                <a class="tab nav-tab-link" data-target-tab="dashboard-content" href="#">Dashboard</a>
+                <a class="tab nav-tab-link" data-target-tab="clients-content" href="#">Clientes</a>
+                <a class="tab nav-tab-link" data-target-tab="projects-content" href="#">Proyectos</a>
+                <a class="tab nav-tab-link" data-target-tab="activities-content" href="#">Actividades</a>
             </nav>
             <!-- Hamburger Toggle for Mobile -->
-            <div class="header-hamburger-toggle md:hidden">
+            <div class="header-hamburger-toggle">
                 <button id="hamburger-button" aria-label="menu" class="hamburger-button">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -522,7 +521,7 @@
                 allHeaderTabs.forEach(t => t.classList.remove('active'));
 
                 // Activate the specific header tab
-                const targetHeaderTab = document.querySelector(`.header-nav-desktop .tab[data-target="${targetId}"]`);
+                const targetHeaderTab = document.querySelector(`.header-nav-desktop .tab[data-target-tab="${targetId}"]`);
                 if (targetHeaderTab) {
                     targetHeaderTab.classList.add('active');
                 }
@@ -589,7 +588,7 @@
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
                         // No need to unobserve if we want the fade-in to re-trigger on scroll back up
-                        // observer.unobserve(entry.target);
+                        // observer.unobserve(entry.target); // Removed this line to allow re-triggering
                     } else {
                         // Optionally remove 'is-visible' when not intersecting to allow re-triggering
                         entry.target.classList.remove('is-visible');
@@ -645,4 +644,4 @@
         });
     </script>
 </body>
-</html>
+</ht
