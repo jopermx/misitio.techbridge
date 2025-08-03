@@ -8,18 +8,19 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
     <!--
-        Chosen Palette: Primary Green/Teal (#1f7a5f), Light Green/Teal (#60bea4), Background Light Grey (#f5f7fa), Text Dark Grey (#1f2d3a), Text Medium Grey (#6b7280).
+        Chosen Palette: Primary Blue (#2A3B8F), Light Blue (#4A5BBF), Secondary Red (#D9232B), Background Light Grey (#f5f7fa), Text Dark Grey (#1f2d3a), Text Medium Grey (#6b7280).
         Application Structure Plan: This SPA is a custom, modern, and innovative mockup for GRUPO MYCOR. It features a sticky header with a prominent brand identity and a functional hamburger menu for main navigation on all screen sizes (hidden on desktop, active on mobile). The main content is divided into distinct, scroll-animated sections: a welcoming hero, a dynamic dashboard with key metrics and a chart, interactive cards for core modules (Clients, Projects, Activities), and a clear call-to-action. This structure provides an app-like feel, prioritizing visual appeal, intuitive navigation, and clear information hierarchy.
         Visualization & Content Choices: A Chart.js donut chart provides a quick visual summary of project statuses on the dashboard. Core modules (Clients, Projects, Activities) are presented as interactive cards with clear titles and summaries, which can be expanded to show more details (simulated). List items within these modules are styled to resemble clickable rows in an application. Simulated data is used throughout to make the experience tangible. The design emphasizes clean typography, consistent branding colors, and responsive layouts to ensure a professional and engaging user experience.
         CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
     -->
     <style>
         :root {
-            --primary: #1f7a5f; /* verde/teal para acento (ajústalo a color Grupo Mycor) */
-            --primary-light: #60bea4;
-            --bg: #f5f7fa;
+            --primary: #2A3B8F; /* Azul oscuro de Grupo Mycor */
+            --primary-light: #4A5BBF; /* Azul más claro para acentos */
+            --secondary: #D9232B; /* Rojo de Grupo Mycor */
+            --bg: #f5f7fa; /* Fondo gris claro */
             --radius: .75rem;
-            --shadow: 0 15px 35px -10px rgba(31,122,95,0.15);
+            --shadow: 0 15px 35px -10px rgba(42,59,143,0.15); /* Sombra ajustada al nuevo color primario */
             --text-dark: #1f2d3a;
             --text-medium: #6b7280;
             --card-bg: #ffffff;
@@ -44,7 +45,7 @@
             align-items: center;
             gap: .5rem;
             transition: filter .2s ease, transform .15s ease;
-            box-shadow: 0 10px 25px -5px rgba(31,122,95,0.4);
+            box-shadow: 0 10px 25px -5px rgba(42,59,143,0.4); /* Sombra ajustada al nuevo color primario */
         }
         .btn-primary:hover {
             filter: brightness(1.05);
@@ -87,10 +88,11 @@
             display: inline-block;
             white-space: nowrap;
         }
-        .status-running { background: #fef3c7; color: #805d00; }
-        .status-planning { background: #d1fae5; color: #065f46; }
-        .status-proposal { background: #c7d2fe; color: #4338ca; }
-        .status-complete { background: #e2e8f0; color: #1e3a8a; }
+        /* Ajuste de colores para los estados de los pills */
+        .status-running { background: #E2E8F0; color: #1f2d3a; } /* Gris claro */
+        .status-planning { background: #D1D9F5; color: #2A3B8F; } /* Azul claro */
+        .status-proposal { background: #FEE2E2; color: #D9232B; } /* Rojo claro */
+        .status-complete { background: #e2e8f0; color: #1e3a8a; } /* Mantiene gris claro */
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
@@ -357,14 +359,14 @@
                                     <div class="title">Constructora Alfa</div>
                                     <div class="subtitle">Contacto: Juan Pérez · 55-1234-5678</div>
                                 </div>
-                                <div class="pill" style="background:#e6f7f1;color:#0f4d3a;">Constructora</div>
+                                <div class="pill" style="background:#D1D9F5;color:#2A3B8F;">Constructora</div>
                             </div>
                             <div class="list-item-card">
                                 <div>
                                     <div class="title">Particular Sra. Gómez</div>
                                     <div class="subtitle">Ana Gómez · 55-9876-5432</div>
                                 </div>
-                                <div class="pill" style="background:#f0f4f8;color:#2d3a5f;">Particular</div>
+                                <div class="pill" style="background:#FEE2E2;color:#D9232B;">Particular</div>
                             </div>
                         </div>
                     </div>
@@ -600,7 +602,7 @@
                         labels: ['En Ejecución', 'Planificación', 'Propuesta', 'Finalizado'],
                         datasets: [{
                             data: [2, 1, 1, 1], /* Datos de ejemplo */
-                            backgroundColor: ['var(--primary)', 'var(--primary-light)', '#a3bffa', '#d1dfe8'], /* Colores para las secciones del gráfico */
+                            backgroundColor: ['var(--primary)', 'var(--primary-light)', '#9EBDFE', '#E6E9EE'], /* Colores para las secciones del gráfico */
                             borderWidth: 0
                         }]
                     },
