@@ -9,6 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        /* Base styles */
+        * {
+            box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+        }
         body {
             font-family: 'Inter', sans-serif;
             color: #1A202C; /* Tailwind's gray-900 */
@@ -121,29 +125,112 @@
             }
         }
 
+        /* Modal specific styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            overflow-y: auto; /* Allow scrolling for modal content if it's too tall */
+            padding: 1rem; /* Padding around the modal content */
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            position: relative;
+            max-width: 90%; /* Max width for responsiveness */
+            width: 800px; /* Fixed width for larger screens */
+            margin: auto; /* Center content vertically if overflow-y: auto is active */
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #4a5568; /* Tailwind gray-700 */
+        }
+        .hidden {
+            display: none !important;
+        }
+
         /* Print-specific styles */
         @media print {
-            #quoteFormSection, .print-hidden {
-                display: none !important;
+            #quoteFormSection, .print-hidden, .modal-overlay, #openQuoteFormBtn {
+                display: none !important; /* Hide form, modal, and open button when printing */
             }
             body {
                 background-color: #fff !important;
                 margin: 0;
                 padding: 0;
+                -webkit-print-color-adjust: exact; /* For WebKit browsers to print background colors */
+                print-color-adjust: exact; /* Standard property */
             }
             .max-w-6xl {
                 max-width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
+                margin: 0.5in auto !important; /* Add some margin for printing */
+                padding: 0.5in !important; /* Add padding to the main content area */
                 box-shadow: none !important;
                 border-radius: 0 !important;
             }
             .quote-table {
                 box-shadow: none !important;
                 border: 1px solid #e2e8f0;
+                page-break-inside: auto; /* Allow table to break across pages if necessary */
             }
             .quote-table th, .quote-table td {
                 padding: 0.75rem 1rem;
+                border-bottom: 1px solid #e2e8f0; /* Ensure borders are visible */
+            }
+
+            /* Override responsive table styles for print */
+            .quote-table, .quote-table tbody, .quote-table tr, .quote-table td, .quote-table th {
+                display: table !important;
+                width: 100% !important;
+            }
+            .quote-table thead {
+                display: table-header-group !important; /* Show table header on print */
+            }
+            .quote-table tr {
+                margin-bottom: 0 !important; /* Remove margin between rows */
+                border: none !important; /* Remove individual row borders */
+            }
+            .quote-table td {
+                text-align: left !important; /* Reset text alignment */
+                position: static !important; /* Reset position */
+                padding-left: 1rem !important; /* Reset padding */
+            }
+            .quote-table td::before {
+                content: none !important; /* Hide pseudo-element labels on print */
+            }
+            .quote-table .module-header,
+            .quote-table .total-row {
+                text-align: left !important; /* Ensure module headers and total row align left */
+                padding-left: 1rem !important;
+            }
+            .quote-table .total-row td:last-child {
+                text-align: right !important; /* Keep total cost aligned right */
+            }
+            .quote-table .total-row td:last-child::before {
+                content: none !important; /* Hide pseudo-element for total on print */
+            }
+
+            /* Ensure content doesn't break inside important sections */
+            section {
+                page-break-inside: avoid;
+            }
+            header, footer {
+                page-break-after: avoid;
             }
         }
     </style>
@@ -151,57 +238,67 @@
 <body class="bg-gray-50">
 
     <div class="max-w-6xl mx-auto my-8 p-8 bg-white rounded-lg shadow-xl">
-        <!-- Formulario para la Cotización -->
-        <section id="quoteFormSection" class="mb-8 p-6 bg-blue-50 rounded-lg shadow-md">
-            <h2 class="text-2xl font-bold tbcs-blue mb-6 text-center">Generar Nueva Cotización</h2>
+        <!-- Botón para abrir el formulario de cotización -->
+        <div id="initialCallToAction" class="flex justify-center items-center h-64">
+            <button id="openQuoteFormBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-xl focus:outline-none focus:shadow-outline transition duration-200">
+                Crear Nueva Cotización
+            </button>
+        </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div>
-                    <h3 class="font-bold text-xl mb-3">Información del Cliente:</h3>
-                    <div class="mb-4">
-                        <label for="clientName" class="block text-gray-700 text-sm font-bold mb-2">Nombre del Cliente:</label>
-                        <input type="text" id="clientName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="Michelle Rodríguez">
-                    </div>
-                    <div class="mb-4">
-                        <label for="clientCompany" class="block text-gray-700 text-sm font-bold mb-2">Empresa:</label>
-                        <input type="text" id="clientCompany" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="Grupo Mycor">
-                    </div>
-                    <div class="mb-4">
-                        <label for="clientEmail" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
-                        <input type="email" id="clientEmail" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="rtmps@hotmail.com">
-                    </div>
-                    <div class="mb-4">
-                        <label for="clientPhone" class="block text-gray-700 text-sm font-bold mb-2">Celular:</label>
-                        <input type="tel" id="clientPhone" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="55 2900 5393">
-                    </div>
-                </div>
-                <div>
-                    <h3 class="font-bold text-xl mb-3">Detalles de la Cotización:</h3>
-                    <div class="mb-4">
-                        <label for="quoteNumber" class="block text-gray-700 text-sm font-bold mb-2">Número de Cotización:</label>
-                        <input type="text" id="quoteNumber" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="Q-TBCS-2025-001">
-                    </div>
-                    <div class="mb-4">
-                        <label for="quoteDate" class="block text-gray-700 text-sm font-bold mb-2">Fecha:</label>
-                        <input type="date" id="quoteDate" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    </div>
-                    <div class="mb-4">
-                        <label for="quoteValidity" class="block text-gray-700 text-sm font-bold mb-2">Validez:</label>
-                        <input type="text" id="quoteValidity" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="30 días">
-                    </div>
-                    <div class="mb-4">
-                        <label for="hourlyRateInput" class="block text-gray-700 text-sm font-bold mb-2">Tarifa por hora (USD):</label>
-                        <input type="number" id="hourlyRateInput" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="20" min="0">
-                    </div>
-                </div>
-            </div>
+        <!-- Modal para el Formulario de Cotización -->
+        <div id="quoteModal" class="modal-overlay hidden">
+            <div class="modal-content">
+                <button id="closeModalBtn" class="modal-close-btn">&times;</button>
+                <section id="quoteFormSection" class="p-6 bg-blue-50 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-bold tbcs-blue mb-6 text-center">Generar Nueva Cotización</h2>
 
-            <h3 class="text-xl font-bold tbcs-blue mb-4 text-center">Horas por Actividad (Pegar desde Excel/CSV):</h3>
-            <div class="mb-6">
-                <label for="activityHoursCsv" class="block text-gray-700 text-sm font-bold mb-2">
-                    Pegue aquí las actividades y sus horas. Formato: "Nombre de la Actividad, Horas"
-                </label>
-                <textarea id="activityHoursCsv" rows="15" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ejemplo:
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div>
+                            <h3 class="font-bold text-xl mb-3">Información del Cliente:</h3>
+                            <div class="mb-4">
+                                <label for="clientName" class="block text-gray-700 text-sm font-bold mb-2">Nombre del Cliente:</label>
+                                <input type="text" id="clientName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="Michelle Rodríguez">
+                            </div>
+                            <div class="mb-4">
+                                <label for="clientCompany" class="block text-gray-700 text-sm font-bold mb-2">Empresa:</label>
+                                <input type="text" id="clientCompany" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="Grupo Mycor">
+                            </div>
+                            <div class="mb-4">
+                                <label for="clientEmail" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                                <input type="email" id="clientEmail" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="rtmps@hotmail.com">
+                            </div>
+                            <div class="mb-4">
+                                <label for="clientPhone" class="block text-gray-700 text-sm font-bold mb-2">Celular:</label>
+                                <input type="tel" id="clientPhone" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="55 2900 5393">
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-xl mb-3">Detalles de la Cotización:</h3>
+                            <div class="mb-4">
+                                <label for="quoteNumber" class="block text-gray-700 text-sm font-bold mb-2">Número de Cotización:</label>
+                                <input type="text" id="quoteNumber" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="Q-TBCS-2025-001">
+                            </div>
+                            <div class="mb-4">
+                                <label for="quoteDate" class="block text-gray-700 text-sm font-bold mb-2">Fecha:</label>
+                                <input type="date" id="quoteDate" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            </div>
+                            <div class="mb-4">
+                                <label for="quoteValidity" class="block text-gray-700 text-sm font-bold mb-2">Validez:</label>
+                                <input type="text" id="quoteValidity" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="30 días">
+                            </div>
+                            <div class="mb-4">
+                                <label for="hourlyRateInput" class="block text-gray-700 text-sm font-bold mb-2">Tarifa por hora (USD):</label>
+                                <input type="number" id="hourlyRateInput" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="20" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-bold tbcs-blue mb-4 text-center">Horas por Actividad (Pegar desde Excel/CSV):</h3>
+                    <div class="mb-6">
+                        <label for="activityHoursCsv" class="block text-gray-700 text-sm font-bold mb-2">
+                            Pegue aquí las actividades y sus horas. Formato: "Nombre de la Actividad, Horas"
+                        </label>
+                        <textarea id="activityHoursCsv" rows="15" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ejemplo:
 Análisis de Requerimientos, 2
 Diseño de Interfaces (UI/UX), 8
 Diseño de Arquitectura, 8
@@ -224,15 +321,15 @@ Configuración Producción, 8
 Migración de Datos, 5
 Capacitación de Usuarios, 2
 Go-Live y Estabilización, 2"></textarea>
-                <p class="text-sm text-gray-500 mt-2">Asegúrese de que el "Nombre de la Actividad" coincida exactamente con el de la tabla para que las horas se apliquen correctamente. Las actividades no listadas aquí tendrán 0 horas.</p>
-            </div>
+                        <p class="text-sm text-gray-500 mt-2">Asegúrese de que el "Nombre de la Actividad" coincida exactamente con el de la tabla para que las horas se apliquen correctamente. Las actividades no listadas aquí tendrán 0 horas.</p>
+                    </div>
 
-            <h3 class="text-xl font-bold tbcs-blue mb-4 text-center">Notas Importantes y Condiciones:</h3>
-            <div class="mb-6">
-                <label for="notesConditionsInput" class="block text-gray-700 text-sm font-bold mb-2">
-                    Escriba aquí las notas y condiciones importantes. Cada línea será un punto de la lista.
-                </label>
-                <textarea id="notesConditionsInput" rows="8" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <h3 class="text-xl font-bold tbcs-blue mb-4 text-center">Notas Importantes y Condiciones:</h3>
+                    <div class="mb-6">
+                        <label for="notesConditionsInput" class="block text-gray-700 text-sm font-bold mb-2">
+                            Escriba aquí las notas y condiciones importantes. Cada línea será un punto de la lista.
+                        </label>
+                        <textarea id="notesConditionsInput" rows="8" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
 Tarifa por hora: $20 USD (tarifa promocional para el primer proyecto)
 Tiempo estimado de desarrollo: 4 a 5 semanas hábiles
 Soporte incluido: 30 días posteriores a la implementación para ajustes y correcciones menores
@@ -240,21 +337,20 @@ Hosting: No incluido. Se cotiza por separado de acuerdo con los requerimientos d
 Garantía: 90 días sobre las funcionalidades desarrolladas
 Forma de pago: 40% al inicio del proyecto y 60% al momento del go-live
 Los precios se encuentran expresados en dólares americanos y no incluyen IVA. En caso de requerir factura, se deberá adicionar el impuesto correspondiente.
-                </textarea>
-            </div>
+                        </textarea>
+                    </div>
 
-            <div class="flex justify-center space-x-4 mt-6">
-                <button id="generateQuoteBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-200">
-                    Generar Cotización
-                </button>
-                <button id="printQuoteBtn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-200">
-                    Imprimir Cotización
-                </button>
+                    <div class="flex justify-center space-x-4 mt-6">
+                        <button id="generateQuoteBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-200">
+                            Generar Cotización
+                        </button>
+                    </div>
+                </section>
             </div>
-        </section>
+        </div>
 
         <!-- Sección de Vista Previa de la Cotización (Contenido Dinámico) -->
-        <section id="quotePreviewSection">
+        <section id="quotePreviewSection" class="hidden">
             <!-- Header de la Cotización -->
             <header class="flex flex-col md:flex-row justify-between items-center pb-8 border-b border-gray-200 mb-8">
                 <div class="mb-4 md:mb-0">
@@ -478,6 +574,13 @@ Los precios se encuentran expresados en dólares americanos y no incluyen IVA. E
                 </ul>
             </section>
 
+            <!-- Botón de Imprimir Cotización -->
+            <div class="flex justify-center space-x-4 mt-6 print-hidden">
+                <button id="printQuoteBtn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg focus:outline-none focus:shadow-outline transition duration-200">
+                    Imprimir Cotización
+                </button>
+            </div>
+
             <!-- Footer de la Cotización -->
             <footer class="text-center text-gray-500 text-sm pt-8 border-t border-gray-200">
                 <p>Atentamente,</p>
@@ -501,8 +604,8 @@ Los precios se encuentran expresados en dólares americanos y no incluyen IVA. E
             const quoteDateInput = document.getElementById('quoteDate');
             const quoteValidityInput = document.getElementById('quoteValidity');
             const hourlyRateInput = document.getElementById('hourlyRateInput');
-            const activityHoursCsvInput = document.getElementById('activityHoursCsv'); // Nuevo textarea para horas
-            const notesConditionsInput = document.getElementById('notesConditionsInput'); // Nuevo textarea para notas
+            const activityHoursCsvInput = document.getElementById('activityHoursCsv');
+            const notesConditionsInput = document.getElementById('notesConditionsInput');
 
             // Referencias a los elementos de visualización de la cotización
             const previewClientName = document.getElementById('previewClientName');
@@ -512,13 +615,18 @@ Los precios se encuentran expresados en dólares americanos y no incluyen IVA. E
             const previewQuoteNumber = document.getElementById('previewQuoteNumber');
             const previewQuoteDate = document.getElementById('previewQuoteDate');
             const previewQuoteValidity = document.getElementById('previewQuoteValidity');
-            const displayHourlyRate = document.getElementById('displayHourlyRate');
             const totalHorasDisplay = document.getElementById('totalHorasDisplay');
             const totalCostoDisplay = document.getElementById('totalCostoDisplay');
-            const previewNotesConditionsUl = document.getElementById('previewNotesConditions'); // UL para las notas
+            const previewNotesConditionsUl = document.getElementById('previewNotesConditions');
+
+            // Referencias a elementos del modal y secciones
+            const openQuoteFormBtn = document.getElementById('openQuoteFormBtn');
+            const quoteModal = document.getElementById('quoteModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const initialCallToAction = document.getElementById('initialCallToAction');
+            const quotePreviewSection = document.getElementById('quotePreviewSection');
 
             // Mapeo de nombres de actividad a sus IDs de display en la tabla
-            // Esto permite que el usuario pegue el nombre de la actividad y se actualice el campo correcto.
             const activityDisplayMap = {
                 "Análisis de Requerimientos": { hoursId: "display_horas_analisis_requerimientos", costId: "display_costo_analisis_requerimientos" },
                 "Diseño de Interfaces (UI/UX)": { hoursId: "display_horas_diseno_interfaces", costId: "display_costo_diseno_interfaces" },
@@ -553,6 +661,25 @@ Los precios se encuentran expresados en dólares americanos y no incluyen IVA. E
                 return value.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
             };
 
+            // Función para abrir el modal
+            const openModal = () => {
+                if (quoteModal) quoteModal.classList.remove('hidden');
+                if (initialCallToAction) initialCallToAction.classList.add('hidden');
+                // Set default date to today when opening the modal if it's empty
+                if (!quoteDateInput.value) {
+                    const today = new Date();
+                    const year = today.getFullYear();
+                    const month = String(today.getMonth() + 1).padStart(2, '0');
+                    const day = String(today.getDate()).padStart(2, '0');
+                    quoteDateInput.value = `${year}-${month}-${day}`;
+                }
+            };
+
+            // Función para cerrar el modal
+            const closeModal = () => {
+                if (quoteModal) quoteModal.classList.add('hidden');
+            };
+
             // Función principal para actualizar la vista previa de la cotización
             const updateQuotePreview = () => {
                 // Actualizar información del cliente y cotización
@@ -577,7 +704,6 @@ Los precios se encuentran expresados en dólares americanos y no incluyen IVA. E
                 if (previewQuoteValidity) previewQuoteValidity.textContent = quoteValidityInput.value;
                 
                 const hourlyRate = parseFloat(hourlyRateInput.value) || 0;
-                if (displayHourlyRate) displayHourlyRate.textContent = formatCurrency(hourlyRate);
 
                 let totalHoras = 0;
                 let totalCosto = 0;
@@ -587,7 +713,7 @@ Los precios se encuentran expresados en dólares americanos y no incluyen IVA. E
                     const hoursSpan = document.getElementById(activityDisplayMap[key].hoursId);
                     const costSpan = document.getElementById(activityDisplayMap[key].costId);
                     if (hoursSpan) hoursSpan.textContent = 0;
-                    if (costSpan) costSpan.textContent = 0;
+                    if (costSpan) costSpan.textContent = formatCurrency(0);
                 }
 
                 // Procesar el textarea de actividades y horas
@@ -601,7 +727,7 @@ Los precios se encuentran expresados en dólares americanos y no incluyen IVA. E
                         const hours = parseFloat(parts[1].trim()) || 0;
 
                         const mapping = activityDisplayMap[activityName];
-                        if (mapping) { // This check ensures 'mapping' is not null/undefined
+                        if (mapping) {
                             const hoursSpan = document.getElementById(mapping.hoursId);
                             const costSpan = document.getElementById(mapping.costId);
                             
@@ -620,7 +746,7 @@ Los precios se encuentran expresados en dólares americanos y no incluyen IVA. E
 
                 // Actualizar totales
                 if (totalHorasDisplay) totalHorasDisplay.textContent = totalHoras;
-                if (totalCostoDisplay) totalCostoDisplay.textContent = formatCurrency(totalCosto);
+                if (totalCostoDisplay) totalCostoDisplay.textContent = formatCurrency(totalHoras * hourlyRate);
 
                 // Actualizar Notas Importantes y Condiciones
                 const notesContent = notesConditionsInput.value;
@@ -637,7 +763,19 @@ Los precios se encuentran expresados en dólares americanos y no incluyen IVA. E
                 }
             };
 
-            // Asignar eventos a los campos del formulario para actualizar la vista previa en tiempo real
+            // Event Listeners
+            if (openQuoteFormBtn) openQuoteFormBtn.addEventListener('click', openModal);
+            if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+            if (quoteModal) {
+                // Close modal when clicking outside the content
+                quoteModal.addEventListener('click', (e) => {
+                    if (e.target === quoteModal) {
+                        closeModal();
+                    }
+                });
+            }
+
+            // Event listeners para actualizar la vista previa en tiempo real dentro del modal
             clientNameInput.addEventListener('input', updateQuotePreview);
             clientCompanyInput.addEventListener('input', updateQuotePreview);
             clientEmailInput.addEventListener('input', updateQuotePreview);
@@ -646,26 +784,27 @@ Los precios se encuentran expresados en dólares americanos y no incluyen IVA. E
             quoteDateInput.addEventListener('input', updateQuotePreview);
             quoteValidityInput.addEventListener('input', updateQuotePreview);
             hourlyRateInput.addEventListener('input', updateQuotePreview);
-            activityHoursCsvInput.addEventListener('input', updateQuotePreview); // Evento para el nuevo textarea
-            notesConditionsInput.addEventListener('input', updateQuotePreview); // Evento para el nuevo textarea de notas
+            activityHoursCsvInput.addEventListener('input', updateQuotePreview);
+            notesConditionsInput.addEventListener('input', updateQuotePreview);
 
-            // Asignar evento al botón de generar cotización (aunque ya se actualiza en tiempo real, es útil para un clic explícito)
-            generateQuoteBtn.addEventListener('click', updateQuotePreview);
+            // Asignar evento al botón de generar cotización
+            if (generateQuoteBtn) {
+                generateQuoteBtn.addEventListener('click', () => {
+                    updateQuotePreview(); // Actualiza la vista previa
+                    closeModal(); // Cierra el modal
+                    if (quotePreviewSection) quotePreviewSection.classList.remove('hidden'); // Muestra la sección de la cotización
+                });
+            }
 
             // Asignar evento al botón de imprimir
-            printQuoteBtn.addEventListener('click', () => {
-                window.print();
-            });
+            if (printQuoteBtn) {
+                printQuoteBtn.addEventListener('click', () => {
+                    window.print();
+                });
+            }
 
-            // Inicializar la cotización con los valores por defecto al cargar la página
-            updateQuotePreview();
-
-            // Set default date to today
-            const today = new Date();
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            quoteDateInput.value = `${year}-${month}-${day}`;
+            // Ocultar la sección de vista previa al inicio
+            if (quotePreviewSection) quotePreviewSection.classList.add('hidden');
         });
     </script>
 
