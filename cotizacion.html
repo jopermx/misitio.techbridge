@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotización - TechBridge Consulting Systems</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1A202C; /* Tailwind's gray-900 */
+            background-color: #f8fafc; /* Light blue-gray for background */
+            line-height: 1.6;
+        }
+        .tbcs-blue { color: #0077C9; }
+        .tbcs-blue-bg { background-color: #0077C9; }
+        .tbcs-blue-border { border-color: #0077C9; }
+        .container-padding { padding-left: 1.5rem; padding-right: 1.5rem; } /* px-6 */
+
+        /* Estilos para la tabla de cotización */
+        .quote-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            overflow: hidden; /* Ensures rounded corners apply to content */
+        }
+        .quote-table th, .quote-table td {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0; /* Tailwind gray-200 */
+        }
+        .quote-table th {
+            background-color: #0077C9;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.875rem; /* text-sm */
+        }
+        .quote-table tbody tr:nth-child(odd) {
+            background-color: #fdfdfe; /* Slightly off-white for odd rows */
+        }
+        .quote-table tbody tr:nth-child(even) {
+            background-color: #ffffff; /* White for even rows */
+        }
+        .quote-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .quote-table .module-header {
+            background-color: #e0f2fe; /* Tailwind blue-50 for module headers */
+            color: #0077C9;
+            font-weight: 700;
+            padding: 0.75rem 1.25rem;
+            border-bottom: 1px solid #bfdbfe; /* Tailwind blue-200 */
+        }
+        .quote-table .total-row {
+            background-color: #f0f9ff; /* Tailwind blue-50 for total row */
+            font-weight: 700;
+            font-size: 1.125rem; /* text-lg */
+            border-top: 2px solid #0077C9;
+        }
+        .quote-table .total-row td:last-child {
+            text-align: right;
+            color: #0077C9;
+        }
+
+        /* Responsive table for small screens */
+        @media (max-width: 768px) {
+            .quote-table, .quote-table tbody, .quote-table tr, .quote-table td, .quote-table th {
+                display: block;
+                width: 100%;
+            }
+            .quote-table thead {
+                display: none; /* Hide table header on small screens */
+            }
+            .quote-table tr {
+                margin-bottom: 1rem;
+                border: 1px solid #e2e8f0;
+                border-radius: 0.5rem;
+                overflow: hidden;
+            }
+            .quote-table td {
+                text-align: right;
+                position: relative;
+                padding-left: 50%; /* Space for the pseudo-element label */
+            }
+            .quote-table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 0;
+                width: 45%;
+                padding-left: 1.25rem;
+                font-weight: 600;
+                text-align: left;
+                color: #4a5568; /* Tailwind gray-700 */
+            }
+            .quote-table .module-header {
+                text-align: center;
+                padding-left: 1.25rem; /* Reset padding for module header */
+            }
+            .quote-table .module-header::before {
+                content: none; /* Hide pseudo-element for module headers */
+            }
+            .quote-table .total-row {
+                text-align: right;
+                padding-left: 1.25rem; /* Reset padding for total row */
+            }
+            .quote-table .total-row td:first-child::before {
+                content: none; /* Hide pseudo-element for the first cell of total row */
+            }
+            .quote-table .total-row td:last-child::before {
+                content: 'Total Desarrollo:'; /* Custom label for total on mobile */
+                width: auto;
+                left: 1.25rem;
+                font-size: 1rem;
+                color: #0077C9;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <div class="max-w-6xl mx-auto my-8 p-8 bg-white rounded-lg shadow-xl">
+        <!-- Header de la Cotización -->
+        <header class="flex flex-col md:flex-row justify-between items-center pb-8 border-b border-gray-200 mb-8">
+            <div class="mb-4 md:mb-0">
+                <img src="uploaded:favicon_tbcs.png-d4832a93-306a-4214-8f86-b30ee113f8f5" alt="Logo TechBridge Consulting Systems" class="h-20 w-auto">
+            </div>
+            <div class="text-right">
+                <h1 class="text-4xl font-extrabold tbcs-blue mb-2">COTIZACIÓN</h1>
+                <p class="text-lg font-semibold text-gray-700">TechBridge Consulting Systems</p>
+                <p class="text-sm text-gray-500">contacto@tbcs.com.mx </p>
+            </div>
+        </header>
+
+        <!-- Información del Cliente y Cotización -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 text-gray-700">
+            <div>
+                <h2 class="font-bold text-xl mb-2">Cliente:</h2>
+                <p><strong>Nombre del Cliente:</strong> Michelle Rodríguez</p>
+                <p><strong>Empresa:</strong> Grupo Mycor</p>
+                <p><strong>Email:</strong> rtmps@hotmail.com</p>
+                <p><strong>Celular:</strong> 55 2900 5393</p>
+            </div>
+            <div class="md:text-right">
+                <h2 class="font-bold text-xl mb-2">Detalles de Cotización:</h2>
+                <p><strong>Número de Cotización:</strong> Q-TBCS-2025-001</p>
+                <p><strong>Fecha:</strong> 06 de Agosto de 2025</p>
+                <p><strong>Validez:</strong> 30 días</p>
+            </div>
+        </section>
+
+        <!-- Tabla de Módulos/Actividades -->
+        <section class="mb-8 overflow-x-auto">
+            <table class="quote-table">
+                <thead>
+                    <tr>
+                        <th style="width: 35%;">Módulo/Actividad</th>
+                        <th style="width: 45%;">Descripción</th>
+                        <th style="width: 10%;">Horas</th>
+                        <th style="width: 10%;">Costo Parcial</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 1. ANÁLISIS Y DISEÑO DEL SISTEMA -->
+                    <tr>
+                        <td colspan="4" class="module-header">1. ANÁLISIS Y DISEÑO DEL SISTEMA</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Análisis de Requerimientos</td>
+                        <td data-label="Descripción">Levantamiento detallado de necesidades, procesos actuales, definición de alcance</td>
+                        <td data-label="Horas">2</td>
+                        <td data-label="Costo Parcial">$40</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Diseño de Interfaces (UI/UX)</td>
+                        <td data-label="Descripción">Mockups, wireframes y prototipo de interfaces de usuario</td>
+                        <td data-label="Horas">8</td>
+                        <td data-label="Costo Parcial">$160</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Diseño de Arquitectura</td>
+                        <td data-label="Descripción">Diseño de base de datos, arquitectura del sistema y definición de tecnologías</td>
+                        <td data-label="Horas">8</td>
+                        <td data-label="Costo Parcial">$160</td>
+                    </tr>
+
+                    <!-- 2. MÓDULO GESTIÓN DE CLIENTES -->
+                    <tr>
+                        <td colspan="4" class="module-header">2. MÓDULO GESTIÓN DE CLIENTES</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Base de Datos de Clientes</td>
+                        <td data-label="Descripción">CRUD completo, búsquedas avanzadas, categorización y segmentación</td>
+                        <td data-label="Horas">15</td>
+                        <td data-label="Costo Parcial">$300</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Historial y Comunicaciones</td>
+                        <td data-label="Descripción">Registro de interacciones, notas, documentos y comunicaciones</td>
+                        <td data-label="Horas">12</td>
+                        <td data-label="Costo Parcial">$240</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Reportes de Clientes</td>
+                        <td data-label="Descripción">Dashboards, análisis de satisfacción y reportes de actividad</td>
+                        <td data-label="Horas">10</td>
+                        <td data-label="Costo Parcial">$200</td>
+                    </tr>
+
+                    <!-- 3. MÓDULO GESTIÓN DE OPORTUNIDADES -->
+                    <tr>
+                        <td colspan="4" class="module-header">3. MÓDULO GESTIÓN DE OPORTUNIDADES</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Pipeline de Ventas</td>
+                        <td data-label="Descripción">Entorno de ventas, etapas personalizables, seguimiento de oportunidades</td>
+                        <td data-label="Horas">15</td>
+                        <td data-label="Costo Parcial">$300</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Cotizaciones y Propuestas</td>
+                        <td data-label="Descripción">Generación de cotizaciones, plantillas y seguimiento</td>
+                        <td data-label="Horas">10</td>
+                        <td data-label="Costo Parcial">$200</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Seguimiento y Alertas</td>
+                        <td data-label="Descripción">Notificaciones automáticas y recordatorios.</td>
+                        <td data-label="Horas">8</td>
+                        <td data-label="Costo Parcial">$160</td>
+                    </tr>
+
+                    <!-- 4. MÓDULO GESTIÓN DE PROYECTOS -->
+                    <tr>
+                        <td colspan="4" class="module-header">4. MÓDULO GESTIÓN DE PROYECTOS</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Planificación de Proyectos</td>
+                        <td data-label="Descripción">Creación de proyectos, cronogramas, hitos y asignación de recursos</td>
+                        <td data-label="Horas">15</td>
+                        <td data-label="Costo Parcial">$300</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Control de Avance</td>
+                        <td data-label="Descripción">Seguimiento de progreso, control de tareas y gestión de cambios</td>
+                        <td data-label="Horas">10</td>
+                        <td data-label="Costo Parcial">$200</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Gestión de Recursos</td>
+                        <td data-label="Descripción">Asignación de personal, maquinaria, materiales y subcontratistas</td>
+                        <td data-label="Horas">10</td>
+                        <td data-label="Costo Parcial">$200</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Documentación y Archivos</td>
+                        <td data-label="Descripción">Gestión documental, planos, especificaciones y control de versiones</td>
+                        <td data-label="Horas">8</td>
+                        <td data-label="Costo Parcial">$160</td>
+                    </tr>
+
+                    <!-- 5. MÓDULO GESTIÓN FINANCIERA BÁSICA -->
+                    <tr>
+                        <td colspan="4" class="module-header">5. MÓDULO GESTIÓN FINANCIERA BÁSICA</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Facturación</td>
+                        <td data-label="Descripción">Generación de correos para solicitar facturación, control de pagos y seguimiento de cuentas por cobrar</td>
+                        <td data-label="Horas">7</td>
+                        <td data-label="Costo Parcial">$140</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Control de Gastos</td>
+                        <td data-label="Descripción">Registro de gastos por proyecto, categorización y aprobaciones</td>
+                        <td data-label="Horas">9</td>
+                        <td data-label="Costo Parcial">$180</td>
+                    </tr>
+
+                    <!-- 6. PRUEBAS Y CONTROL DE CALIDAD -->
+                    <tr>
+                        <td colspan="4" class="module-header">6. PRUEBAS Y CONTROL DE CALIDAD</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Pruebas Unitarias</td>
+                        <td data-label="Descripción">Testing de componentes individuales y funciones críticas</td>
+                        <td data-label="Horas">4</td>
+                        <td data-label="Costo Parcial">$80</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Pruebas de Integración</td>
+                        <td data-label="Descripción">Testing de flujos completos entre módulos</td>
+                        <td data-label="Horas">4</td>
+                        <td data-label="Costo Parcial">$80</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Pruebas de Usuario (UAT)</td>
+                        <td data-label="Descripción">Testing con usuarios finales y corrección de observaciones</td>
+                        <td data-label="Horas">4</td>
+                        <td data-label="Costo Parcial">$80</td>
+                    </tr>
+
+                    <!-- 7. IMPLEMENTACIÓN Y DESPLIEGUE -->
+                    <tr>
+                        <td colspan="4" class="module-header">7. IMPLEMENTACIÓN Y DESPLIEGUE</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Configuración Producción</td>
+                        <td data-label="Descripción">Setup de servidor de producción, seguridad y optimización</td>
+                        <td data-label="Horas">8</td>
+                        <td data-label="Costo Parcial">$160</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Migración de Datos</td>
+                        <td data-label="Descripción">Importación de datos existentes y validación</td>
+                        <td data-label="Horas">5</td>
+                        <td data-label="Costo Parcial">$100</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Capacitación de Usuarios</td>
+                        <td data-label="Descripción">Training del equipo, manuales y documentación</td>
+                        <td data-label="Horas">2</td>
+                        <td data-label="Costo Parcial">$40</td>
+                    </tr>
+                    <tr>
+                        <td data-label="Módulo/Actividad">Go-Live y Estabilización</td>
+                        <td data-label="Descripción">Puesta en marcha, monitoreo inicial y ajustes menores</td>
+                        <td data-label="Horas">2</td>
+                        <td data-label="Costo Parcial">$40</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="3" data-label="TOTAL DESARROLLO">TOTAL DESARROLLO: 176 Horas</td>
+                        <td data-label="Costo Total">$3,520 USD</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Notas Importantes y Condiciones -->
+        <section class="mb-8 text-gray-700">
+            <h2 class="font-bold text-xl mb-4 tbcs-blue">Notas Importantes y Condiciones</h2>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Tarifa por hora:</strong> $20 USD (tarifa promocional para el primer proyecto)</li>
+                <li><strong>Tiempo estimado de desarrollo:</strong> 4 a 5 semanas hábiles</li>
+                <li><strong>Soporte incluido:</strong> 30 días posteriores a la implementación para ajustes y correcciones menores</li>
+                <li><strong>Hosting:</strong> No incluido. Se cotiza por separado de acuerdo con los requerimientos del proyecto</li>
+                <li><strong>Garantía:</strong> 90 días sobre las funcionalidades desarrolladas</li>
+                <li><strong>Forma de pago:</strong> 40% al inicio del proyecto y 60% al momento del go-live</li>
+                <li>Los precios se encuentran expresados en dólares americanos y no incluyen IVA. En caso de requerir factura, se deberá adicionar el impuesto correspondiente.</li>
+            </ul>
+        </section>
+
+        <!-- Footer de la Cotización -->
+        <footer class="text-center text-gray-500 text-sm pt-8 border-t border-gray-200">
+            <p>Atentamente,</p>
+            <p class="font-bold text-gray-700 mt-3">Ing. Jonathan Pérez Ramos</p>
+            <p class="text-xs text-gray-500 mt-1">Cel: 55 6465 3089</p>
+            <p class="text-xs text-gray-500 mt-1">Email: jonathan.perez@tbcs.com.mx</p>
+            <p class="text-xs text-gray-500 mt-1"> TechBridge Consulting Systems. </p>
+            
+        </footer>
+    </div>
+
+</body>
+</html>
