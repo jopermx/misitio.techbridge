@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios Contables - TechBridge Consulting Systems</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1A202C;
+        }
+        .tech-blue { color: #0077C9; }
+        .tech-blue-bg { background-color: #0077C9; }
+        .tech-blue-border { border-color: #0077C9; }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+            font-weight: 500; 
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #0077C9;
+            border-bottom-color: #0077C9;
+        }
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .btn-primary {
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #005699;
+            transform: translateY(-2px);
+        }
+        .regime-tag {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            margin: 0.125rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .regime-rif { background-color: #EFF6FF; color: #1E40AF; }
+        .regime-pfae { background-color: #F0FDF4; color: #166534; }
+        .regime-resico { background-color: #FEF3C7; color: #92400E; }
+        .regime-pm { background-color: #F3E8FF; color: #7C3AED; }
+        
+        /* Navegación interna */
+        .internal-nav {
+            position: sticky;
+            top: 100px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #e5e7eb;
+            z-index: 55;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: -1px;
+        }
+        
+        /* Scroll offset para compensar el menú sticky */
+        #regimenes, #servicios-basicos, #servicios-fiscales, #servicios-financieros, #servicios-tecnologicos, #especializados, #contacto-section {
+            scroll-margin-top: 180px;
+        }
+        .internal-nav-link {
+            display: inline-block;
+            padding: 0.75rem 1rem;
+            margin: 0 0.25rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .internal-nav-link:hover {
+            background-color: #f3f4f6;
+            color: #0077C9;
+        }
+        .internal-nav-link.active {
+            background-color: #0077C9;
+            color: white;
+        }
+    </style>
+    <link rel="icon" type="image/png" href="img/favicon_tbcs.png">
+    <link rel="shortcut icon" href="img/favicon_tbcs.png" type="image/png">
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+             <a href="index.html" class="flex items-center">
+                <img src="img/tbcs.png"
+                alt="TechBridge Consulting Systems Logo"
+                class="h-16 sm:h-20 md:h-24 lg:h-28 w-auto" />
+            </a>
+            <nav class="hidden md:flex space-x-10">
+                <a href="index.html" class="nav-link text-gray-700">Inicio</a>
+                <a href="nosotros.html" class="nav-link text-gray-700">Nosotros</a>
+                <a href="index.html#servicios-preview" class="nav-link text-gray-700 active">Servicios</a>
+                <a href="contacto.html" class="nav-link text-gray-700">Contacto</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="md:hidden bg-white shadow-lg hidden">
+            <a href="index.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Inicio</a>
+            <a href="nosotros.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Nosotros</a>
+            <a href="index.html#servicios-preview" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 active">Servicios</a>
+            <a href="contacto.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Contacto</a>
+        </div>
+    </header>
+
+    <!-- Navegación interna -->
+    <nav class="internal-nav">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex flex-wrap justify-center gap-2">
+                <a href="#regimenes" class="internal-nav-link active">Regímenes Fiscales</a>
+                <a href="#servicios-basicos" class="internal-nav-link">Servicios Básicos</a>
+                <a href="#servicios-fiscales" class="internal-nav-link">Servicios Fiscales</a>
+                <a href="#servicios-financieros" class="internal-nav-link">Servicios Financieros</a>
+                <a href="#servicios-tecnologicos" class="internal-nav-link">Servicios Tecnológicos</a>
+                <a href="#especializados" class="internal-nav-link">Servicios Especializados</a>
+                <a href="#contacto-section" class="internal-nav-link">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="min-h-[60vh] flex items-center bg-gradient-to-br from-blue-50 to-white">
+            <div class="container mx-auto px-6 text-center py-20">
+                <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-4 fade-in-section">
+                    <span class="tech-blue">Servicios</span> Contables
+                </h1>
+                <p class="mt-4 text-xl md:text-2xl text-gray-700 font-medium max-w-3xl mx-auto fade-in-section" style="transition-delay: 150ms;">
+                    Soluciones contables y fiscales especializadas para todos los regímenes fiscales
+                </p>
+                <div class="mt-8 flex flex-wrap justify-center gap-4 fade-in-section" style="transition-delay: 300ms;">
+                    <div class="bg-white px-4 py-2 rounded-full shadow-md">
+                        <span class="text-sm font-medium text-gray-600">✓ Cumplimiento Fiscal Garantizado</span>
+                    </div>
+                    <div class="bg-white px-4 py-2 rounded-full shadow-md">
+                        <span class="text-sm font-medium text-gray-600">✓ Optimización Tributaria</span>
+                    </div>
+                    <div class="bg-white px-4 py-2 rounded-full shadow-md">
+                        <span class="text-sm font-medium text-gray-600">✓ Todos los Regímenes</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <section class="py-24 md:py-36">
+            <div class="container mx-auto px-6 max-w-6xl">
+                
+                <!-- Regímenes Fiscales Overview -->
+                <div id="regimenes" class="mb-20 fade-in-section">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold tech-blue mb-6">Regímenes Fiscales que Atendemos</h2>
+                        <p class="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
+                            Ofrecemos servicios especializados para todos los regímenes fiscales en México, adaptando nuestras soluciones a las necesidades específicas de cada uno.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 tech-blue-border text-center">
+                            <h3 class="font-bold text-lg mb-2 tech-blue">RIF</h3>
+                            <p class="text-sm text-gray-600 mb-3">Régimen de Incorporación Fiscal</p>
+                            <span class="regime-tag regime-rif">Ideal para nuevos emprendedores</span>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 tech-blue-border text-center">
+                            <h3 class="font-bold text-lg mb-2 tech-blue">PFAE</h3>
+                            <p class="text-sm text-gray-600 mb-3">Personas Físicas con Actividad Empresarial</p>
+                            <span class="regime-tag regime-pfae">Empresarios individuales</span>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 tech-blue-border text-center">
+                            <h3 class="font-bold text-lg mb-2 tech-blue">RESICO</h3>
+                            <p class="text-sm text-gray-600 mb-3">Régimen Simplificado de Confianza</p>
+                            <span class="regime-tag regime-resico">Simplicidad administrativa</span>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 tech-blue-border text-center">
+                            <h3 class="font-bold text-lg mb-2 tech-blue">Personas Morales</h3>
+                            <p class="text-sm text-gray-600 mb-3">Régimen General de Personas Morales</p>
+                            <span class="regime-tag regime-pm">Empresas constituidas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Servicios Básicos - Fundamentos Contables -->
+                <div id="servicios-basicos" class="mb-20 fade-in-section">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold tech-blue mb-6">Servicios Básicos</h2>
+                        <p class="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
+                            Los fundamentos contables esenciales que toda empresa necesita para operar de manera eficiente y cumplir con las obligaciones legales.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 tech-blue-border">
+                            <h3 class="text-xl font-bold mb-4 tech-blue">Registro y Procesamiento de Transacciones</h3>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                Captura, clasificación y registro sistemático de todas las operaciones contables de su empresa con precisión y oportunidad.
+                            </p>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Captura de comprobantes fiscales</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Clasificación contable por cuentas</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Registro en libro diario y mayor</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="regime-tag regime-rif">RIF</span>
+                                <span class="regime-tag regime-pfae">PFAE</span>
+                                <span class="regime-tag regime-resico">RESICO</span>
+                                <span class="regime-tag regime-pm">Personas Morales</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 tech-blue-border">
+                            <h3 class="text-xl font-bold mb-4 tech-blue">Elaboración de Estados Financieros</h3>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                Preparación de estados financieros conforme a las Normas de Información Financiera (NIF) para la toma de decisiones.
+                            </p>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Estado de Situación Financiera</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Estado de Resultados Integral</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Estado de Flujo de Efectivo</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="regime-tag regime-pfae">PFAE</span>
+                                <span class="regime-tag regime-resico">RESICO</span>
+                                <span class="regime-tag regime-pm">Personas Morales</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Servicios Fiscales - Cumplimiento Tributario -->
+                <div id="servicios-fiscales" class="mb-20 fade-in-section">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold tech-blue mb-6">Servicios Fiscales</h2>
+                        <p class="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
+                            Cumplimiento fiscal completo y estrategias de optimización tributaria para maximizar la eficiencia fiscal de su empresa.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 tech-blue-border">
+                            <h3 class="text-xl font-bold mb-4 tech-blue">Cálculo y Presentación de Impuestos</h3>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                Determinación precisa de obligaciones fiscales y presentación oportuna de declaraciones ante el SAT.
+                            </p>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Declaraciones mensuales de IVA</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Pagos provisionales de ISR</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Declaración anual</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="regime-tag regime-rif">RIF</span>
+                                <span class="regime-tag regime-pfae">PFAE</span>
+                                <span class="regime-tag regime-resico">RESICO</span>
+                                <span class="regime-tag regime-pm">Personas Morales</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 tech-blue-border">
+                            <h3 class="text-xl font-bold mb-4 tech-blue">Elaboración de Declaraciones Informativas</h3>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                Preparación de DIOT, declaración anual y demás reportes informativos requeridos por las autoridades fiscales.
+                            </p>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">DIOT mensual</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Declaración informativa anual</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Reportes especiales SAT</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="regime-tag regime-pfae">PFAE</span>
+                                <span class="regime-tag regime-resico">RESICO</span>
+                                <span class="regime-tag regime-pm">Personas Morales</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Servicios Financieros - Análisis y Planeación -->
+                <div id="servicios-financieros" class="mb-20 fade-in-section">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold tech-blue mb-6">Servicios Financieros</h2>
+                        <p class="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
+                            Análisis financiero avanzado y herramientas estratégicas para la toma de decisiones inteligentes y el crecimiento sostenible.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 tech-blue-border">
+                            <h3 class="text-xl font-bold mb-4 tech-blue">Presupuestos y Pronósticos Financieros</h3>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                Elaboración de presupuestos operativos y proyecciones financieras para la planificación estratégica empresarial.
+                            </p>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Presupuesto de ventas y gastos</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Proyecciones de flujo de caja</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Análisis de variaciones</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="regime-tag regime-pfae">PFAE</span>
+                                <span class="regime-tag regime-resico">RESICO</span>
+                                <span class="regime-tag regime-pm">Personas Morales</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 tech-blue-border">
+                            <h3 class="text-xl font-bold mb-4 tech-blue">Análisis de Costos y Puntos de Equilibrio</h3>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                Determinación de costos unitarios, análisis de rentabilidad y cálculo de puntos de equilibrio para optimización.
+                            </p>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Costeo por actividades (ABC)</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Análisis de margen de contribución</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Determinación de precios óptimos</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="regime-tag regime-pfae">PFAE</span>
+                                <span class="regime-tag regime-resico">RESICO</span>
+                                <span class="regime-tag regime-pm">Personas Morales</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Servicios Tecnológicos - Digitalización Contable -->
+                <div id="servicios-tecnologicos" class="mb-20 fade-in-section">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold tech-blue mb-6">Servicios Tecnológicos</h2>
+                        <p class="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
+                            Transformación digital de sus procesos contables mediante automatización y tecnologías avanzadas para mayor eficiencia.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 tech-blue-border">
+                            <h3 class="text-xl font-bold mb-4 tech-blue">Implementación de Software Contable</h3>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                Selección, configuración e implementación de sistemas contables especializados adaptados a su industria.
+                            </p>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Análisis de necesidades</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Configuración personalizada</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Capacitación del equipo</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="regime-tag regime-pfae">PFAE</span>
+                                <span class="regime-tag regime-resico">RESICO</span>
+                                <span class="regime-tag regime-pm">Personas Morales</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 tech-blue-border">
+                            <h3 class="text-xl font-bold mb-4 tech-blue">Automatización de Conciliaciones Bancarias</h3>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                Implementación de procesos automatizados para conciliaciones bancarias y control preciso del flujo de efectivo.
+                            </p>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Conciliación automática</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Alertas de discrepancias</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Reportes en tiempo real</span>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="regime-tag regime-pfae">PFAE</span>
+                                <span class="regime-tag regime-resico">RESICO</span>
+                                <span class="regime-tag regime-pm">Personas Morales</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Servicios Especializados por Régimen -->
+                <div id="especializados" class="mb-20 fade-in-section">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold tech-blue mb-6">Servicios Especializados por Régimen</h2>
+                        <p class="text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
+                            Asesoría especializada diseñada específicamente para las características únicas y oportunidades de cada régimen fiscal.
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 tech-blue-border">
+                            <h3 class="text-xl font-bold mb-4 tech-blue">Asesoría Especializada para RIF</h3>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                Optimización de beneficios fiscales y transición estratégica a otros regímenes cuando sea conveniente.
+                            </p>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Máximo aprovechamiento de deducciones</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Planeación de transición a RESICO</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Estrategias de facturación</span>
+                                </div>
+                            </div>
+                            <span class="regime-tag regime-rif">Exclusivo para RIF</span>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 tech-blue-border">
+                            <h3 class="text-xl font-bold mb-4 tech-blue">Optimización para PFAE</h3>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                Estrategias de deducibilidad, manejo de deducciones personales y optimización fiscal integral.
+                            </p>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Deducciones personales estratégicas</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Optimización de gastos deducibles</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Planeación patrimonial</span>
+                                </div>
+                            </div>
+                            <span class="regime-tag regime-pfae">Exclusivo para PFAE</span>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 tech-blue-border">
+                            <h3 class="text-xl font-bold mb-4 tech-blue">Servicio para RESICO</h3>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                Aprovechamiento máximo de las facilidades administrativas y beneficios del régimen simplificado.
+                            </p>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Simplificación de obligaciones</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Coeficiente de utilidad óptimo</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Cumplimiento simplificado</span>
+                                </div>
+                            </div>
+                            <span class="regime-tag regime-resico">Exclusivo para RESICO</span>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-lg border-t-4 tech-blue-border">
+                            <h3 class="text-xl font-bold mb-4 tech-blue">Asesoría Estratégica para Personas Morales</h3>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                Planificación fiscal corporativa, estructuras de capital y optimización integral de cargas tributarias.
+                            </p>
+                            <div class="space-y-2 mb-4">
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Planeación fiscal corporativa</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Estructuración de operaciones</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="tech-blue font-bold mr-3 text-xl">✓</span>
+                                    <span class="text-sm text-gray-600">Estrategias de consolidación</span>
+                                </div>
+                            </div>
+                            <span class="regime-tag regime-pm">Exclusivo para Personas Morales</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call to Action Final -->
+                <div id="contacto-section" class="text-center fade-in-section">
+                    <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl p-12 text-white">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-6">¿Listo para Optimizar su Contabilidad?</h2>
+                        <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">
+                            Nuestros expertos están listos para diseñar la solución contable perfecta para su régimen fiscal y necesidades específicas.
+                        </p>
+                        <a href="contacto.html" class="btn-primary inline-block bg-white text-blue-700 font-bold py-4 px-10 rounded-full shadow-xl hover:bg-gray-100 text-xl transition-all duration-300">
+                            Contáctanos
+                        </a>
+                        <p class="text-sm mt-6 opacity-75">
+                            Consultoría inicial sin costo • Respuesta en menos de 24 horas
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <div>
+                <h3 class="font-bold text-xl mb-4 tech-blue">TechBridge Consulting Systems</h3>
+                <p class="text-sm text-gray-400">"Sistemas que conectan, consultoría que transforma"</p>
+                <p class="text-xs text-gray-500 mt-4">&copy; 2025 TechBridge Consulting Systems | Todos los derechos reservados</p>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Servicios</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="infraestructura-conectividad.html" class="hover:text-white transition duration-200">Redes Informáticas</a></li>
+                    <li><a href="infraestructura-conectividad.html" class="hover:text-white transition duration-200">Soporte Técnico</a></li>
+                    <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power Platform</a></li>
+                    <li><a href="transformacion-digital.html" class="hover:text-white transition duration-200">Power BI</a></li>
+                    <li><a href="cursos.html" class="hover:text-white transition duration-200">Capacitación</a></li>
+                    <li><a href="consultoria-estrategica.html" class="hover:text-white transition duration-200">Consultoría Estratégica</a></li>
+                    <li><a href="headhunting.html" class="hover:text-white transition duration-200">HeadHunting</a></li>
+                    <li><a href="servicios_contables.html" class="hover:text-white transition duration-200">Servicios Contables</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Empresa</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li><a href="nosotros.html" class="hover:text-white transition duration-200">Nosotros</a></li>
+                    <li><a href="nosotros.html#metodologia" class="hover:text-white transition duration-200">Metodología</a></li>
+                    <li><a href="contacto.html" class="hover:text-white transition duration-200">Contacto</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-4">Contacto</h3>
+                <ul class="space-y-2 text-sm text-gray-400">
+                    <li>📍 Ciudad de México, México</li>
+                    <li><a href="tel:+525591111918" class="hover:text-white transition duration-200">📞 +52 55 9111 1918</a></li>
+                    <li><a href="tel:+525662602492" class="hover:text-white transition duration-200">📞 +52 56 6260 2492</a></li>
+                    <li><a href="mailto:comercial@tbcs.com.mx" class="hover:text-white transition duration-200">📧 comercial@tbcs.com.mx</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón flotante de WhatsApp con leyenda -->
+    <div class="whatsapp-container">
+        <span class="whatsapp-text">Escríbenos...</span>
+        <a href="https://wa.me/525662602492?text=Hola,%20me%20interesa%20conocer%20más%20sobre%20los%20servicios%20contables..." 
+           target="_blank" 
+           class="btn-whatsapp">
+           <img src="img/whatsapp.svg" alt="WhatsApp">
+        </a>
+    </div>
+
+    <style>
+    /* Contenedor del botón WhatsApp con leyenda */
+    .whatsapp-container {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+    
+    .whatsapp-text {
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+      opacity: 0.9;
+      transition: all 0.3s ease;
+      animation: text-bounce 3s infinite;
+      position: relative;
+    }
+    
+    .whatsapp-text::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      right: 20px;
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid #128C7E;
+    }
+    
+    .whatsapp-container:hover .whatsapp-text {
+      opacity: 1;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+    }
+    
+    @keyframes text-bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-2px); }
+    }
+    
+    .btn-whatsapp {
+      position: static;
+      width: 65px;
+      height: 65px;
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 
+        0 8px 25px rgba(37, 211, 102, 0.3),
+        0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: pointer;
+      animation: whatsapp-pulse 2s infinite;
+      border: 3px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .btn-whatsapp:hover {
+      transform: scale(1.15) rotate(5deg);
+      box-shadow: 
+        0 12px 35px rgba(37, 211, 102, 0.4),
+        0 8px 25px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(135deg, #128C7E 0%, #25D366 100%);
+      animation: none;
+    }
+    
+    .btn-whatsapp:active {
+      transform: scale(0.95);
+      transition: transform 0.1s ease;
+    }
+    
+    .btn-whatsapp img {
+      width: 32px;
+      height: 32px;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+      transition: all 0.3s ease;
+    }
+    
+    .btn-whatsapp:hover img {
+      transform: scale(1.1);
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    }
+    
+    @keyframes whatsapp-pulse {
+      0% {
+        box-shadow: 
+          0 8px 25px rgba(37, 211, 102, 0.3),
+          0 4px 15px rgba(0, 0, 0, 0.2),
+          0 0 0 0 rgba(37, 211, 102, 0.7);
+      }
+      70% {
+        box-shadow: 
+          0 8px 25px rgba(37, 211, 102, 0.3),
+          0 4px 15px rgba(0, 0, 0, 0.2),
+          0 0 0 15px rgba(37, 211, 102, 0);
+      }
+      100% {
+        box-shadow: 
+          0 8px 25px rgba(37, 211, 102, 0.3),
+          0 4px 15px rgba(0, 0, 0, 0.2),
+          0 0 0 0 rgba(37, 211, 102, 0);
+      }
+    }
+    
+    .btn-whatsapp::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #25D366, #128C7E, #25D366);
+      border-radius: 50%;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .btn-whatsapp:hover::before {
+      opacity: 0.7;
+      animation: rotate-gradient 2s linear infinite;
+    }
+    
+    @keyframes rotate-gradient {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Navegación interna funcional
+            const internalNavLinks = document.querySelectorAll('.internal-nav-link');
+            const sections = document.querySelectorAll('[id]');
+
+            // Función para actualizar el enlace activo
+            function updateActiveNavLink() {
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 150;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+
+                internalNavLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSection}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            // Scroll suave al hacer clic en enlaces de navegación interna
+            internalNavLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        const offsetTop = targetSection.offsetTop - 120;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Actualizar navegación activa al hacer scroll
+            window.addEventListener('scroll', updateActiveNavLink);
+            updateActiveNavLink(); // Llamar una vez al cargar
+
+            // Animaciones fade-in
+            const fadeObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                fadeObserver.observe(section);
+            });
+        });
+    </script>
+
+</body>
+</html>
