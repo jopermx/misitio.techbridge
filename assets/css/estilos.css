@@ -1,0 +1,101 @@
+/* Estilos globales para el sitio */
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f8f9fa;
+    color: #222;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* HERO BANNER */
+.hero-banner {
+    position: relative;
+    min-height: 600px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0077C9;
+    overflow: hidden;
+}
+.hero-overlay {
+    display: none !important;
+}
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff !important;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 20px 40px 20px;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.25);
+    background: rgba(0,0,0,0.05);
+    border-radius: 16px;
+}
+.hero-title {
+    font-family: 'Inter', 'Montserrat', 'Roboto', Arial, sans-serif;
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 18px;
+    letter-spacing: -1px;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.18);
+}
+@media (min-width: 768px) {
+    .hero-title { font-size: 4rem; }
+}
+.hero-subtitle {
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 32px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+.hero-actions {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.hero-btn {
+    font-size: 1.1rem;
+    padding: 16px 36px;
+    border-radius: 32px;
+    font-weight: 700;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.btn-primary.hero-btn {
+    background: #0077C9;
+    color: #fff;
+    border: none;
+}
+.btn-primary.hero-btn:hover {
+    background: #005699;
+    color: #fff;
+    transform: translateY(-2px) scale(1.04);
+}
+.btn-secondary.hero-btn {
+    background: transparent;
+    color: #0077C9;
+    border: 2px solid #0077C9;
+}
+.btn-secondary.hero-btn:hover {
+    background: #0077C9;
+    color: #fff;
+    transform: translateY(-2px) scale(1.04);
+}
+
+/* Animaciones suaves */
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(.4,0,.2,1), transform 0.8s cubic-bezier(.4,0,.2,1);
+}
+.fade-in-section.is-visible {
+    opacity: 1;
+    transform: none;
+}
