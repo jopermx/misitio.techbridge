@@ -108,16 +108,7 @@
                         <li>Documentación técnica completa y capacitación del equipo</li>
                     </ul>
 
-                    <h3 class="text-2xl font-semibold mb-4">Seguridad de Redes Avanzada</h3>
-                    <p class="text-lg text-gray-700 leading-relaxed mb-4">
-                        Protección integral con tecnologías de última generación y monitoreo 24/7.
-                    </p>
-                    <ul class="list-disc list-inside text-gray-600 space-y-2 ml-4">
-                        <li>Firewall empresarial con políticas granulares</li>
-                        <li>Sistema de detección y prevención de intrusiones</li>
-                        <li>VPN empresarial para acceso remoto seguro</li>
-                        <li>Monitoreo de seguridad continuo con alertas proactivas</li>
-                    </ul>
+                  
                 </div>
 
                 <div class="mb-16 fade-in-section">
@@ -130,16 +121,16 @@
                         Niveles de Servicio:
                     </p>
                     <ul class="list-disc list-inside text-gray-600 space-y-2 ml-4 mb-8">
-                        <li>**Crítico:** Respuesta en 2 horas, resolución en 4 horas</li>
-                        <li>**Alto:** Respuesta en 4 horas, resolución en 8 horas</li>
-                        <li>**Medio:** Respuesta en 8 horas, resolución en 24 horas</li>
-                        <li>**Bajo:** Respuesta en 24 horas, resolución en 72 horas</li>
+                        <li> <strong>Crítico:</strong> Respuesta en 2 horas, resolución en 4 horas</li>
+                        <li> <strong>Alto:</strong> Respuesta en 4 horas, resolución en 8 horas</li>
+                        <li> <strong>Medio:</strong> Respuesta en 8 horas, resolución en 24 horas</li>
+                        <li> <strong>Bajo:</strong> Respuesta en 24 horas, resolución en 72 horas</li>
                     </ul>
                     <h3 class="text-2xl font-semibold mb-4">Modalidades de Soporte</h3>
                     <ul class="list-disc list-inside text-gray-600 space-y-2 ml-4">
-                        <li>**On-Site:** Técnicos especializados en tus instalaciones</li>
-                        <li>**Remoto:** Acceso seguro para resolución inmediata</li>
-                        <li>**Híbrido:** La mejor combinación según cada caso</li>
+                        <li> <strong>On-Site:</strong> Técnicos especializados en tus instalaciones</li>
+                        <li> <strong>Remoto:</strong> Acceso seguro para resolución inmediata</li>
+                        <li> <strong>Híbrido:</strong> La mejor combinación según cada caso</li>
                     </ul>
                 </div>
 
@@ -150,10 +141,11 @@
                     </p>
                     <h3 class="text-2xl font-semibold mb-4">Proceso de Implementación</h3>
                     <ul class="list-disc list-inside text-gray-600 space-y-2 ml-4">
-                        <li>Análisis: Evaluación de sistemas actuales y necesidades</li>
-                        <li>Migración: Transferencia segura de datos y configuraciones</li>
-                        <li>Configuración: Personalización de entornos colaborativos</li>
-                        <li>Capacitación: Entrenamiento completo para todos los usuarios</li>
+                        <li><strong>Administración</strong> </li>
+                        <li><strong>Análisis:</strong> Evaluación de sistemas actuales y necesidades</li>
+                        <li><strong>Migración:</strong> Transferencia segura de datos y configuraciones</li>
+                        <li><strong>Configuración:</strong> Personalización de entornos colaborativos</li>
+                        <li><strong>Capacitación:</strong> Entrenamiento completo para todos los usuarios</li>
                     </ul>
                 </div>
 
@@ -205,7 +197,7 @@
     </footer>
 
     <!-- Botón flotante de WhatsApp -->
-    <a href="https://wa.me/525662602492?text=Hola,%20me%20interesa%20conocer%20más%20sobre%20los%20servicios%20de%20TechBridge" 
+    <a href="https://wa.me/525662602492?text=Hola,%20me%20interesa%20conocer%20más%20sobre%20los%20servicios%20de%20..." 
        target="_blank" 
        class="btn-whatsapp">
        <img src="img/whatsapp.svg" alt="WhatsApp">
@@ -214,25 +206,94 @@
     <style>
     .btn-whatsapp {
       position: fixed;
-      width: 60px;
-      height: 60px;
-      bottom: 20px;
-      right: 20px;
-      background: #25D366;
+      width: 65px;
+      height: 65px;
+      bottom: 25px;
+      right: 25px;
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 2px 2px 5px rgba(0,0,0,.3);
+      box-shadow: 
+        0 8px 25px rgba(37, 211, 102, 0.3),
+        0 4px 15px rgba(0, 0, 0, 0.2);
       z-index: 1000;
-      transition: transform 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: pointer;
+      animation: whatsapp-pulse 2s infinite;
+      border: 3px solid rgba(255, 255, 255, 0.2);
     }
+    
     .btn-whatsapp:hover {
-      transform: scale(1.1);
+      transform: scale(1.15) rotate(5deg);
+      box-shadow: 
+        0 12px 35px rgba(37, 211, 102, 0.4),
+        0 8px 25px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(135deg, #128C7E 0%, #25D366 100%);
+      animation: none;
     }
+    
+    .btn-whatsapp:active {
+      transform: scale(0.95);
+      transition: transform 0.1s ease;
+    }
+    
     .btn-whatsapp img {
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+      transition: all 0.3s ease;
+    }
+    
+    .btn-whatsapp:hover img {
+      transform: scale(1.1);
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    }
+    
+    @keyframes whatsapp-pulse {
+      0% {
+        box-shadow: 
+          0 8px 25px rgba(37, 211, 102, 0.3),
+          0 4px 15px rgba(0, 0, 0, 0.2),
+          0 0 0 0 rgba(37, 211, 102, 0.7);
+      }
+      70% {
+        box-shadow: 
+          0 8px 25px rgba(37, 211, 102, 0.3),
+          0 4px 15px rgba(0, 0, 0, 0.2),
+          0 0 0 15px rgba(37, 211, 102, 0);
+      }
+      100% {
+        box-shadow: 
+          0 8px 25px rgba(37, 211, 102, 0.3),
+          0 4px 15px rgba(0, 0, 0, 0.2),
+          0 0 0 0 rgba(37, 211, 102, 0);
+      }
+    }
+    
+    .btn-whatsapp::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #25D366, #128C7E, #25D366);
+      border-radius: 50%;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .btn-whatsapp:hover::before {
+      opacity: 0.7;
+      animation: rotate-gradient 2s linear infinite;
+    }
+    
+    @keyframes rotate-gradient {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
     </style>
 
