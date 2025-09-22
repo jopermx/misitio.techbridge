@@ -823,20 +823,71 @@
         </div>
     </footer>
 
-    <!-- Botón flotante de WhatsApp -->
-    <a href="https://wa.me/525662602492?text=Hola,%20me%20interesa%20conocer%20más%20sobre%20los%20servicios%20de%20..." 
-       target="_blank" 
-       class="btn-whatsapp">
-       <img src="img/whatsapp.svg" alt="WhatsApp">
-    </a>
+    <!-- Botón flotante de WhatsApp con leyenda -->
+    <div class="whatsapp-container">
+        <span class="whatsapp-text">Escríbenos...</span>
+        <a href="https://wa.me/525662602492?text=Hola,%20me%20interesa%20conocer%20más%20sobre%20los%20servicios%20de%20..." 
+           target="_blank" 
+           class="btn-whatsapp">
+           <img src="img/whatsapp.svg" alt="WhatsApp">
+        </a>
+    </div>
 
     <style>
-    .btn-whatsapp {
+    /* Contenedor del botón WhatsApp con leyenda */
+    .whatsapp-container {
       position: fixed;
-      width: 65px;
-      height: 65px;
       bottom: 25px;
       right: 25px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+    
+    .whatsapp-text {
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+      opacity: 0.9;
+      transition: all 0.3s ease;
+      animation: text-bounce 3s infinite;
+      position: relative;
+    }
+    
+    .whatsapp-text::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      right: 20px;
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid #128C7E;
+    }
+    
+    .whatsapp-container:hover .whatsapp-text {
+      opacity: 1;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+    }
+    
+    @keyframes text-bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-2px); }
+    }
+    
+    .btn-whatsapp {
+      position: static;
+      width: 65px;
+      height: 65px;
       background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
       border-radius: 50%;
       display: flex;
@@ -845,7 +896,6 @@
       box-shadow: 
         0 8px 25px rgba(37, 211, 102, 0.3),
         0 4px 15px rgba(0, 0, 0, 0.2);
-      z-index: 1000;
       transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       cursor: pointer;
       animation: whatsapp-pulse 2s infinite;
