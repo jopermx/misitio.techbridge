@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cotización - TechBridge Consulting Systems</title>
+    <!-- Tailwind CSS desde CDN para un estilo rápido y moderno -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        /* Estilos generales para la visualización en pantalla */
         body {
             font-family: 'Inter', sans-serif;
             color: #1A202C; /* Tailwind's gray-900 */
@@ -27,40 +29,40 @@
             margin-top: 1.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             border-radius: 0.5rem;
-            overflow: hidden; /* Ensures rounded corners apply to content */
+            overflow: hidden;
         }
         .quote-table th, .quote-table td {
             padding: 1rem 1.25rem;
             text-align: left;
-            border-bottom: 1px solid #e2e8f0; /* Tailwind gray-200 */
+            border-bottom: 1px solid #e2e8f0;
         }
         .quote-table th {
             background-color: #0077C9;
             color: white;
             font-weight: 600;
             text-transform: uppercase;
-            font-size: 0.875rem; /* text-sm */
+            font-size: 0.875rem;
         }
         .quote-table tbody tr:nth-child(odd) {
-            background-color: #fdfdfe; /* Slightly off-white for odd rows */
+            background-color: #fdfdfe;
         }
         .quote-table tbody tr:nth-child(even) {
-            background-color: #ffffff; /* White for even rows */
+            background-color: #ffffff;
         }
         .quote-table tbody tr:last-child td {
             border-bottom: none;
         }
         .quote-table .module-header {
-            background-color: #e0f2fe; /* Tailwind blue-50 for module headers */
+            background-color: #e0f2fe;
             color: #0077C9;
             font-weight: 700;
             padding: 0.75rem 1.25rem;
-            border-bottom: 1px solid #bfdbfe; /* Tailwind blue-200 */
+            border-bottom: 1px solid #bfdbfe;
         }
         .quote-table .total-row {
-            background-color: #f0f9ff; /* Tailwind blue-50 for total row */
+            background-color: #f0f9ff;
             font-weight: 700;
-            font-size: 1.125rem; /* text-lg */
+            font-size: 1.125rem;
             border-top: 2px solid #0077C9;
         }
         .quote-table .total-row td:last-child {
@@ -68,57 +70,79 @@
             color: #0077C9;
         }
 
-        /* Responsive table for small screens */
-        @media (max-width: 768px) {
-            .quote-table, .quote-table tbody, .quote-table tr, .quote-table td, .quote-table th {
-                display: block;
-                width: 100%;
+        /* Estilos específicos para impresión (media query) */
+        @media print {
+            /* Configuración de la página impresa */
+            @page {
+                size: letter; /* 8.5x11 pulgadas */
+                margin: 0.5cm; /* Márgenes más pequeños */
             }
-            .quote-table thead {
-                display: none; /* Hide table header on small screens */
+
+            /* Resetear estilos para impresión y optimizar el flujo */
+            body {
+                font-size: 10pt;
+                line-height: 1.4;
+                color: #000;
+                background-color: #fff;
+                margin: 0;
+                padding: 0;
             }
+            
+            .max-w-6xl {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+                border: none;
+            }
+
+            /* Mejorar los saltos de página para evitar que el contenido se corte */
+            header, section, footer {
+                page-break-inside: avoid;
+                page-break-after: avoid;
+            }
+            
+            .quote-table {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+
             .quote-table tr {
-                margin-bottom: 1rem;
-                border: 1px solid #e2e8f0;
-                border-radius: 0.5rem;
-                overflow: hidden;
-            }
-            .quote-table td {
-                text-align: right;
-                position: relative;
-                padding-left: 50%; /* Space for the pseudo-element label */
-            }
-            .quote-table td::before {
-                content: attr(data-label);
-                position: absolute;
-                left: 0;
-                width: 45%;
-                padding-left: 1.25rem;
-                font-weight: 600;
-                text-align: left;
-                color: #4a5568; /* Tailwind gray-700 */
-            }
-            .quote-table .module-header {
-                text-align: center;
-                padding-left: 1.25rem; /* Reset padding for module header */
-            }
-            .quote-table .module-header::before {
-                content: none; /* Hide pseudo-element for module headers */
+                page-break-inside: avoid;
             }
             .quote-table .total-row {
-                text-align: right;
-                padding-left: 1.25rem; /* Reset padding for total row */
+                page-break-before: avoid;
             }
-            .quote-table .total-row td:first-child::before {
-                content: none; /* Hide pseudo-element for the first cell of total row */
+
+            /* Reducción general de fuentes y espaciado para optimizar el uso de la página */
+            h1 { font-size: 1.5rem; }
+            h2 { font-size: 1.1rem; }
+
+            header, section, footer {
+                padding: 0;
+                margin-bottom: 0;
             }
-            .quote-table .total-row td:last-child::before {
-                content: 'Total Desarrollo:'; /* Custom label for total on mobile */
-                width: auto;
-                left: 1.25rem;
+
+            .h-16, .sm\:h-20, .md\:h-24, .lg\:h-28 { height: 3rem; } /* Logo más pequeño */
+
+            .quote-table {
+                box-shadow: none;
+                margin-top: 0.5rem;
+            }
+            .quote-table th, .quote-table td {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.75rem;
+            }
+            .quote-table .module-header {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.8rem;
+            }
+            .quote-table .total-row {
                 font-size: 1rem;
-                color: #0077C9;
             }
+
+            /* Ocultar elementos innecesarios */
+            .tbcs-blue-bg { background-color: #fff; color: #000; }
         }
     </style>
 </head>
@@ -128,16 +152,16 @@
         <!-- Header de la Cotización -->
         <header class="flex flex-col md:flex-row justify-between items-center pb-8 border-b border-gray-200 mb-8">
             <div class="mb-4 md:mb-0">
-                  <a href="index.html" class="flex items-center">
-                <img src="https://www.tbcs.com.mx/img/tbcs.png"
-                alt="TechBridge Consulting Systems Logo"
-                class="h-16 sm:h-20 md:h-24 lg:h-28 w-auto" />
-            </a>
+                <a href="index.html" class="flex items-center">
+                    <img src="https://www.tbcs.com.mx/img/tbcs.png" 
+                    alt="TechBridge Consulting Systems Logo" 
+                    class="h-16 sm:h-20 md:h-24 lg:h-28 w-auto" />
+                </a>
             </div>
             <div class="text-right">
                 <h1 class="text-4xl font-extrabold tbcs-blue mb-2">COTIZACIÓN</h1>
                 <p class="text-lg font-semibold text-gray-700">TechBridge Consulting Systems</p>
-                <p class="text-sm text-gray-500">contacto@tbcs.com.mx </p>
+                <p class="text-sm text-gray-500">comercial@tbcs.com.mx </p>
             </div>
         </header>
 
@@ -228,7 +252,7 @@
                     </tr>
                     <tr>
                         <td data-label="Módulo/Actividad">Cotizaciones y Propuestas</td>
-                        <td data-label="Descripción">Generación de cotizaciones, plantillas y seguimiento</td>
+                        <td data-label="Descripción">Generación de correos para solicitar facturación, plantillas y seguimiento</td>
                         <td data-label="Horas">10</td>
                         <td data-label="Costo Parcial">$200</td>
                     </tr>
@@ -365,7 +389,6 @@
             <p class="text-xs text-gray-500 mt-1">Cel: 55 6465 3089</p>
             <p class="text-xs text-gray-500 mt-1">Email: jonathan.perez@tbcs.com.mx</p>
             <p class="text-xs text-gray-500 mt-1"> TechBridge Consulting Systems. </p>
-            
         </footer>
     </div>
 
