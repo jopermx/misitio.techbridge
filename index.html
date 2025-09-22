@@ -10,11 +10,43 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
    
     
-    <!-- Estilos personalizados -->
-    <link rel="stylesheet" href="assets/css/estilos.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1A202C; /* Tailwind's gray-900 */
+        }
+        .tech-blue { color: #0077C9; }
+        .tech-blue-bg { background-color: #0077C9; }
+        .tech-blue-border { border-color: #0077C9; }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+            font-weight: 500; /* Medium weight for navigation */
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #0077C9;
+            border-bottom-color: #0077C9;
+        }
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .btn-primary {
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #005699; /* Darker blue on hover */
+            transform: translateY(-2px);
+        }
+    </style>
     
-    <link rel="icon" type="image/png" href="assets/img/favicon_tbcs.png">
-    <link rel="shortcut icon" href="assets/img/favicon_tbcs.png" type="image/png">
+    <link rel="icon" type="image/png" href="img/favicon_tbcs.png">
+    <link rel="shortcut icon" href="img/favicon_tbcs.png" type="image/png">
 </head>
 <body class="bg-gray-50">
 
@@ -23,7 +55,7 @@
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             
             <a href="index.html" class="flex items-center">
-                <img src="assets/img/tbcs.png"
+                <img src="img/tbcs.png"
                 alt="TechBridge Consulting Systems Logo"
                 class="h-16 sm:h-20 md:h-24 lg:h-28 w-auto" />
             </a>
@@ -48,37 +80,54 @@
     </header>
 
     <main>
-        <div style="background: red; color: white; padding: 40px; text-align: center; font-size: 2rem;">
-            PRUEBA DE VISIBILIDAD
-        </div>
-    <!-- Hero Section eliminada temporalmente para depuración -->
+        <!-- Hero Section -->
+        <section class="min-h-[70vh] flex items-center bg-gradient-to-br from-blue-50 to-white">
+            <div class="container mx-auto px-6 text-center py-20">
+                <h1 class="text-5xl md:text-7xl font-extrabold text-gray-900 leading-tight mb-4 fade-in-section">
+                    Sistemas que <span class="tech-blue">Conectan</span>, <br> Consultoría que <span class="tech-blue">Transforma</span>
+                </h1>
+                <p class="mt-4 text-xl md:text-2xl text-gray-700 font-medium max-w-3xl mx-auto fade-in-section" style="transition-delay: 150ms;">
+                    Impulsamos tu negocio con tecnología de vanguardia y estrategias personalizadas.
+                </p>
+                <div class="mt-10 space-x-4 fade-in-section" style="transition-delay: 300ms;">
+                    <a href="contacto.html" class="btn-primary inline-block bg-[#0077C9] text-white font-bold py-3 px-8 rounded-full shadow-xl hover:bg-blue-700 text-lg">
+                        Agenda una Consultoría Gratuita
+                    </a>
+                    <a href="nosotros.html" class="btn-primary inline-block bg-transparent border-2 border-[#0077C9] text-[#0077C9] font-bold py-3 px-8 rounded-full hover:bg-[#0077C9] hover:text-white transition duration-300 text-lg">
+                        Conoce Más
+                    </a>
+                </div>
+            </div>
+        </section>
 
-        <!-- About Us Preview Section (CSS clásico) -->
-        <section id="nosotros-preview" style="background: #f4f6fa; padding: 60px 0;">
-            <div style="max-width: 1100px; margin: 0 auto; padding: 0 20px; text-align: center;">
-                <h2 style="font-size: 2.5rem; font-weight: bold; color: #222; margin-bottom: 24px;">¿Quiénes Somos?</h2>
-                <p style="font-size: 1.2rem; color: #444; max-width: 700px; margin: 0 auto 36px auto;">
+        <!-- About Us Preview Section -->
+        <section id="nosotros-preview" class="py-24 md:py-36 bg-gray-100">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-gray-900 mb-6 fade-in-section">¿Quiénes Somos?</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto mb-12 fade-in-section" style="transition-delay: 150ms;">
                     En TechBridge Consulting Systems, somos tu socio estratégico en tecnología. Combinamos experiencia, innovación y un enfoque centrado en el cliente para ofrecer soluciones que no solo resuelven problemas, sino que impulsan el crecimiento y la eficiencia.
                 </p>
-                <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: center;">
-                    <div style="background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); padding: 32px 18px; flex: 1 1 260px; max-width: 320px; min-width: 220px;">
-                        <div style="font-size: 2.5rem; margin-bottom: 12px; color: #0077C9;">💡</div>
-                        <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 8px;">Visión</h3>
-                        <p style="color: #555;">Ser el puente tecnológico que conecta a las empresas con su máximo potencial.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="bg-white p-6 rounded-lg shadow-lg fade-in-section" style="transition-delay: 300ms;">
+                        <div class="text-5xl mb-4 tech-blue">💡</div>
+                        <h3 class="text-xl font-semibold mb-2">Visión</h3>
+                        <p class="text-gray-600">Ser el puente tecnológico que conecta a las empresas con su máximo potencial.</p>
                     </div>
-                    <div style="background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); padding: 32px 18px; flex: 1 1 260px; max-width: 320px; min-width: 220px;">
-                        <div style="font-size: 2.5rem; margin-bottom: 12px; color: #0077C9;">🎯</div>
-                        <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 8px;">Misión</h3>
-                        <p style="color: #555;">Ofrecer soluciones tecnológicas innovadoras y consultoría estratégica que transformen la productividad.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg fade-in-section" style="transition-delay: 450ms;">
+                        <div class="text-5xl mb-4 tech-blue">🎯</div>
+                        <h3 class="text-xl font-semibold mb-2">Misión</h3>
+                        <p class="text-gray-600">Ofrecer soluciones tecnológicas innovadoras y consultoría estratégica que transformen la productividad.</p>
                     </div>
-                    <div style="background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); padding: 32px 18px; flex: 1 1 260px; max-width: 320px; min-width: 220px;">
-                        <div style="font-size: 2.5rem; margin-bottom: 12px; color: #0077C9;">🤝</div>
-                        <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 8px;">Valores</h3>
-                        <p style="color: #555;">Innovación, Integridad, Excelencia, Colaboración, Orientación al Cliente.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-lg fade-in-section" style="transition-delay: 600ms;">
+                        <div class="text-5xl mb-4 tech-blue">🤝</div>
+                        <h3 class="text-xl font-semibold mb-2">Valores</h3>
+                        <p class="text-gray-600">Innovación, Integridad, Excelencia, Colaboración, Orientación al Cliente.</p>
                     </div>
                 </div>
-                <div style="margin-top: 40px;">
-                    <a href="nosotros.html" style="display: inline-block; background: #0077C9; color: #fff; font-weight: bold; padding: 16px 38px; border-radius: 32px; font-size: 1.1rem; text-decoration: none; box-shadow: 0 4px 24px rgba(0,0,0,0.10); transition: background 0.2s, color 0.2s, transform 0.2s;">Descubre Más Sobre Nosotros</a>
+                <div class="mt-12 fade-in-section" style="transition-delay: 750ms;">
+                    <a href="nosotros.html" class="btn-primary inline-block bg-[#0077C9] text-white font-bold py-3 px-8 rounded-full shadow-xl hover:bg-blue-700 text-lg">
+                        Descubre Más Sobre Nosotros
+                    </a>
                 </div>
             </div>
         </section>
@@ -181,14 +230,105 @@
                 <h3 class="font-bold text-lg mb-4">Contacto</h3>
                 <ul class="space-y-2 text-sm text-gray-400">
                     <li>📍 Ciudad de México</li>
-                    <li>📞 +52 55 XXXX-XXXX</li>
-                    <li>📧 comercial@tbcs.com.mx</li>
+                    <li>📞 +52 55 9111 1918</li>
+                    <li>📧 contacto@tbcs.com.mx</li>
                 </ul>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts personalizados -->
-    <script src="assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('nav a');
+            const header = document.getElementById('header');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const headerHeight = header.offsetHeight;
+
+            // Toggle mobile menu visibility
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Hide mobile menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // Intersection Observer for active navigation links
+            const observerOptions = {
+                root: null,
+                rootMargin: `-${headerHeight + 1}px 0px 0px 0px`, /* Adjust rootMargin to account for header height */
+                threshold: 0.3 /* Trigger when 30% of section is visible */
+            };
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            const linkHref = link.getAttribute('href');
+                            const currentFileName = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+                            
+                            // Logic for activating navigation links
+                            if (linkHref === currentFileName) {
+                                link.classList.add('active');
+                            } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
+                                link.classList.add('active');
+                            } else if (currentFileName === 'cursos.html' && linkHref === 'cursos.html') {
+                                // Explicitly activate 'Servicios' link if on the courses directory page
+                                link.classList.add('active');
+                            } else if (currentFileName === 'curso-excel-basico-intermedio.html' && linkHref === 'cursos.html') {
+                                // If on a specific course page, activate the parent 'Servicios' (courses directory) link
+                                link.classList.add('active');
+                            } else if (currentFileName === 'consultoria-estrategica.html' && linkHref === 'index.html#servicios-preview') {
+                                // If on consultoria-estrategica.html, activate 'Servicios' link on index.html
+                                link.classList.add('active');
+                            }
+                        });
+                        mobileMenu.querySelectorAll('a').forEach(link => {
+                            link.classList.remove('active');
+                            const linkHref = link.getAttribute('href');
+                            const currentFileName = window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1);
+                            
+                            if (linkHref === currentFileName) {
+                                link.classList.add('active');
+                            } else if (linkHref.includes('#') && id && linkHref.split('#')[0] === currentFileName && linkHref.includes(`#${id}`)) {
+                                link.classList.add('active');
+                            } else if (currentFileName === 'cursos.html' && linkHref === 'cursos.html') {
+                                link.classList.add('active');
+                            } else if (currentFileName === 'curso-excel-basico-intermedio.html' && linkHref === 'cursos.html') {
+                                link.classList.add('active');
+                            } else if (currentFileName === 'consultoria-estrategica.html' && linkHref === 'index.html#servicios-preview') {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // Fade-in animation on scroll
+            const fadeObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                fadeObserver.observe(section);
+            });
+        });
+    </script>
 </body>
 </html>
