@@ -16,47 +16,374 @@
         CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
     -->
     <style>
+        /* Variables CSS modernas para tema dinámico */
+        :root {
+            --primary-blue: #0077C9;
+            --primary-blue-light: #0088E6;
+            --primary-blue-dark: #005A9E;
+            --accent-purple: #6366F1;
+            --accent-teal: #0D9488;
+            --course-blue: #00A6ED;
+            --course-green: #7FB800;
+            --course-yellow: #FFB400;
+            --course-orange: #F6511D;
+            --course-dark: #2D3142;
+            --neutral-50: #F9FAFB;
+            --neutral-100: #F3F4F6;
+            --neutral-200: #E5E7EB;
+            --neutral-800: #1F2937;
+            --neutral-900: #111827;
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --shadow-elegant: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            --gradient-primary: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            --gradient-course: linear-gradient(135deg, var(--course-blue), var(--course-green));
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            color: #1A202C; /* Default text color, similar to Tailwind's gray-900 */
-            background-color: #f8fafc; /* Tailwind's gray-50 */
+            color: var(--neutral-900);
+            background: url('img/fondo_web.png') center center fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            position: relative;
         }
-        .tech-blue { color: #0077C9; } /* Main site accent color */
-        .tech-blue-bg { background-color: #0077C9; }
-        .tech-blue-border { border-color: #0077C9; }
+
+        /* Overlay profesional blanco más sutil para mejor visibilidad de la imagen */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg, 
+                rgba(255, 255, 255, 0.45) 0%, 
+                rgba(248, 250, 252, 0.40) 25%,
+                rgba(241, 245, 249, 0.35) 50%,
+                rgba(248, 250, 252, 0.40) 75%,
+                rgba(255, 255, 255, 0.45) 100%
+            );
+            z-index: -1;
+        }
+
+        /* Efecto de partículas flotantes sobre la imagen */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='1.5'/%3E%3Ccircle cx='10' cy='10' r='1'/%3E%3Ccircle cx='50' cy='50' r='0.8'/%3E%3Ccircle cx='15' cy='45' r='0.6'/%3E%3Ccircle cx='45' cy='15' r='1.2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            z-index: -1;
+            animation: floatParticles 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes floatParticles {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(1deg); }
+            50% { transform: translateY(-5px) rotate(-1deg); }
+            75% { transform: translateY(-15px) rotate(0.5deg); }
+        }
+
+        /* Glass Morphism optimizado para mejor contraste con fondo visible */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 
+                0 8px 32px 0 rgba(31, 38, 135, 0.4),
+                0 4px 15px 0 rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 25px 50px 0 rgba(31, 38, 135, 0.6),
+                0 10px 25px 0 rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        /* Efecto de neumorphism para botones */
+        .neuro-btn {
+            background: linear-gradient(145deg, #ffffff, #e6e6e6);
+            box-shadow: 
+                20px 20px 60px #bebebe,
+                -20px -20px 60px #ffffff;
+            border: none;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .neuro-btn:hover {
+            box-shadow: 
+                inset 20px 20px 60px #bebebe,
+                inset -20px -20px 60px #ffffff;
+            transform: scale(0.98);
+        }
+
+        /* Navegación moderna mejorada con glassmorphism total */
+        .modern-nav {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 
+                0 8px 32px 0 rgba(31, 38, 135, 0.3),
+                0 4px 15px 0 rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        /* Logo con glassmorphism */
+        .logo-container {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 8px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Breadcrumbs modernos */
+        .breadcrumbs {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 8px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb-item:hover {
+            color: var(--primary-blue);
+        }
+
+        .breadcrumb-separator {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        /* Progress bar animado */
+        .course-progress {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 15px 25px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .progress-bar-container {
+            background: rgba(226, 232, 240, 0.8);
+            border-radius: 10px;
+            height: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            background: linear-gradient(90deg, var(--course-blue), var(--course-green));
+            height: 100%;
+            border-radius: 10px;
+            transition: width 2s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Stats animados */
+        .animated-counter {
+            font-weight: 800;
+            color: var(--course-blue);
+            font-size: 2.5rem;
+            line-height: 1;
+        }
+
+        /* Badges modernos */
+        .modern-badge {
+            background: linear-gradient(135deg, var(--course-blue), var(--course-green));
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(0, 166, 237, 0.3);
+            display: inline-block;
+        }
+
+        /* Testimonial cards (preparado para futura implementación) */
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .tech-blue { color: var(--primary-blue); }
+        .tech-blue-bg { background-color: var(--primary-blue); }
+        .tech-blue-border { border-color: var(--primary-blue); }
+        
         .nav-link {
-            transition: color 0.3s, border-bottom-color 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border-bottom: 2px solid transparent;
-            font-weight: 500; /* Medium weight for navigation */
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
         }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
         .nav-link.active, .nav-link:hover {
-            color: #0077C9;
-            border-bottom-color: #0077C9;
+            color: var(--primary-blue);
+            border-bottom-color: var(--primary-blue);
+            text-shadow: 0 0 8px rgba(0, 119, 201, 0.5);
         }
+
+        /* Animaciones avanzadas */
         .fade-in-section {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .fade-in-section.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Animación de pulso para elementos importantes */
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                box-shadow: 0 0 5px var(--primary-blue);
+            }
+            50% {
+                box-shadow: 0 0 20px var(--primary-blue), 0 0 30px var(--primary-blue);
+            }
+            100% {
+                box-shadow: 0 0 5px var(--primary-blue);
+            }
+        }
+
+        /* Botones modernos con gradientes */
         .btn-primary {
-            transition: background-color 0.3s, transform 0.2s;
+            background: var(--gradient-primary);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
         .btn-primary:hover {
-            background-color: #005699; /* Darker blue on hover */
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 119, 201, 0.4);
         }
 
-        /* Course-specific styles */
-        .course-blue { color: #00A6ED; }
-        .course-green { color: #7FB800; }
-        .course-yellow { color: #FFB400; }
-        .course-orange { color: #F6511D; }
-        .course-dark { color: #2D3142; }
+        /* Course-specific styles modernos */
+        .course-blue { color: var(--course-blue); }
+        .course-green { color: var(--course-green); }
+        .course-yellow { color: var(--course-yellow); }
+        .course-orange { color: var(--course-orange); }
+        .course-dark { color: var(--course-dark); }
 
+        /* Container del gráfico mejorado para fondo de imagen */
         .chart-container {
             position: relative;
             width: 100%;
@@ -65,39 +392,60 @@
             margin-right: auto;
             height: 350px;
             max-height: 400px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 
+                0 12px 40px 0 rgba(31, 38, 135, 0.4),
+                0 4px 15px 0 rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25);
         }
+
         @media (min-width: 768px) {
             .chart-container {
                 height: 400px;
             }
         }
-        /* Estilos para la línea de tiempo vertical por día */
+
+        /* Timeline vertical moderna */
         .vertical-timeline {
             position: relative;
             max-width: 900px;
             margin: 0 auto;
             padding: 20px 0;
         }
+
         .vertical-timeline::after {
             content: '';
             position: absolute;
             width: 6px;
-            background-color: #00A6ED; /* Course Blue line */
+            background: var(--gradient-course);
             top: 0;
             bottom: 0;
             left: 50%;
             margin-left: -3px;
             border-radius: 6px;
+            box-shadow: 0 0 20px rgba(0, 166, 237, 0.5);
         }
+
         .vertical-timeline-item {
             padding: 10px 40px;
             position: relative;
             background-color: inherit;
             width: 50%;
+            transition: all 0.3s ease;
         }
+
+        .vertical-timeline-item:hover {
+            transform: scale(1.05);
+        }
+
         .vertical-timeline-item.left {
             left: 0;
         }
+
         .vertical-timeline-item.right {
             left: 50%;
         }
@@ -213,16 +561,164 @@
             background-color: #fee2e2; /* Tailwind red-100 */
             color: #991b1b; /* Tailwind red-800 */
         }
+
+        /* Completar estilos de timeline */
+        .vertical-timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background: var(--gradient-course);
+            border: 4px solid #ffffff;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 15px rgba(0, 166, 237, 0.6);
+            animation: pulse-timeline 2s infinite;
+        }
+
+        @keyframes pulse-timeline {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .vertical-timeline-item.right::after {
+            left: -16px;
+        }
+
+        .vertical-timeline-content {
+            padding: 20px 30px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            position: relative;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 
+                0 8px 32px 0 rgba(31, 38, 135, 0.4),
+                0 4px 15px 0 rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .vertical-timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 20px 45px 0 rgba(31, 38, 135, 0.6),
+                0 8px 25px 0 rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .vertical-timeline-content::after {
+            content: "";
+            position: absolute;
+            top: 22px;
+            right: 100%;
+            margin-top: -5px;
+            border: medium solid rgba(255, 255, 255, 0.15);
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent rgba(255, 255, 255, 0.15);
+        }
+
+        .vertical-timeline-item.right .vertical-timeline-content::after {
+            top: 22px;
+            left: 100%;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent rgba(255, 255, 255, 0.15) transparent transparent;
+        }
+
+        /* Efectos de hover mejorados para elementos */
+        .list-item-modern {
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 8px;
+            margin: 0.25rem 0;
+        }
+
+        .list-item-modern:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* KPI Cards optimizadas para fondo más visible */
+        .kpi-card {
+            background: rgba(255, 255, 255, 0.70);
+            backdrop-filter: blur(25px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 12px 40px 0 rgba(31, 38, 135, 0.4),
+                0 4px 15px 0 rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.25), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+            opacity: 0;
+        }
+
+        .kpi-card:hover::before {
+            animation: shine-kpi 0.6s ease-in-out;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-12px) scale(1.08);
+            box-shadow: 
+                0 25px 60px 0 rgba(31, 38, 135, 0.6),
+                0 10px 30px 0 rgba(0, 0, 0, 0.2),
+                inset 0 2px 0 rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.85);
+            border-color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive para timeline */
+        @media (max-width: 768px) {
+            .vertical-timeline::after {
+                left: 31px;
+            }
+            
+            .vertical-timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .vertical-timeline-item.right {
+                left: 0%;
+            }
+            
+            .vertical-timeline-item::after {
+                left: 15px;
+            }
+            
+            .vertical-timeline-content::after {
+                display: none;
+            }
+        }
     </style>
         <link rel="icon" type="image/png" href="img/favicon_tbcs.png">
         <link rel="shortcut icon" href="img/favicon_tbcs.png" type="image/png">
 </head>
-<body class="text-[#2D3142]">
+<body class="text-gray-900">
 
-    <!-- Header & Navigation (Consistent with other pages) -->
-    <header id="header" class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+    <!-- Header & Navigation (Modernizado con glassmorphism) -->
+    <header id="header" class="modern-nav sticky top-0 z-50 shadow-sm">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-             <a href="index.html" class="flex items-center">
+             <a href="index.html" class="logo-container flex items-center">
                 <img src="img/tbcs.png"
                 alt="TechBridge Consulting Systems Logo"
                 class="h-16 sm:h-20 md:h-24 lg:h-28 w-auto" />
@@ -230,14 +726,14 @@
             <nav class="hidden md:flex space-x-10">
                 <a href="index.html" class="nav-link text-gray-700">Inicio</a>
                 <a href="nosotros.html" class="nav-link text-gray-700">Nosotros</a>
-                <a href="cursos.html" class="nav-link text-gray-700 active">Servicios</a> <!-- Link to the new courses directory -->
+                <a href="cursos.html" class="nav-link text-gray-700 active">Servicios</a>
                 <a href="contacto.html" class="nav-link text-gray-700">Contacto</a>
             </nav>
             <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </div>
-        <div id="mobile-menu" class="md:hidden bg-white shadow-lg hidden">
+        <div id="mobile-menu" class="md:hidden modern-nav shadow-lg hidden">
             <a href="index.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Inicio</a>
             <a href="nosotros.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100">Nosotros</a>
             <a href="cursos.html" class="block px-6 py-3 text-gray-800 hover:bg-gray-100 active">Servicios</a> <!-- Link to the new courses directory -->
@@ -245,44 +741,82 @@
         </div>
     </header>
 
+    <!-- Breadcrumbs -->
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 pt-6">
+        <nav class="breadcrumbs">
+            <div class="breadcrumb-item">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                </svg>
+                <a href="index.html" class="hover:text-blue-600">Inicio</a>
+            </div>
+            <span class="breadcrumb-separator">›</span>
+            <div class="breadcrumb-item">
+                <a href="cursos.html" class="hover:text-blue-600">Cursos</a>
+            </div>
+            <span class="breadcrumb-separator">›</span>
+            <div class="breadcrumb-item">
+                <span class="text-gray-600 font-medium">Excel Básico a Intermedio</span>
+            </div>
+        </nav>
+
+        
+    </div>
+
     <main class="container mx-auto p-4 md:p-8">
 
-        <header class="bg-white shadow-md p-8 text-center rounded-lg mb-8">
+        <header class="glass-card shadow-md p-8 text-center rounded-lg mb-8 pulse-glow">
             <h1 id="courseTitle" class="text-4xl md:text-5xl font-black course-blue uppercase tracking-wide">📊 Curso Excel Profesional</h1>
-            <p class="mt-4 text-xl md:text-2xl font-bold">Transforma tu Productividad Laboral con Excel</p>
+            <p class="mt-4 text-xl md:text-2xl font-bold text-gray-800">Transforma tu Productividad Laboral con Excel</p>
             <p class="max-w-3xl mx-auto mt-4 text-gray-600">
                 En el mundo laboral actual, Excel no es solo una herramienta más: es el motor de la productividad que distingue a los profesionales exitosos. Esta es una guía visual de cómo nuestro curso te convertirá en un experto.<br>
             </p>
         </header>
 
-        <section id="kpis" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 md:justify-center">
-            <div class="bg-white rounded-lg shadow-lg p-6 text-center transform hover:scale-105 transition-transform duration-300">
-                <div class="text-5xl mb-4">⏱️</div>
+        <section id="kpis" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 md:justify-center section-gradient-1">
+            <div class="kpi-card">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="text-4xl">⏱️</div>
+                    <span class="modern-badge">INTENSIVO</span>
+                </div>
                 <h3 class="text-xl font-bold course-blue">Duración Total</h3>
-                <p class="text-4xl font-extrabold mt-2">10 Horas</p>
-                <p class="text-gray-500">(2 semanas, 1 hora diaria)</p>
+                <p class="animated-counter mt-2">10</p>
+                <p class="text-lg font-semibold text-gray-700">Horas</p>
+                <p class="text-gray-600 text-sm">(2 semanas, 1 hora diaria)</p>
             </div>
-            <div class="bg-white rounded-lg shadow-lg p-6 text-center transform hover:scale-105 transition-transform duration-300">
-                <div class="text-5xl mb-4">💻</div>
+            <div class="kpi-card">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="text-4xl">💻</div>
+                    <span class="modern-badge">FLEXIBLE</span>
+                </div>
                 <h3 class="text-xl font-bold course-blue">Modalidad</h3>
-                <p class="text-4xl font-extrabold mt-2">100% Online</p>
-                <p class="text-gray-500">Interactivo y práctico</p>
+                <p class="text-2xl font-extrabold mt-2 text-gray-800">100% Online</p>
+                <p class="text-gray-600">Interactivo y práctico</p>
+            </div>
+            <div class="kpi-card">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="text-4xl">🎯</div>
+                    <span class="modern-badge">PREMIUM</span>
+                </div>
+                <h3 class="text-xl font-bold course-blue">Nivel</h3>
+                <p class="text-2xl font-extrabold mt-2 text-gray-800">Básico → Intermedio</p>
+                <p class="text-gray-600">Sin experiencia previa</p>
             </div>
         </section>
 
-        <!-- Metodología de Aprendizaje - Chart re-added with values below -->
-        <section id="methodology" class="mb-16">
-            <div class="bg-white rounded-lg shadow-xl p-6 md:p-8">
+        <!-- Metodología de Aprendizaje - Modernizada -->
+        <section id="methodology" class="mb-16 section-gradient-2">
+            <div class="glass-card shadow-xl p-6 md:p-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                     <div>
                         <h2 class="text-3xl font-black course-green mb-4">🎓 Metodología de Aprendizaje 70-20-10</h2>
-                        <p class="text-lg mb-4">
+                        <p class="text-lg mb-4 text-gray-600">
                             Nuestro enfoque está diseñado para maximizar la retención y aplicación del conocimiento. No solo aprenderás teoría, sino que aplicarás cada concepto en escenarios del mundo real.
                         </p>
                         <ul class="space-y-2">
-                            <li class="flex items-start"><span class="course-green font-bold mr-2">■ 70% Práctica:</span> Ejercicios reales con casos empresariales.</li>
-                            <li class="flex items-start"><span class="course-yellow font-bold mr-2">■ 20% Interacción:</span> Discusión de casos y resolución de dudas.</li>
-                            <li class="flex items-start"><span class="course-orange font-bold mr-2">■ 10% Teoría:</span> Conceptos esenciales explicados de forma clara.</li>
+                            <li class="flex items-start list-item-modern"><span class="course-green font-bold mr-2">■ 70% Práctica:</span> <span class="text-gray-700">Ejercicios reales con casos empresariales.</span></li>
+                            <li class="flex items-start list-item-modern"><span class="course-yellow font-bold mr-2">■ 20% Interacción:</span> <span class="text-gray-700">Discusión de casos y resolución de dudas.</span></li>
+                            <li class="flex items-start list-item-modern"><span class="course-orange font-bold mr-2">■ 10% Teoría:</span> <span class="text-gray-700">Conceptos esenciales explicados de forma clara.</span></li>
                         </ul>
                     </div>
                     <div class="chart-container flex flex-col justify-center items-center">
@@ -630,22 +1164,20 @@
         </section>
 
         <!-- What You Will Achieve (Lo que Lograrás) - Updated Section -->
-        <section id="achievements" class="mb-16 bg-white rounded-lg shadow-xl p-8">
-            <h2 class="text-3xl md:text-4xl font-black text-center mb-8">Lo que Lograrás</h2>
+        <section id="achievements" class="mb-16 glass-card shadow-xl p-8 section-gradient-1">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 text-gray-800">Lo que Lograrás</h2>
             <div class="flex flex-col md:flex-row items-center gap-8">
                 <div class="md:w-full">
                     <p class="text-lg text-gray-600 mb-6 text-center">
                         Al finalizar este curso, no solo dominarás Excel, sino que transformarás tu forma de trabajar con resultados tangibles:
                     </p>
                     <ul class="space-y-4 text-gray-700 text-lg max-w-2xl mx-auto">
-                        <li class="flex items-start">
-                            
+                        <li class="flex items-start list-item-modern">
                             <div>
                                 <strong class="course-blue">Análisis de Datos Avanzado:</strong> Convierte grandes volúmenes de datos en insights claros para decisiones estratégicas.
                             </div>
                         </li>
-                        <li class="flex items-start">
-                           
+                        <li class="flex items-start list-item-modern">
                             <div>
                                 <strong class="course-blue">Automatización Eficiente:</strong> Ahorra horas de trabajo repetitivo creando macros y flujos automatizados.
                             </div>
@@ -674,8 +1206,8 @@
         </section>
 
         <!-- Ideal Participant Profile (Perfil del Participante Ideal) - Updated Section -->
-        <section id="ideal-participant" class="mb-16 bg-white rounded-lg shadow-xl p-8">
-            <h2 class="text-3xl md:text-4xl font-black text-center mb-8">🎯 ¿Este Curso es Para Ti? Perfil del Participante Ideal</h2>
+        <section id="ideal-participant" class="mb-16 glass-card shadow-xl p-8 section-gradient-2">
+            <h2 class="text-3xl md:text-4xl font-black text-center mb-8 text-gray-800">🎯 ¿Este Curso es Para Ti? Perfil del Participante Ideal</h2>
             <div class="flex flex-col md:flex-row-reverse items-center gap-8">
                 <div class="md:w-full">
                     <p class="text-lg text-gray-600 mb-6 text-center">
@@ -720,15 +1252,48 @@
             </p>
         </section>
 
-        <!-- Call to Action (Enrollment) - Reverted to previous version -->
-        <section id="enrollment-cta" class="bg-gray-900 text-white rounded-lg shadow-xl p-8 text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-black text-white mb-4">¿Listo para dar el siguiente paso?</h2>
-            <p class="text-lg text-gray-300 mb-8">
-                Cumple con los requisitos básicos y únete a cientos de profesionales que ya han transformado su carrera con nosotros.
-            </p>
-            <button id="openEnrollmentModal" class="btn-primary inline-block bg-[#00A6ED] text-white font-bold py-3 px-8 rounded-full shadow-xl hover:bg-[#0077C9] text-lg">
-                ¡Inscríbete Ahora!
-            </button>
+        <!-- Call to Action (Enrollment) - Modernizado con glassmorphism -->
+        <section id="enrollment-cta" class="relative overflow-hidden rounded-3xl shadow-2xl p-8 text-center mb-16" style="background: rgba(30, 41, 59, 0.9); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1);">
+            <!-- Efectos de fondo -->
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20"></div>
+            <div class="absolute top-0 right-0 w-72 h-72 bg-blue-500/10 rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 w-72 h-72 bg-purple-500/10 rounded-full filter blur-3xl"></div>
+            
+            <!-- Contenido -->
+            <div class="relative z-10">
+                <div class="inline-flex items-center justify-center p-2 mb-4 rounded-full" style="background: rgba(59, 130, 246, 0.2); backdrop-filter: blur(10px);">
+                    <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                
+                <h2 class="text-3xl md:text-4xl font-black text-white mb-4 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+                    ¿Listo para dar el siguiente paso?
+                </h2>
+                <p class="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
+                    Únete a profesionales que están transformando su carrera con Excel.
+                </p>
+                
+                <!-- Características del curso -->
+                <div class="flex justify-center items-center gap-8 mb-8 text-sm">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-400">10h</div>
+                        <div class="text-gray-400">Duración</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-green-400">Online</div>
+                        <div class="text-gray-400">Modalidad</div>
+                    </div>
+                
+                </div>
+                
+                <button id="openEnrollmentModal" class="btn-primary pulse-glow inline-block bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold py-4 px-10 rounded-2xl shadow-2xl hover:from-blue-700 hover:to-blue-800 text-lg transform transition-all duration-300 hover:scale-105">
+                    ¡Inscríbete Ahora!
+                    <svg class="inline-block w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </button>
+            </div>
         </section>
 
     </main>
@@ -1215,6 +1780,108 @@
                     enrollmentFormStatusMessage.textContent = 'Hubo un error al enviar tu inscripción. Por favor, inténtalo de nuevo.';
                     enrollmentFormStatusMessage.className = 'form-message error';
                 }
+            });
+
+            // Efectos parallax y animaciones avanzadas
+            const addParallaxEffects = () => {
+                const parallaxElements = document.querySelectorAll('.parallax-element');
+                
+                window.addEventListener('scroll', () => {
+                    const scrolled = window.pageYOffset;
+                    const rate = scrolled * -0.5;
+                    
+                    parallaxElements.forEach(element => {
+                        element.style.transform = `translateY(${rate}px)`;
+                    });
+                });
+            };
+
+            // Animaciones escalonadas para elementos de lista
+            const addStaggeredAnimations = () => {
+                const listItems = document.querySelectorAll('.list-item-modern');
+                
+                listItems.forEach((item, index) => {
+                    item.style.setProperty('--delay', `${index * 100}ms`);
+                    item.classList.add('stagger-animation');
+                });
+            };
+
+            // Efectos de brillo en hover para tarjetas
+            const addShineEffects = () => {
+                const cards = document.querySelectorAll('.glass-card, .kpi-card');
+                
+                cards.forEach(card => {
+                    card.addEventListener('mouseenter', () => {
+                        const shine = document.createElement('div');
+                        shine.className = 'shine-effect';
+                        card.appendChild(shine);
+                        
+                        setTimeout(() => {
+                            shine.remove();
+                        }, 500);
+                    });
+                });
+            };
+
+            // Inicializar efectos modernos
+            addParallaxEffects();
+            addStaggeredAnimations();
+            addShineEffects();
+
+            // Progress bar animado
+            function updateProgressBar() {
+                const scrollTop = window.pageYOffset;
+                const docHeight = document.body.scrollHeight - window.innerHeight;
+                const scrollPercent = Math.round((scrollTop / docHeight) * 100);
+                
+                const progressBar = document.getElementById('progress-bar');
+                const progressPercentage = document.getElementById('progress-percentage');
+                
+                if (progressBar && progressPercentage) {
+                    progressBar.style.width = scrollPercent + '%';
+                    progressPercentage.textContent = scrollPercent + '%';
+                }
+            }
+
+            // Counter animado
+            function animateCounter() {
+                const counter = document.querySelector('.animated-counter');
+                if (counter) {
+                    let start = 0;
+                    const end = 10;
+                    const duration = 2000;
+                    const increment = end / (duration / 16);
+                    
+                    const timer = setInterval(() => {
+                        start += increment;
+                        if (start >= end) {
+                            counter.textContent = end;
+                            clearInterval(timer);
+                        } else {
+                            counter.textContent = Math.floor(start);
+                        }
+                    }, 16);
+                }
+            }
+
+            // Event listeners
+            window.addEventListener('scroll', updateProgressBar);
+            
+            // Inicializar cuando se carga la página
+            setTimeout(animateCounter, 1000);
+
+            // Smooth scroll con easing personalizado
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
             });
         });
     </script>
