@@ -153,7 +153,7 @@ function renderFooter() {
       <div class="footer-grid">
         <div>
           <img src="${resolvePath(TBCS.logoMain)}" alt="TechBridge Consulting Systems" class="footer-logo">
-          <p class="footer-tagline">"Sistemas que conectan, consultoria que transforma"</p>
+          <p class="footer-tagline">"Sistemas que conectan, consultoría que transforma"</p>
           <p class="footer-copy">&copy; ${TBCS.year} TechBridge Consulting Systems<br>Todos los derechos reservados</p>
         </div>
         <div class="footer-col">

@@ -1,0 +1,30 @@
+AddDefaultCharset UTF-8
+DirectoryIndex index.php index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Backward compatibility: redirect old .html URLs to .php when file exists
+  RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+  RewriteCond %{DOCUMENT_ROOT}/%1.php -f
+  RewriteRule ^ %1.php [R=301,L]
+</IfModule>
+
+<IfModule mod_php.c>
+  php_value default_charset UTF-8
+</IfModule>
+
+<IfModule mod_php8.c>
+  php_value default_charset UTF-8
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddCharset UTF-8 .php .html .css .js .json .xml .txt
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), camera=(), microphone=()"
+</IfModule>
