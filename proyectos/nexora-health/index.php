@@ -4,7 +4,7 @@ $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
 $requestPath = strtok($_SERVER['REQUEST_URI'] ?? '/tbcs/proyectos/nexora-health/index.php', '?');
 $currentUrl = $scheme . '://' . $host . $requestPath;
 $basePath = rtrim(str_replace('\\', '/', dirname($requestPath)), '/');
-$shareImageUrl = $scheme . '://' . $host . $basePath . '/img/dashboard-demo.jpg';
+$shareImageUrl = $scheme . '://' . $host . $basePath . '/img/expediente-demo.jpg';
 $contactUrl = '../../contacto.php?' . http_build_query([
     'form_type' => 'demo_request',
     'source_page' => 'nexora-health',
@@ -30,7 +30,7 @@ $contactUrl = '../../contacto.php?' . http_build_query([
   <meta property="og:image" content="<?php echo htmlspecialchars($shareImageUrl, ENT_QUOTES, 'UTF-8'); ?>"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
-  <meta property="og:image:alt" content="Dashboard de Nexora Health ERP m&eacute;dico"/>
+  <meta property="og:image:alt" content="Expediente digital de Nexora Health ERP m&eacute;dico"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Nexora Health | ERP m&eacute;dico para consultorio"/>
   <meta name="twitter:description" content="Gestiona consulta, expediente, agenda y cobro en una sola plataforma con Nexora Health."/>
@@ -72,7 +72,7 @@ $contactUrl = '../../contacto.php?' . http_build_query([
   <div class="hero-stage">
     <div class="hero-main">
       <div class="hero-title-block reveal">
-        <div class="hero-badge"><span class="pulse-dot"></span>ERP M&eacute;dico &middot; demo activa &middot; alineado a criterios NOM-004</div>
+        <div class="hero-badge"><span class="pulse-dot"></span>ERP M&eacute;dico &middot; demo activa &middot; alineado a criterios NOM</div>
         <h1>ERP M&eacute;dico para consulta y expediente en una sola plataforma</h1>
       </div>
 
@@ -97,7 +97,7 @@ $contactUrl = '../../contacto.php?' . http_build_query([
             <span>Flujo cl&iacute;nico completo</span>
           </div>
           <div class="hero-proof-item">
-            <strong>NOM-004</strong>
+            <strong>NOM</strong>
             <span>Criterios documentales</span>
           </div>
         </div>
@@ -240,7 +240,7 @@ $contactUrl = '../../contacto.php?' . http_build_query([
         <div class="nom-item"><div class="nom-icon"><i data-lucide="archive" style="width:18px;height:18px"></i></div><div class="nom-body"><h3>Documentos y soporte digital</h3><p>Concentra documentos cl&iacute;nicos y soporte digital para mantener control y acceso r&aacute;pido al historial.</p></div><div class="nom-check"><i data-lucide="check" style="width:18px;height:18px"></i></div></div>
       </div>
     </div>
-    <p class="nom-disclaimer reveal">Nota: Nexora Health se alinea a criterios documentales de NOM-004. La validaci&oacute;n de cumplimiento normativo formal depende de la implementaci&oacute;n operativa y de la evaluaci&oacute;n legal de cada instituci&oacute;n.</p>
+    <p class="nom-disclaimer reveal">Nota: Nexora Health se alinea a criterios documentales de NOM. La validaci&oacute;n de cumplimiento normativo formal depende de la implementaci&oacute;n operativa y de la evaluaci&oacute;n legal de cada instituci&oacute;n.</p>
   </div>
 </section>
 

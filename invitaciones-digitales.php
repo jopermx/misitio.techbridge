@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invitaciones Digitales  -  TechBridge Consulting Systems</title>
+  <title>Invitaciones Digitales — TechBridge Consulting Systems</title>
   <meta name="description" content="Invitaciones digitales únicas y elegantes para bodas, XV años, bautizos, cumpleaños y más. Animadas, con RSVP y compartibles por WhatsApp. Ciudad de México.">
   <link rel="icon" type="image/png" href="img/favicon_tbcs_black.png?v=4">
   <link rel="shortcut icon" href="img/favicon_tbcs_black.png?v=4" type="image/png">
@@ -18,7 +18,7 @@
 
 <main>
 
-  <!-- - HERO - -->
+  <!-- ═══════ HERO ═══════ -->
   <section class="hero hero--sub">
     <div class="hero-grid-bg"></div>
     <div class="hero-glow"></div>
@@ -32,8 +32,8 @@
           Invitaciones que<br>impresionan
         </h1>
         <p class="t-body fade-up delay-2" style="max-width:540px;margin:1.25rem 0 2.5rem;">
-          Diseños únicos y elegantes para tus eventos especiales. Interactivas, animadas
-          y compartibles al instante por WhatsApp  -  sin necesidad de imprimir ni repartir.
+          Diseños únicos para tus eventos especiales. Interactivas, animadas
+          y compartibles al instante por WhatsApp — sin necesidad de imprimir.
         </p>
         <div class="btn-group fade-up delay-3">
           <a href="contacto.php" class="btn btn--primary">
@@ -46,8 +46,137 @@
     </div>
   </section>
 
+  <!-- ═══════ PORTAFOLIO ═══════ -->
+  <section id="portafolio" class="section section--surface">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="rule"></div>
+        <h2 class="t-h2">Diseños que ya hemos creado</h2>
+        <p>Invitaciones reales para eventos reales. Haz click en cada imagen para verla en detalle.</p>
+      </div>
 
-  <!-- - QUÉ INCLUYE - -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.5rem;">
+
+        <!-- Boda — destacada -->
+        <div class="portfolio-card portfolio-card--accent fade-up">
+          <span class="badge-live">Nuevo</span>
+          <div class="inv-carousel">
+            <div class="inv-carousel-track">
+              <div class="inv-slide" data-lightbox-trigger>
+                <img src="img/invitaciones/save_the_date.png" alt="Boda Save the Date">
+              </div>
+              <div class="inv-slide" data-lightbox-trigger>
+                <img src="img/invitaciones/boda1.png" alt="Boda diseño 1">
+              </div>
+              <div class="inv-slide" data-lightbox-trigger>
+                <img src="img/invitaciones/boda2.png" alt="Boda diseño 2">
+              </div>
+              <div class="inv-slide" data-lightbox-trigger>
+                <img src="img/invitaciones/boda3.png" alt="Boda diseño 3">
+              </div>
+            </div>
+            <button class="inv-carousel-btn inv-carousel-prev" aria-label="Anterior">
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="inv-carousel-btn inv-carousel-next" aria-label="Siguiente">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <div class="inv-carousel-dots">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+          <div class="portfolio-body">
+            <h4>Boda Elegante</h4>
+            <p>Cuatro propuestas románticas para una celebración elegante y personalizada.</p>
+          </div>
+        </div>
+
+        <!-- XV Años -->
+        <div class="portfolio-card fade-up delay-1">
+          <div class="inv-carousel inv-carousel--single">
+            <div class="inv-carousel-track">
+              <div class="inv-slide" data-lightbox-trigger>
+                <img src="img/invitaciones/xv-anos.png" alt="Invitación XV Años">
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-body">
+            <h4>XV Años</h4>
+            <p>Glamour en tonos rosados con animación de brillos.</p>
+          </div>
+        </div>
+
+        <!-- Bautizo -->
+        <div class="portfolio-card fade-up delay-2">
+          <div class="inv-carousel inv-carousel--single">
+            <div class="inv-carousel-track">
+              <div class="inv-slide" data-lightbox-trigger>
+                <img src="img/invitaciones/bautizo.png" alt="Invitación Bautizo">
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-body">
+            <h4>Bautizo</h4>
+            <p>Diseño tierno y delicado en tonos pasteles.</p>
+          </div>
+        </div>
+
+        <!-- Cumpleaños -->
+        <div class="portfolio-card fade-up delay-3">
+          <div class="inv-carousel">
+            <div class="inv-carousel-track">
+              <div class="inv-slide" data-lightbox-trigger>
+                <img src="img/invitaciones/cumple1.png" alt="Cumpleaños diseño 1">
+              </div>
+              <div class="inv-slide" data-lightbox-trigger>
+                <img src="img/invitaciones/cumple2.png" alt="Cumpleaños diseño 2">
+              </div>
+            </div>
+            <button class="inv-carousel-btn inv-carousel-prev" aria-label="Anterior">
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="inv-carousel-btn inv-carousel-next" aria-label="Siguiente">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <div class="inv-carousel-dots">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+          <div class="portfolio-body">
+            <h4>Cumpleaños</h4>
+            <p>Dos propuestas festivas para una celebración alegre y personalizada.</p>
+          </div>
+        </div>
+
+        <!-- Tu evento -->
+        <div class="portfolio-card portfolio-card--dashed fade-up">
+          <div class="inv-carousel inv-carousel--placeholder">
+            <div class="inv-carousel-track">
+              <div class="inv-slide inv-slide--empty">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Tu diseño</span>
+              </div>
+            </div>
+          </div>
+          <div class="portfolio-body">
+            <h4>Tu evento aquí</h4>
+            <p>Bodas, XV años, bautizos, graduaciones, corporativos y más.</p>
+            <a href="contacto.php" class="arrow-link">
+              Solicitar diseño
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ QUÉ INCLUYE ═══════ -->
   <section class="section">
     <div class="container">
       <div class="section-header fade-up">
@@ -110,141 +239,13 @@
     </div>
   </section>
 
-  <!-- - PORTAFOLIO - -->
-  <section id="portafolio" class="section section--surface">
-    <div class="container">
-      <div class="section-header fade-up">
-        <div class="rule"></div>
-        <h2 class="t-h2">Nuestros diseños</h2>
-        <p>Una muestra de invitaciones que hemos creado. Cada una, una historia única.</p>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.5rem;">
-
-        <!-- Boda: 4 slides -->
-        <div class="portfolio-card fade-up">
-          <div class="inv-carousel">
-            <div class="inv-carousel-track">
-              <div class="inv-slide" data-lightbox-trigger>
-                <img src="img/invitaciones/save_the_date.png" alt="Boda Save the Date">
-              </div>
-              <div class="inv-slide" data-lightbox-trigger>
-                <img src="img/invitaciones/boda1.png" alt="Boda diseño 1">
-              </div>
-              <div class="inv-slide" data-lightbox-trigger>
-                <img src="img/invitaciones/boda2.png" alt="Boda diseño 2">
-              </div>
-              <div class="inv-slide" data-lightbox-trigger>
-                <img src="img/invitaciones/boda3.png" alt="Boda diseño 3">
-              </div>
-            </div>
-            <button class="inv-carousel-btn inv-carousel-prev" aria-label="Anterior">
-              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-            </button>
-            <button class="inv-carousel-btn inv-carousel-next" aria-label="Siguiente">
-              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-            </button>
-            <div class="inv-carousel-dots">
-              <span class="dot active"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-            </div>
-          </div>
-          <div class="portfolio-body">
-            <h4>Boda Elegante</h4>
-            <p>Cuatro propuestas románticas para una celebración elegante y personalizada.</p>
-          </div>
-        </div>
-
-        <!-- XV Años: 1 slide -->
-        <div class="portfolio-card fade-up delay-1">
-          <div class="inv-carousel inv-carousel--single">
-            <div class="inv-carousel-track">
-              <div class="inv-slide" data-lightbox-trigger>
-                <img src="img/invitaciones/xv-anos.png" alt="Invitación XV Años">
-              </div>
-            </div>
-          </div>
-          <div class="portfolio-body">
-            <h4>XV Años</h4>
-            <p>Glamour en tonos rosados con animación de brillos.</p>
-          </div>
-        </div>
-
-        <!-- Bautizo: 1 slide -->
-        <div class="portfolio-card fade-up delay-2">
-          <div class="inv-carousel inv-carousel--single">
-            <div class="inv-carousel-track">
-              <div class="inv-slide" data-lightbox-trigger>
-                <img src="img/invitaciones/bautizo.png" alt="Invitación Bautizo">
-              </div>
-            </div>
-          </div>
-          <div class="portfolio-body">
-            <h4>Bautizo</h4>
-            <p>Diseño tierno y delicado en tonos pasteles.</p>
-          </div>
-        </div>
-
-        <!-- Cumpleaños: 2 slides -->
-        <div class="portfolio-card fade-up delay-3">
-          <div class="inv-carousel">
-            <div class="inv-carousel-track">
-              <div class="inv-slide" data-lightbox-trigger>
-                <img src="img/invitaciones/cumple1.png" alt="Cumpleaños diseño 1">
-              </div>
-              <div class="inv-slide" data-lightbox-trigger>
-                <img src="img/invitaciones/cumple2.png" alt="Cumpleaños diseño 2">
-              </div>
-            </div>
-            <button class="inv-carousel-btn inv-carousel-prev" aria-label="Anterior">
-              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-            </button>
-            <button class="inv-carousel-btn inv-carousel-next" aria-label="Siguiente">
-              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-            </button>
-            <div class="inv-carousel-dots">
-              <span class="dot active"></span>
-              <span class="dot"></span>
-            </div>
-          </div>
-          <div class="portfolio-body">
-            <h4>Cumpleaños</h4>
-            <p>Dos propuestas festivas para una celebración alegre y personalizada.</p>
-          </div>
-        </div>
-
-        <!-- Tu evento -->
-        <div class="portfolio-card portfolio-card--dashed fade-up">
-          <div class="inv-carousel inv-carousel--placeholder">
-            <div class="inv-carousel-track">
-              <div class="inv-slide inv-slide--empty">
-                <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                <span>Tu diseño</span>
-              </div>
-            </div>
-          </div>
-          <div class="portfolio-body">
-            <h4>Tu evento aquí</h4>
-            <a href="contacto.php" class="arrow-link">
-              Solicitar diseño
-              <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- - PRECIOS - -->
-  <section class="section">
+  <!-- ═══════ PRECIOS ═══════ -->
+  <section class="section section--surface">
     <div class="container">
       <div class="section-header fade-up">
         <div class="rule"></div>
         <h2 class="t-h2">Paquetes</h2>
-        <p>Elige el paquete que mejor se adapte a tu evento. También hacemos paquetes especiales a la medida.</p>
+        <p>Elige el que mejor se adapte a tu evento. También hacemos paquetes a la medida.</p>
       </div>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;max-width:860px;margin:0 auto;">
@@ -257,7 +258,7 @@
             <li>Diseño personalizado</li>
             <li>Cuenta regresiva</li>
             <li>Compartible por WhatsApp</li>
-            <li>1 revision de diseño</li>
+            <li>1 revisión de diseño</li>
           </ul>
           <a href="contacto.php" class="btn btn--outline btn--sm" style="width:100%;justify-content:center;">Elegir básico</a>
         </div>
@@ -294,18 +295,18 @@
 
       </div>
       <p class="t-xs fade-up" style="text-align:center;margin-top:1.5rem;color:var(--color-text-muted);">
-        * Los precios pueden variar según la complejidad del diseño. Solicita tu cotización personalizada sin compromiso.
+        * Los precios pueden variar según la complejidad del diseño. Solicita tu cotización sin compromiso.
       </p>
     </div>
   </section>
 
-  <!-- - CTA - -->
-  <section class="section section--surface">
+  <!-- ═══════ CTA ═══════ -->
+  <section class="section">
     <div class="container">
       <div class="cta-box fade-up">
-        <div class="label" style="margin-bottom:1.5rem;">Sin costo  -  Sin compromiso</div>
+        <div class="label" style="margin-bottom:1.5rem;">Sin costo — Sin compromiso</div>
         <h2 class="t-h2">¿Tienes un evento especial?</h2>
-        <p>Cuéntanos los detalles de tu evento y te enviamos opciones de diseño sin ningún compromiso.</p>
+        <p>Cuéntanos los detalles y te enviamos opciones de diseño sin ningún compromiso.</p>
         <a href="contacto.php" class="btn btn--primary btn--lg">
           Solicitar mi invitación
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -321,4 +322,3 @@
 <script src="js/tbcs.js"></script>
 </body>
 </html>
-

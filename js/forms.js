@@ -83,7 +83,6 @@
       var nombre = document.getElementById('nombre');
       var email = document.getElementById('email');
       var telefono = document.getElementById('telefono');
-      var empresa = document.getElementById('empresa');
       var desafio = document.getElementById('desafio');
 
       if (!nombre || !nombre.value.trim()) {
@@ -97,15 +96,6 @@
       if (!telefono || !/^[0-9]{10,15}$/.test(telefono.value.trim())) {
         showError('telefono', 'Ingresa teléfono de 10 a 15 dígitos.'); valid = false;
       } else hideError('telefono');
-
-      if (!empresa || !empresa.value.trim()) {
-        showError('empresa', 'La empresa es obligatoria.'); valid = false;
-      } else hideError('empresa');
-
-      var empleadosChecked = !!document.querySelector('input[name="empleados"]:checked');
-      if (!empleadosChecked) {
-        showError('empleados', 'Selecciona el rango de empleados.'); valid = false;
-      } else hideError('empleados');
 
       var ayudaChecked = !!document.querySelector('input[name="ayuda"]:checked');
       if (!ayudaChecked) {
