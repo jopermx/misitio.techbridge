@@ -1,9 +1,50 @@
-(function () {
+﻿(function () {
   function setMessage(el, msg, type) {
     if (!el) return;
     el.textContent = msg;
     el.className = 'form-message';
     if (type) el.classList.add(type);
+  }
+
+  function cssEscapeValue(value) {
+    return String(value).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+  }
+
+  function applyContactPrefill(form) {
+    var params = new URLSearchParams(window.location.search);
+    var mappings = [
+      ['form_type', 'form_type'],
+      ['source_page', 'source_page'],
+      ['source_campaign', 'source_campaign'],
+      ['nombre', 'nombre'],
+      ['email', 'email'],
+      ['telefono', 'telefono'],
+      ['empresa', 'empresa'],
+      ['desafio', 'desafio']
+    ];
+
+    mappings.forEach(function (pair) {
+      var param = params.get(pair[0]);
+      var field = form.elements[pair[1]];
+      if (param && field && !field.value) {
+        field.value = param;
+      }
+    });
+
+    var ayuda = params.get('ayuda');
+    if (ayuda) {
+      var ayudaField = form.querySelector('input[name="ayuda"][value="' + cssEscapeValue(ayuda) + '"]');
+      if (ayudaField) ayudaField.checked = true;
+    }
+
+    var otroAyuda = params.get('otroAyuda');
+    var otroCheckbox = document.getElementById('otroCheckbox');
+    var otroInput = document.getElementById('otroInput');
+    if (otroAyuda && otroCheckbox && otroInput) {
+      otroCheckbox.checked = true;
+      otroInput.disabled = false;
+      if (!otroInput.value) otroInput.value = otroAyuda;
+    }
   }
 
   function bindContactForm() {
@@ -13,6 +54,8 @@
     var status = document.getElementById('form-status-message');
     var otroCheckbox = document.getElementById('otroCheckbox');
     var otroInput = document.getElementById('otroInput');
+
+    applyContactPrefill(form);
 
     function showError(id, msg) {
       var el = document.getElementById('error-' + id);
@@ -108,9 +151,12 @@
           setMessage(status, json.message || 'No fue posible enviar el formulario.', 'error');
           return;
         }
-        setMessage(status, json.message || 'Mensaje enviado correctamente.', 'success');
+        setMessage(status, 'Recibimos tu información. Te contactaremos pronto.', 'success');
         form.reset();
         if (otroInput) otroInput.disabled = true;
+        window.setTimeout(function () {
+          window.location.href = 'index.php';
+        }, 1800);
       } catch (err) {
         setMessage(status, 'Error de conexion. Intenta de nuevo mas tarde.', 'error');
       }

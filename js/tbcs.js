@@ -14,7 +14,7 @@ const TBCS = {
   logoMain: 'img/tbcs.png',
   logoIcon: 'img/favicon_tbcs.png',
   waNumber: '',
-  waMessage: 'Hola, me interesa conocer mas sobre los servicios de TechBridge Consulting Systems',
+  waMessage: 'Hola, me interesa conocer m\u00e1s sobre los servicios de TechBridge Consulting Systems',
   year: String(new Date().getFullYear()),
   navItems: [
     { label: 'Inicio', href: 'index.php' },
@@ -23,17 +23,17 @@ const TBCS = {
   ],
   footerServices: [
     { label: 'Infraestructura & Redes', href: 'infraestructura-conectividad.php' },
-    { label: 'Transformacion Digital', href: 'transformacion-digital.php' },
-    { label: 'Capacitacion', href: 'cursos.php' },
-    { label: 'Consultoria Estrategica', href: 'consultoria-estrategica.php' },
+    { label: 'Transformaci\u00f3n Digital', href: 'transformacion-digital.php' },
+    { label: 'Capacitaci\u00f3n', href: 'cursos.php' },
+    { label: 'Consultor\u00eda Estrat\u00e9gica', href: 'consultoria-estrategica.php' },
     { label: 'HeadHunting', href: 'headhunting.php' },
     { label: 'Servicios Contables', href: 'servicios_contables.php' },
-    { label: 'Diseno de Software', href: 'diseno-software.php', badge: 'NUEVO' },
+    { label: 'Dise\u00f1o de Software', href: 'diseno-software.php', badge: 'NUEVO' },
     { label: 'Invitaciones Digitales', href: 'invitaciones-digitales.php', badge: 'NUEVO' }
   ],
   footerCompany: [
-    { label: 'Quienes somos', href: 'nosotros.php' },
-    { label: 'Metodologia', href: 'nosotros.php#metodologia' },
+    { label: 'Qui\u00e9nes somos', href: 'nosotros.php' },
+    { label: 'Metodolog\u00eda', href: 'nosotros.php#metodologia' },
     { label: 'Cursos', href: 'cursos.php' },
     { label: 'Contacto', href: 'contacto.php' }
   ]
@@ -115,9 +115,9 @@ function renderNav() {
           </a>
           <nav class="nav-links">
             ${links}
-            <a href="${resolvePath('contacto.php')}" class="nav-cta">Contactanos</a>
+            <a href="${resolvePath('contacto.php')}" class="nav-cta">Cont\u00e1ctanos</a>
           </nav>
-          <button class="nav-mobile-btn" id="tbcs-mobile-btn" aria-label="Abrir menu">
+          <button class="nav-mobile-btn" id="tbcs-mobile-btn" aria-label="Abrir men\u00fa">
             <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.75">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
             </svg>
@@ -127,7 +127,7 @@ function renderNav() {
       <nav class="nav-mobile-menu" id="tbcs-mobile-menu">
         <div class="nav-mobile-inner">
           ${mobileLinks}
-          <a href="${resolvePath('contacto.php')}" class="nav-mobile-cta">Contactanos</a>
+          <a href="${resolvePath('contacto.php')}" class="nav-mobile-cta">Cont\u00e1ctanos</a>
         </div>
       </nav>
     </header>
@@ -153,7 +153,7 @@ function renderFooter() {
       <div class="footer-grid">
         <div>
           <img src="${resolvePath(TBCS.logoMain)}" alt="TechBridge Consulting Systems" class="footer-logo">
-          <p class="footer-tagline">"Sistemas que conectan, consultoría que transforma"</p>
+          <p class="footer-tagline">"Sistemas que conectan, consultor\u00eda que transforma"</p>
           <p class="footer-copy">&copy; ${TBCS.year} TechBridge Consulting Systems<br>Todos los derechos reservados</p>
         </div>
         <div class="footer-col">
@@ -257,6 +257,88 @@ function initSmoothScroll() {
   });
 }
 
+function initCarousels() {
+  // ── Lightbox ──────────────────────────────────────────────────────
+  const overlay = document.createElement('div');
+  overlay.className = 'tbcs-lightbox';
+  overlay.style.display = 'none';
+  overlay.innerHTML = `
+    <div class="tbcs-lightbox-close">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </div>
+    <img src="" alt="">
+  `;
+  document.body.appendChild(overlay);
+  const lbImg = overlay.querySelector('img');
+
+  function openLightbox(src, alt) {
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    overlay.style.display = 'flex';
+    requestAnimationFrame(() => overlay.classList.add('open'));
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(() => { overlay.style.display = 'none'; lbImg.src = ''; }, 260);
+  }
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay || e.target.closest('.tbcs-lightbox-close')) closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeLightbox();
+  });
+
+  // ── Carruseles ────────────────────────────────────────────────────
+  document.querySelectorAll('.inv-carousel').forEach((carousel) => {
+    const track    = carousel.querySelector('.inv-carousel-track');
+    const slides   = Array.from(carousel.querySelectorAll('.inv-slide'));
+    const dots     = Array.from(carousel.querySelectorAll('.dot'));
+    const prevBtn  = carousel.querySelector('.inv-carousel-prev');
+    const nextBtn  = carousel.querySelector('.inv-carousel-next');
+
+    if (!track || slides.length === 0) return;
+
+    let current = 0;
+    let startX  = 0;
+    let isDragging = false;
+
+    function goTo(index) {
+      current = (index + slides.length) % slides.length;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); goTo(current - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); goTo(current + 1); });
+    dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+    // Swipe táctil
+    carousel.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    }, { passive: true });
+    carousel.addEventListener('touchend', (e) => {
+      if (!isDragging) return;
+      const diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+      isDragging = false;
+    });
+
+    // Click en slide → lightbox (solo si tiene imagen y no es placeholder)
+    slides.forEach((slide) => {
+      if (!slide.classList.contains('inv-slide--empty') && slide.dataset.lightboxTrigger !== undefined) {
+        slide.addEventListener('click', () => {
+          const src = slide.querySelector('img')?.src;
+          const alt = slide.querySelector('img')?.alt;
+          if (src) openLightbox(src, alt);
+        });
+      }
+    });
+  });
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   await loadSiteConfig();
   renderNav();
@@ -266,4 +348,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   initFadeUp();
   initCounters();
   initSmoothScroll();
+  initCarousels();
 });

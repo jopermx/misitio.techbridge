@@ -1,45 +1,45 @@
-﻿const TAB_DATA = [
-  { title: 'Dashboard', desc: 'Vista general del sistema y acceso rapido a los modulos principales del consultorio.', image: './img/dashboard-demo.jpg' },
-  { title: 'Pacientes', desc: 'Acceso al registro, identificacion y expediente del paciente.', image: './img/pacientes-demo.jpg' },
-  { title: 'Consulta', desc: 'Flujo de atencion con captura clinica, receta y seguimiento.', image: './img/consulta-demo.jpg' },
-  { title: 'Expediente', desc: 'Organizacion documental y estructura del expediente clinico.', image: './img/expediente-demo.jpg' }
+const TAB_DATA = [
+  { title: 'Dashboard', desc: 'Vista general del sistema y acceso r\u00e1pido a los m\u00f3dulos principales del consultorio.', image: './img/dashboard-demo.jpg' },
+  { title: 'Pacientes', desc: 'Acceso al registro, identificaci\u00f3n y expediente del paciente.', image: './img/pacientes-demo.jpg' },
+  { title: 'Consulta', desc: 'Flujo de atenci\u00f3n con captura cl\u00ednica, receta y seguimiento.', image: './img/consulta-demo.jpg' },
+  { title: 'Expediente', desc: 'Organizaci\u00f3n documental y estructura del expediente cl\u00ednico.', image: './img/expediente-demo.jpg' }
 ];
 
 const JOURNEY_DATA = [
   {
     title: 'Consulta',
-    desc: 'La consulta se presenta como un flujo ordenado, agil y facil de seguir durante la atencion medica.',
+    desc: 'La consulta se presenta como un flujo ordenado, \u00e1gil y f\u00e1cil de seguir durante la atenci\u00f3n m\u00e9dica.',
     bullets: [
-      'Captura estructurada de la consulta clinica.',
+      'Captura estructurada de la consulta cl\u00ednica.',
       'Registro claro de signos vitales, observaciones e indicaciones.',
       'Continuidad hacia receta, cobro y seguimiento del paciente.'
     ]
   },
   {
     title: 'Expediente',
-    desc: 'El expediente concentra la informacion relevante del paciente en una vista clara, ordenada y facil de consultar.',
+    desc: 'El expediente concentra la informaci\u00f3n relevante del paciente en una vista clara, ordenada y f\u00e1cil de consultar.',
     bullets: [
       'Resumen del paciente en una sola vista.',
-      'Acceso rapido a antecedentes, notas y documentos.',
-      'Mayor control para continuidad clinica y seguimiento del caso.'
+      'Acceso r\u00e1pido a antecedentes, notas y documentos.',
+      'Mayor control para continuidad cl\u00ednica y seguimiento del caso.'
     ]
   },
   {
-    title: 'Administracion',
-    desc: 'La operacion diaria del consultorio se integra en un mismo entorno para reducir friccion y mejorar control.',
+    title: 'Administraci\u00f3n',
+    desc: 'La operaci\u00f3n diaria del consultorio se integra en un mismo entorno para reducir fricci\u00f3n y mejorar control.',
     bullets: [
-      'Agenda y gestion de pacientes en una sola plataforma.',
+      'Agenda y gesti\u00f3n de pacientes en una sola plataforma.',
       'Cobro y tareas operativas conectadas al flujo de trabajo.',
-      'Mayor orden para recepcion, consulta y control interno.'
+      'Mayor orden para recepci\u00f3n, consulta y control interno.'
     ]
   },
   {
     title: 'Seguimiento',
-    desc: 'El seguimiento refuerza continuidad, trazabilidad y una mejor lectura del proceso completo de atencion.',
+    desc: 'El seguimiento refuerza continuidad, trazabilidad y una mejor lectura del proceso completo de atenci\u00f3n.',
     bullets: [
-      'Vision mas clara del recorrido completo del paciente.',
-      'Mejor continuidad clinica y control documental.',
-      'Mas consistencia en el historial y en la toma de decisiones.'
+      'Visi\u00f3n m\u00e1s clara del recorrido completo del paciente.',
+      'Mejor continuidad cl\u00ednica y control documental.',
+      'M\u00e1s consistencia en el historial y en la toma de decisiones.'
     ]
   }
 ];

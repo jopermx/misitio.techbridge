@@ -100,12 +100,15 @@ function parseHttpStatusCode(array $headers): int
         return 0;
     }
 
-    $line = (string)$headers[0];
-    if (preg_match('/\s(\d{3})\s/', $line, $matches) === 1) {
-        return (int)$matches[1];
+    $status = 0;
+    foreach ($headers as $line) {
+        $line = (string)$line;
+        if (preg_match('/^HTTP\/[\d.]+\s+(\d{3})\b/', $line, $matches) === 1) {
+            $status = (int)$matches[1];
+        }
     }
 
-    return 0;
+    return $status;
 }
 
 function httpPostForm(string $url, string $body): array
@@ -216,6 +219,46 @@ function appendLeadToGoogleSheet(array $config, array $row): void
     }
 }
 
+function canUseGoogleSheets(array $config): bool
+{
+    return $config['google_sheet_id'] !== ''
+        && $config['google_sheet_name'] !== ''
+        && $config['google_service_account_email'] !== ''
+        && $config['google_service_account_private_key'] !== '';
+}
+
+function dispatchLead(array $config, array $payload, array $row): void
+{
+    if ($config['apps_script_url'] !== '') {
+        $appScriptPayload = [
+            'token' => $config['apps_script_token'],
+            'lead' => $payload,
+            'row' => $row,
+            'meta' => [
+                'site' => 'tbcs.com.mx',
+                'sent_at_gmt' => gmdate('c'),
+            ],
+        ];
+
+        $response = httpPostJson($config['apps_script_url'], $appScriptPayload);
+        $responseData = json_decode($response['body'], true);
+        if ($response['status'] < 200 || $response['status'] >= 300) {
+            throw new RuntimeException('Apps Script no acepto la solicitud.');
+        }
+        if (is_array($responseData) && array_key_exists('ok', $responseData) && !$responseData['ok']) {
+            throw new RuntimeException('Apps Script respondio con error.');
+        }
+        return;
+    }
+
+    if (canUseGoogleSheets($config)) {
+        appendLeadToGoogleSheet($config, $row);
+        return;
+    }
+
+    throw new RuntimeException('No hay destino configurado para registrar leads.');
+}
+
 try {
     $config = require __DIR__ . '/config.php';
 } catch (Throwable $e) {
@@ -266,7 +309,7 @@ if ($company === '') {
 if ($challenge === '') {
     $errors[] = 'desafio';
 }
-if ($formType === 'contact_lead') {
+if ($formType === 'contact_lead' || $formType === 'demo_request') {
     if ($employeeRange === '') {
         $errors[] = 'empleados';
     }
@@ -290,7 +333,7 @@ $payload = [
     'empleados' => $employeeRange,
     'ayuda' => $serviceInterest,
     'desafio' => $challenge,
-    'otroAyuda' => $notes
+    'otroAyuda' => $notes,
 ];
 
 try {
@@ -313,7 +356,7 @@ try {
         substr((string)($_SERVER['HTTP_USER_AGENT'] ?? ''), 0, 500),
     ];
 
-    appendLeadToGoogleSheet($config, $row);
+    dispatchLead($config, $payload, $row);
 
     respond(200, true, 'Mensaje enviado correctamente. Te contactaremos pronto.');
 } catch (Throwable $e) {

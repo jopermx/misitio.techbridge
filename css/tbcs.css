@@ -673,6 +673,166 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   color: var(--color-text-muted);
 }
 
+/* ─── Carrusel de invitación ──────────────────────────────────────── */
+.inv-carousel {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 9 / 16;
+  max-height: 320px;
+  border-bottom: 1px solid var(--color-border);
+  background: rgba(37, 99, 235, 0.04);
+}
+.inv-carousel-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.inv-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: zoom-in;
+  position: relative;
+}
+.inv-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s;
+}
+.inv-slide:hover img {
+  transform: scale(1.04);
+}
+/* Slide vacío (placeholder) */
+.inv-slide--empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+}
+.inv-slide--empty svg {
+  width: 28px;
+  height: 28px;
+  stroke: var(--color-text-muted);
+  fill: none;
+  stroke-width: 1.5;
+  margin-bottom: 0.5rem;
+}
+.inv-slide--empty span {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+/* Botones prev / next */
+.inv-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2rem;
+  height: 2rem;
+  background: rgba(0, 0, 0, 0.45);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  transition: background 0.2s, transform 0.2s;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.inv-carousel-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: translateY(-50%) scale(1.08);
+}
+.inv-carousel-btn svg {
+  width: 15px;
+  height: 15px;
+  stroke: #fff;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.inv-carousel-prev { left: 0.5rem; }
+.inv-carousel-next { right: 0.5rem; }
+/* Dots */
+.inv-carousel-dots {
+  position: absolute;
+  bottom: 0.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  z-index: 3;
+}
+.inv-carousel-dots .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s;
+}
+.inv-carousel-dots .dot.active {
+  background: #fff;
+  transform: scale(1.4);
+}
+
+/* ─── Lightbox ────────────────────────────────────────────────────── */
+.tbcs-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.25s;
+  cursor: pointer;
+}
+.tbcs-lightbox.open {
+  opacity: 1;
+}
+.tbcs-lightbox img {
+  max-width: 90vw;
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+  cursor: default;
+}
+.tbcs-lightbox-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.tbcs-lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+.tbcs-lightbox-close svg {
+  width: 18px;
+  height: 18px;
+  stroke: #fff;
+  fill: none;
+  stroke-width: 2;
+}
+
 /* ─── 19. PRICING CARD ──────────────────────────────────────────── */
 .price-card {
   background: var(--color-surface);

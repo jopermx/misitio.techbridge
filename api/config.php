@@ -27,10 +27,7 @@ function loadDotEnv(string $path): void
         if ($key === '') {
             continue;
         }
-        if (
-            (str_starts_with($value, '"') && str_ends_with($value, '"')) ||
-            (str_starts_with($value, "'") && str_ends_with($value, "'"))
-        ) {
+        if ((str_starts_with($value, '"') && str_ends_with($value, '"')) || (str_starts_with($value, "'") && str_ends_with($value, "'"))) {
             $value = substr($value, 1, -1);
         }
         if (getenv($key) === false) {
@@ -52,6 +49,15 @@ function envRequired(string $key, bool $allowEmpty = false): string
     return (string)$value;
 }
 
+function envOptional(string $key, string $default = ''): string
+{
+    $value = getenv($key);
+    if ($value === false) {
+        return $default;
+    }
+    return trim((string)$value);
+}
+
 function envRequiredInt(string $key): int
 {
     $value = envRequired($key);
@@ -67,8 +73,10 @@ return [
     'rate_limit_window' => envRequiredInt('TBCS_RATE_LIMIT_WINDOW'),
     'rate_limit_max' => envRequiredInt('TBCS_RATE_LIMIT_MAX'),
     'ip_hash_salt' => envRequired('TBCS_IP_SALT'),
-    'google_sheet_id' => envRequired('TBCS_GOOGLE_SHEET_ID'),
-    'google_sheet_name' => envRequired('TBCS_GOOGLE_SHEET_NAME'),
-    'google_service_account_email' => envRequired('TBCS_GOOGLE_SERVICE_ACCOUNT_EMAIL'),
-    'google_service_account_private_key' => envRequired('TBCS_GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY'),
+    'apps_script_url' => envOptional('TBCS_APPS_SCRIPT_URL'),
+    'apps_script_token' => envOptional('TBCS_APPS_SCRIPT_TOKEN'),
+    'google_sheet_id' => envOptional('TBCS_GOOGLE_SHEET_ID'),
+    'google_sheet_name' => envOptional('TBCS_GOOGLE_SHEET_NAME'),
+    'google_service_account_email' => envOptional('TBCS_GOOGLE_SERVICE_ACCOUNT_EMAIL'),
+    'google_service_account_private_key' => envOptional('TBCS_GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY'),
 ];

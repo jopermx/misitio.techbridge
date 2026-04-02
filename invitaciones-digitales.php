@@ -46,68 +46,6 @@
     </div>
   </section>
 
-  <!-- - TIPOS DE EVENTO - -->
-  <section class="section section--surface">
-    <div class="container">
-      <div class="section-header fade-up">
-        <div class="rule"></div>
-        <h2 class="t-h2">Para cada ocasión especial</h2>
-        <p>Diseñamos invitaciones para todo tipo de evento, siempre con un toque único y personalizado.</p>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;">
-
-        <div class="event-card fade-up">
-          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-          <h4>Bodas</h4>
-          <p>Elegancia y romance</p>
-        </div>
-
-        <div class="event-card fade-up delay-1">
-          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          <h4>XV Años</h4>
-          <p>Glamour y sofisticación</p>
-        </div>
-
-        <div class="event-card fade-up delay-2">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M12 14c-6 0-8 2-8 3v1h16v-1c0-1-2-3-8-3z"/></svg>
-          <h4>Bautizos</h4>
-          <p>Tierno y especial</p>
-        </div>
-
-        <div class="event-card fade-up delay-3">
-          <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 3l-4 4-4-4"/></svg>
-          <h4>Cumpleaños</h4>
-          <p>Festivo y divertido</p>
-        </div>
-
-        <div class="event-card fade-up">
-          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3l-4 4-4-4"/><line x1="12" y1="12" x2="12" y2="17"/><line x1="9.5" y1="14.5" x2="14.5" y2="14.5"/></svg>
-          <h4>Eventos Corp.</h4>
-          <p>Profesional y moderno</p>
-        </div>
-
-        <div class="event-card fade-up delay-1">
-          <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-          <h4>Graduaciones</h4>
-          <p>Logro y celebración</p>
-        </div>
-
-        <div class="event-card fade-up delay-2">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-          <h4>Baby Shower</h4>
-          <p>Tierno y colorido</p>
-        </div>
-
-        <div class="event-card fade-up delay-3">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          <h4>Tu evento</h4>
-          <p>Cualquier ocasión</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
 
   <!-- - QUÉ INCLUYE - -->
   <section class="section">
@@ -181,30 +119,52 @@
         <p>Una muestra de invitaciones que hemos creado. Cada una, una historia única.</p>
       </div>
 
-      <div class="notice fade-up">
-        Para mostrar tus diseños, coloca las imágenes en <code>img/invitaciones/</code>
-        y reemplaza cada bloque <code>&lt;!-- img --&gt;</code> con la etiqueta <code>&lt;img&gt;</code> correspondiente.
-      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.5rem;">
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1.25rem;">
-
+        <!-- Boda: 4 slides -->
         <div class="portfolio-card fade-up">
-          <div class="inv-thumb">
-            <!-- img: <img src="img/invitaciones/boda.jpg" alt="Boda Elegante"> -->
-            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-            <span>Boda</span>
+          <div class="inv-carousel">
+            <div class="inv-carousel-track">
+              <div class="inv-slide" data-lightbox-trigger>
+                <img src="img/invitaciones/save_the_date.png" alt="Boda Save the Date">
+              </div>
+              <div class="inv-slide" data-lightbox-trigger>
+                <img src="img/invitaciones/boda1.png" alt="Boda diseño 1">
+              </div>
+              <div class="inv-slide" data-lightbox-trigger>
+                <img src="img/invitaciones/boda2.png" alt="Boda diseño 2">
+              </div>
+              <div class="inv-slide" data-lightbox-trigger>
+                <img src="img/invitaciones/boda3.png" alt="Boda diseño 3">
+              </div>
+            </div>
+            <button class="inv-carousel-btn inv-carousel-prev" aria-label="Anterior">
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="inv-carousel-btn inv-carousel-next" aria-label="Siguiente">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <div class="inv-carousel-dots">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
           </div>
           <div class="portfolio-body">
             <h4>Boda Elegante</h4>
-            <p>Diseño romántico con paleta dorada y tipografía script.</p>
+            <p>Cuatro propuestas románticas para una celebración elegante y personalizada.</p>
           </div>
         </div>
 
+        <!-- XV Años: 1 slide -->
         <div class="portfolio-card fade-up delay-1">
-          <div class="inv-thumb">
-            <!-- img: <img src="img/invitaciones/xv.jpg" alt="XV Años"> -->
-            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span>XV Años</span>
+          <div class="inv-carousel inv-carousel--single">
+            <div class="inv-carousel-track">
+              <div class="inv-slide" data-lightbox-trigger>
+                <img src="img/invitaciones/xv-anos.png" alt="Invitación XV Años">
+              </div>
+            </div>
           </div>
           <div class="portfolio-body">
             <h4>XV Años</h4>
@@ -212,11 +172,14 @@
           </div>
         </div>
 
+        <!-- Bautizo: 1 slide -->
         <div class="portfolio-card fade-up delay-2">
-          <div class="inv-thumb">
-            <!-- img: <img src="img/invitaciones/bautizo.jpg" alt="Bautizo"> -->
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M12 14c-6 0-8 2-8 3v1h16v-1c0-1-2-3-8-3z"/></svg>
-            <span>Bautizo</span>
+          <div class="inv-carousel inv-carousel--single">
+            <div class="inv-carousel-track">
+              <div class="inv-slide" data-lightbox-trigger>
+                <img src="img/invitaciones/bautizo.png" alt="Invitación Bautizo">
+              </div>
+            </div>
           </div>
           <div class="portfolio-body">
             <h4>Bautizo</h4>
@@ -224,58 +187,43 @@
           </div>
         </div>
 
+        <!-- Cumpleaños: 2 slides -->
         <div class="portfolio-card fade-up delay-3">
-          <div class="inv-thumb">
-            <!-- img: <img src="img/invitaciones/cumple.jpg" alt="Cumpleaños"> -->
-            <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 3l-4 4-4-4"/></svg>
-            <span>Cumpleaños</span>
+          <div class="inv-carousel">
+            <div class="inv-carousel-track">
+              <div class="inv-slide" data-lightbox-trigger>
+                <img src="img/invitaciones/cumple1.png" alt="Cumpleaños diseño 1">
+              </div>
+              <div class="inv-slide" data-lightbox-trigger>
+                <img src="img/invitaciones/cumple2.png" alt="Cumpleaños diseño 2">
+              </div>
+            </div>
+            <button class="inv-carousel-btn inv-carousel-prev" aria-label="Anterior">
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="inv-carousel-btn inv-carousel-next" aria-label="Siguiente">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <div class="inv-carousel-dots">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+            </div>
           </div>
           <div class="portfolio-body">
             <h4>Cumpleaños</h4>
-            <p>Festivo con confeti animado y paleta vibrante.</p>
+            <p>Dos propuestas festivas para una celebración alegre y personalizada.</p>
           </div>
         </div>
 
-        <div class="portfolio-card fade-up">
-          <div class="inv-thumb">
-            <!-- img: <img src="img/invitaciones/graduacion.jpg" alt="Graduacion"> -->
-            <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-            <span>Graduacion</span>
-          </div>
-          <div class="portfolio-body">
-            <h4>Graduacion</h4>
-            <p>Elegante y profesional con motivos académicos.</p>
-          </div>
-        </div>
-
-        <div class="portfolio-card fade-up delay-1">
-          <div class="inv-thumb">
-            <!-- img: <img src="img/invitaciones/baby.jpg" alt="Baby Shower"> -->
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-            <span>Baby Shower</span>
-          </div>
-          <div class="portfolio-body">
-            <h4>Baby Shower</h4>
-            <p>Tierno y colorido con ilustraciones adorables.</p>
-          </div>
-        </div>
-
-        <div class="portfolio-card fade-up delay-2">
-          <div class="inv-thumb">
-            <!-- img: <img src="img/invitaciones/corporativo.jpg" alt="Evento Corporativo"> -->
-            <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3l-4 4-4-4"/><line x1="12" y1="12" x2="12" y2="17"/></svg>
-            <span>Corporativo</span>
-          </div>
-          <div class="portfolio-body">
-            <h4>Evento Corporativo</h4>
-            <p>Minimalista y moderno en tema oscuro profesional.</p>
-          </div>
-        </div>
-
-        <div class="portfolio-card portfolio-card--dashed fade-up delay-3">
-          <div class="inv-thumb" style="background:rgba(37,99,235,0.03);">
-            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            <span>Tu diseño</span>
+        <!-- Tu evento -->
+        <div class="portfolio-card portfolio-card--dashed fade-up">
+          <div class="inv-carousel inv-carousel--placeholder">
+            <div class="inv-carousel-track">
+              <div class="inv-slide inv-slide--empty">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Tu diseño</span>
+              </div>
+            </div>
           </div>
           <div class="portfolio-body">
             <h4>Tu evento aquí</h4>
